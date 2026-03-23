@@ -1,0 +1,101 @@
+/**
+ * TimeSeriesLineChart renderer — type: "TimeSeriesLineChart" (2×1)
+ *
+ * Time series line chart with a horizontally-applied gradient on the line and
+ * a vertical gradient fill below it. Features an optional background grid.
+ * Suitable for real-time or historical data with a technical dashboard aesthetic.
+ */
+
+import { buildEnvelope } from './_envelope.js';
+import { validateValues, validateColorSpec } from '../helpers/validate.js';
+import { gradient, fadeToTransparent, fill } from '../helpers/colors.js';
+
+/**
+ * @param {object} opts
+ * @param {string|null} [opts.nome]
+ * @param {number[]} opts.values - Chronologically ordered values (minimum 2)
+ * @param {import('../../types.d.ts').ColorSpec} opts.lineColor - Horizontal gradient on the line
+ * @param {import('../../types.d.ts').ColorSpec} opts.areaColor - Vertical gradient fill below the line
+ * @param {import('../../types.d.ts').ColorSpec|null} [opts.gridColor] - Required if showGrid is true
+ * @param {import('../../types.d.ts').ColorSpec|null} [opts.glowColor] - Required if showGlow is true
+ * @param {number} [opts.lineWidth=2.5]
+ * @param {boolean} [opts.showGrid=true]
+ * @param {boolean} [opts.smoothingEnabled=true]
+ * @param {boolean} [opts.showGlow=false]
+ * @param {number} [opts.gridRows=4]
+ * @param {number} [opts.gridColumns=6]
+ * @param {number} [opts.horizontalPadding=12]
+ * @param {number} [opts.verticalPadding=10]
+ * @param {string[]|null} [opts.labels]
+ * @param {import('../../types.d.ts').ColorSpec|null} [opts.labelColor]
+ * @param {string[]|null} [opts.yAxisLabels]
+ * @param {string|null} [opts.yAxisPosition]
+ * @param {import('../../types.d.ts').ColorSpec|null} [opts.yAxisLabelColor]
+ * @param {import('../../types.d.ts').FontModel|null} [opts.nameFont]
+ * @param {string} [opts.namePosition='TOP_LEFT']
+ * @param {import('../../types.d.ts').ColorSpec|null} [opts.backgroundColor]
+ * @param {string} [opts.backgroundType='NONE']
+ * @param {string|null} [opts.borderColor]
+ * @param {string|null} [opts.shadowColor]
+ * @param {number} [opts.refreshInterval=30]
+ * @returns {import('../../types.d.ts').TimeSeriesLineChartDTO}
+ */
+export function makeTimeSeriesLineChart({
+  nome = null,
+  values,
+  lineColor = gradient.blue,
+  areaColor = fadeToTransparent('#00FFFF'),
+  gridColor = { type: 'Fill', primaryColor: '#FFFFFF26' },
+  glowColor = null,
+  lineWidth = 2.5,
+  showGrid = true,
+  smoothingEnabled = true,
+  showGlow = false,
+  gridRows = 4,
+  gridColumns = 6,
+  horizontalPadding = 12,
+  verticalPadding = 10,
+  labels = null,
+  labelColor = null,
+  yAxisLabels = null,
+  yAxisPosition = null,
+  yAxisLabelColor = null,
+  nameFont = null,
+  namePosition = 'TOP_LEFT',
+  backgroundColor = null,
+  backgroundType = 'NONE',
+  borderColor = null,
+  shadowColor = null,
+  refreshInterval = 30,
+} = {}) {
+  validateValues(values, 'values', 2);
+  validateColorSpec(lineColor, 'lineColor');
+  validateColorSpec(areaColor, 'areaColor');
+
+  const payload = {
+    values,
+    lineColor,
+    areaColor,
+    gridColor,
+    glowColor,
+    lineWidth,
+    showGrid,
+    smoothingEnabled,
+    showGlow,
+    gridRows,
+    gridColumns,
+    horizontalPadding,
+    verticalPadding,
+    labels,
+    labelColor,
+    yAxisLabels,
+    yAxisPosition,
+    yAxisLabelColor,
+    nameFont,
+    namePosition,
+  };
+
+  return buildEnvelope({ nome, type: 'TimeSeriesLineChart', payload, refreshInterval, backgroundColor, backgroundType, borderColor, shadowColor });
+}
+
+makeTimeSeriesLineChart.fromDTO = (dto) => dto;

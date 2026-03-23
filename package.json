@@ -1,0 +1,39 @@
+{
+  "name": "knowmine-graphs",
+  "version": "1.0.0",
+  "description": "Node.js library to generate JSON data sources for KnowMine dashboard graph widgets",
+  "type": "module",
+  "exports": {
+    ".": "./src/index.js",
+    "./monitoring": "./src/monitoring/index.js"
+  },
+  "files": [
+    "src/",
+    "types.d.ts",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "test": "node --test tests/renderer/*.test.js tests/helpers/*.test.js tests/monitoring/*.test.js"
+  },
+  "keywords": [
+    "knowmine",
+    "dashboard",
+    "widgets",
+    "charts",
+    "graphs",
+    "kpi",
+    "monitoring",
+    "server-metrics"
+  ],
+  "author": "LITTLECAKEMEDIA V.P.",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/YOUR_ORG/knowmine-graphs.git"
+  },
+  "homepage": "https://knowmine.littlecakemedia.com",
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}
