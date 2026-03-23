@@ -990,6 +990,6 @@ MIT — see [LICENSE](./LICENSE)
 
 - App: [knowmine.littlecakemedia.com](https://knowmine.littlecakemedia.com)
 - iOS (TestFlight beta): [testflight.apple.com/join/tAHfjWzr](https://testflight.apple.com/join/tAHfjWzr)
-- Source repository: [github.com/YOUR_ORG/knowmine-graphs](https://github.com/YOUR_ORG/knowmine-graphs)
+- Source repository: [github.com/littlecakemedia/knowmine-graphs](https://github.com/littlecakemedia/knowmine-graphs)
 
 Built by [LITTLECAKEMEDIA V.P.](https://littlecakemedia.com)
