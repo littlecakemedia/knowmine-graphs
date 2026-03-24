@@ -25,7 +25,7 @@ import { gradient, fill } from '../helpers/colors.js';
  * @param {boolean} [opts.showValue=true]
  * @param {boolean} [opts.showGlow=false]
  * @param {import('../../types.d.ts').FontModel|null} [opts.nameFont]
- * @param {string} [opts.namePosition='TOP_LEFT']
+ * @param {string} [opts.namePosition='TOP']
  * @param {import('../../types.d.ts').ColorSpec|null} [opts.backgroundColor]
  * @param {string} [opts.backgroundType='NONE']
  * @param {string|null} [opts.borderColor]
@@ -47,7 +47,7 @@ export function makeCircularProgress({
   showValue = true,
   showGlow = false,
   nameFont = null,
-  namePosition = 'TOP_LEFT',
+  namePosition = 'TOP',
   backgroundColor = null,
   backgroundType = 'NONE',
   borderColor = null,

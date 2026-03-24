@@ -25,7 +25,7 @@ import { gradient, fill, fadeToTransparent } from '../helpers/colors.js';
  * @param {boolean} [opts.showSparkline=false]
  * @param {boolean} [opts.showGlow=false]
  * @param {import('../../types.d.ts').FontModel|null} [opts.nameFont]
- * @param {string} [opts.namePosition='TOP_LEFT']
+ * @param {string} [opts.namePosition='TOP']
  * @param {import('../../types.d.ts').ColorSpec|null} [opts.backgroundColor]
  * @param {string} [opts.backgroundType='NONE']
  * @param {string|null} [opts.borderColor]
@@ -48,7 +48,7 @@ export function makeKPIMetric({
   showSparkline = false,
   showGlow = false,
   nameFont = null,
-  namePosition = 'TOP_LEFT',
+  namePosition = 'TOP',
   backgroundColor = null,
   backgroundType = 'NONE',
   borderColor = null,

@@ -29,7 +29,7 @@ import { gradient } from '../helpers/colors.js';
  * @param {number} [opts.horizontalPadding=12]
  * @param {number} [opts.verticalPadding=10]
  * @param {import('../../types.d.ts').FontModel|null} [opts.nameFont]
- * @param {string} [opts.namePosition='TOP_LEFT']
+ * @param {string} [opts.namePosition='TOP']
  * @param {import('../../types.d.ts').ColorSpec|null} [opts.backgroundColor]
  * @param {string} [opts.backgroundType='NONE']
  * @param {string|null} [opts.borderColor]
@@ -54,7 +54,7 @@ export function makeBarChart({
   horizontalPadding = 12,
   verticalPadding = 10,
   nameFont = null,
-  namePosition = 'TOP_LEFT',
+  namePosition = 'TOP',
   backgroundColor = null,
   backgroundType = 'NONE',
   borderColor = null,

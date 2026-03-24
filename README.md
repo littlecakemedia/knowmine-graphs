@@ -86,7 +86,7 @@ All widget DTOs share these top-level fields. Pass them alongside the chart-spec
 **Valid `backgroundType` values:** `NONE`, `RECT`, `ROUND_RECT`, `ROUND_RECT_TL`, `ROUND_RECT_TR`, `ROUND_RECT_BL`, `ROUND_RECT_BR`, `ROUND_RECT_TL_NEG`, `ROUND_RECT_TR_NEG`, `ROUND_RECT_BL_NEG`, `ROUND_RECT_BR_NEG`, `ROUND_RECT_OPP_1`, `ROUND_RECT_OPP_2`, `ROUND_RECT_TOP`, `ROUND_RECT_LEFT`, `ROUND_RECT_BOTTOM`, `ROUND_RECT_RIGHT`, `SMALL_ROUND_RECT`
 
 **`namePosition` values** (shared by all chart types):
-`TOP_LEFT` *(default)*, `TOP`, `TOP_RIGHT`, `BOTTOM_LEFT`, `BOTTOM`, `BOTTOM_RIGHT`
+`TOP` *(default)*, `TOP_LEFT`, `TOP_RIGHT`, `BOTTOM_LEFT`, `BOTTOM`, `BOTTOM_RIGHT`
 
 **`yAxisPosition` values** (for charts with a Y axis):
 `LEFT`, `RIGHT`, `BOTH`
@@ -114,7 +114,7 @@ Vertical bar chart. Supports a single highlighted bar and optional Y-axis labels
 | `horizontalPadding` | `number` | | `12` | Horizontal inner padding of the canvas |
 | `verticalPadding` | `number` | | `10` | Vertical inner padding of the canvas |
 | `nameFont` | `FontModel\|null` | | `null` | Widget title font and color |
-| `namePosition` | `string` | | `'TOP_LEFT'` | Widget title position |
+| `namePosition` | `string` | | `'TOP'` | Widget title position |
 
 ```js
 import { makeBarChart, gradient, fill, makeYAxisLabels } from 'knowmine-graphs';
@@ -133,7 +133,7 @@ const dto = makeBarChart({
   barSpacing: 4,
   cornerRadius: 6,
   showGlow: false,
-  namePosition: 'TOP_LEFT',
+  namePosition: 'TOP',
   backgroundColor: { type: 'Fill', primaryColor: '#1A1A2E' },
   backgroundType: 'ROUND_RECT',
   refreshInterval: 30,
@@ -157,7 +157,7 @@ the right with up to 5 slices (extras are aggregated as "Others").
 | `glowColor` | `ColorSpec\|null` | | `null` | Glow color. Used only when `showGlow` is true |
 | `showPercentage` | `boolean` | | `false` | Show percentage next to each legend entry |
 | `nameFont` | `FontModel\|null` | | `null` | Widget title font and color |
-| `namePosition` | `string` | | `'TOP_LEFT'` | Widget title position |
+| `namePosition` | `string` | | `'TOP'` | Widget title position |
 
 **`makeSlice({ value, color, label?, labelColor? })`** — helper to build a single slice.
 
@@ -182,7 +182,7 @@ const dto = makePieChart({
   sliceSpacing: 3,
   outerPadding: 10,
   showPercentage: true,
-  namePosition: 'TOP_LEFT',
+  namePosition: 'TOP',
   backgroundColor: { type: 'Fill', primaryColor: '#1A1A2E' },
   backgroundType: 'ROUND_RECT',
   refreshInterval: 30,
@@ -214,7 +214,7 @@ Ideal for trends over time with emphasis on the area under the curve.
 | `yAxisPosition` | `string\|null` | | `null` | Where to render Y-axis labels |
 | `yAxisLabelColor` | `ColorSpec\|null` | | `null` | Y-axis label color |
 | `nameFont` | `FontModel\|null` | | `null` | Widget title font and color |
-| `namePosition` | `string` | | `'TOP_LEFT'` | Widget title position |
+| `namePosition` | `string` | | `'TOP'` | Widget title position |
 
 ```js
 import { makeAreaChart, solidColor, fadeToTransparent, fill, makeYAxisLabels } from 'knowmine-graphs';
@@ -232,7 +232,7 @@ const dto = makeAreaChart({
   yAxisLabels: makeYAxisLabels(10, 22, 3),
   yAxisPosition: 'LEFT',
   yAxisLabelColor: fill.dimWhite,
-  namePosition: 'TOP_LEFT',
+  namePosition: 'TOP',
   backgroundColor: { type: 'Fill', primaryColor: '#1A1A2E' },
   backgroundType: 'ROUND_RECT',
   refreshInterval: 30,
@@ -267,7 +267,7 @@ Suited for real-time or historical data with a technical dashboard aesthetic.
 | `yAxisPosition` | `string\|null` | | `null` | Where to render Y-axis labels |
 | `yAxisLabelColor` | `ColorSpec\|null` | | `null` | Y-axis label color |
 | `nameFont` | `FontModel\|null` | | `null` | Widget title font and color |
-| `namePosition` | `string` | | `'TOP_LEFT'` | Widget title position |
+| `namePosition` | `string` | | `'TOP'` | Widget title position |
 
 ```js
 import { makeTimeSeriesLineChart, gradient, fadeToTransparent, fill, makeYAxisLabels } from 'knowmine-graphs';
@@ -287,7 +287,7 @@ const dto = makeTimeSeriesLineChart({
   yAxisLabels: makeYAxisLabels(10, 24, 3),
   yAxisPosition: 'LEFT',
   yAxisLabelColor: fill.dimWhite,
-  namePosition: 'TOP_LEFT',
+  namePosition: 'TOP',
   backgroundColor: { type: 'Fill', primaryColor: '#1A1A2E' },
   backgroundType: 'ROUND_RECT',
   refreshInterval: 30,
@@ -315,7 +315,7 @@ Corner radius is applied only to the top and bottom of the composed bar.
 | `yAxisPosition` | `string\|null` | | `null` | Where to render Y-axis labels |
 | `yAxisLabelColor` | `ColorSpec\|null` | | `null` | Y-axis label color |
 | `nameFont` | `FontModel\|null` | | `null` | Widget title font and color |
-| `namePosition` | `string` | | `'TOP_LEFT'` | Widget title position |
+| `namePosition` | `string` | | `'TOP'` | Widget title position |
 
 **`makeSeries(values, color)`** — helper to build a single series entry.
 
@@ -336,7 +336,7 @@ const dto = makeStackedBarChart({
   yAxisLabelColor: fill.dimWhite,
   cornerRadius: 6,
   barSpacing: 4,
-  namePosition: 'TOP_LEFT',
+  namePosition: 'TOP',
   backgroundColor: { type: 'Fill', primaryColor: '#1A1A2E' },
   backgroundType: 'ROUND_RECT',
   refreshInterval: 30,
@@ -367,7 +367,7 @@ Color thresholds override `gaugeColor` when the value falls within their range.
 | `showGlow` | `boolean` | | `false` | Glow on the progress arc |
 | `label` | `string\|null` | | `null` | Descriptive text below the value (e.g. `'CPU'`, `'%'`). If absent, value is vertically centered |
 | `nameFont` | `FontModel\|null` | | `null` | Widget title font and color |
-| `namePosition` | `string` | | `'TOP_LEFT'` | Widget title position |
+| `namePosition` | `string` | | `'TOP'` | Widget title position |
 
 **`makeThreshold(value, color)`** — helper to build a single threshold zone.
 `value` is the upper bound of the zone; the app applies this color when the gauge value ≤ `value`.
@@ -392,7 +392,7 @@ const dto = makeRadialGauge({
   lineWidth: 14,
   showTicks: false,
   label: 'CPU',
-  namePosition: 'TOP_LEFT',
+  namePosition: 'TOP',
   backgroundColor: { type: 'Fill', primaryColor: '#1A1A2E' },
   backgroundType: 'ROUND_RECT',
   refreshInterval: 30,
@@ -415,7 +415,7 @@ Each gauge (`gauge1`, `gauge2`, `gauge3`) accepts the same parameters as `makeRa
 | `gauge2` | `GaugeSpec` | ✅ | — | Center (3-gauge) or right (2-gauge) |
 | `gauge3` | `GaugeSpec\|null` | | `null` | Optional right gauge |
 | `nameFont` | `FontModel\|null` | | `null` | Shared widget title font and color |
-| `namePosition` | `string` | | `'TOP_LEFT'` | Shared widget title position |
+| `namePosition` | `string` | | `'TOP'` | Shared widget title position |
 
 **GaugeSpec fields:** `value`✅ `minValue`✅ `maxValue`✅ `gaugeColor`✅ — then optional: `thresholds`, `gaugeBackgroundColor`, `glowColor`, `valueTextColor`, `tickColor`, `gapAngle`, `lineWidth`, `showTicks`, `showGlow`, `label`.
 
@@ -437,7 +437,7 @@ const dto = makeRadialGaugeLarge({
   gauge1: { ...gaugeDefaults, value: 72, label: 'CPU' },
   gauge2: { ...gaugeDefaults, value: 45, label: 'RAM' },
   gauge3: { ...gaugeDefaults, value: 55, maxValue: 200, gaugeColor: gradient.sunset, label: 'Disk' },
-  namePosition: 'TOP_LEFT',
+  namePosition: 'TOP',
   backgroundColor: { type: 'Fill', primaryColor: '#1A1A2E' },
   backgroundType: 'ROUND_RECT',
   refreshInterval: 30,
@@ -465,7 +465,7 @@ Shows a value or custom label at the center with an optional secondary caption.
 | `showValue` | `boolean` | | `true` | Shows the text at the center of the ring |
 | `showGlow` | `boolean` | | `false` | Glow on the progress arc |
 | `nameFont` | `FontModel\|null` | | `null` | Widget title font and color |
-| `namePosition` | `string` | | `'TOP_LEFT'` | Widget title position |
+| `namePosition` | `string` | | `'TOP'` | Widget title position |
 
 ```js
 import { makeCircularProgress, gradient, fill, solidColor } from 'knowmine-graphs';
@@ -483,7 +483,7 @@ const dto = makeCircularProgress({
   lineWidth: 14,
   showValue: true,
   showGlow: false,
-  namePosition: 'TOP_LEFT',
+  namePosition: 'TOP',
   backgroundColor: { type: 'Fill', primaryColor: '#1A1A2E' },
   backgroundType: 'ROUND_RECT',
   refreshInterval: 30,
@@ -512,7 +512,7 @@ KPI display widget with a primary value, optional unit of measure, trend indicat
 | `showSparkline` | `boolean` | | `false` | Show the embedded sparkline |
 | `showGlow` | `boolean` | | `false` | Glow on the sparkline |
 | `nameFont` | `FontModel\|null` | | `null` | Widget title font and color |
-| `namePosition` | `string` | | `'TOP_LEFT'` | Widget title position |
+| `namePosition` | `string` | | `'TOP'` | Widget title position |
 
 ```js
 import { makeKPIMetric, fill, solidColor, fadeToTransparent } from 'knowmine-graphs';
@@ -531,7 +531,7 @@ const dto = makeKPIMetric({
   isInt: true,
   showSparkline: true,
   showGlow: false,
-  namePosition: 'TOP_LEFT',
+  namePosition: 'TOP',
   backgroundColor: { type: 'Fill', primaryColor: '#1A1A2E' },
   backgroundType: 'ROUND_RECT',
   refreshInterval: 30,

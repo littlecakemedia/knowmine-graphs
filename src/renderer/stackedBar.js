@@ -24,7 +24,7 @@ import { validateSeriesLengths, validateColorSpec } from '../helpers/validate.js
  * @param {string|null} [opts.yAxisPosition]
  * @param {import('../../types.d.ts').ColorSpec|null} [opts.yAxisLabelColor]
  * @param {import('../../types.d.ts').FontModel|null} [opts.nameFont]
- * @param {string} [opts.namePosition='TOP_LEFT']
+ * @param {string} [opts.namePosition='TOP']
  * @param {import('../../types.d.ts').ColorSpec|null} [opts.backgroundColor]
  * @param {string} [opts.backgroundType='NONE']
  * @param {string|null} [opts.borderColor]
@@ -46,7 +46,7 @@ export function makeStackedBarChart({
   yAxisPosition = null,
   yAxisLabelColor = null,
   nameFont = null,
-  namePosition = 'TOP_LEFT',
+  namePosition = 'TOP',
   backgroundColor = null,
   backgroundType = 'NONE',
   borderColor = null,

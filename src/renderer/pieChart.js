@@ -19,7 +19,7 @@ import { gradient } from '../helpers/colors.js';
  * @param {import('../../types.d.ts').ColorSpec|null} [opts.glowColor]
  * @param {boolean} [opts.showPercentage=false]
  * @param {import('../../types.d.ts').FontModel|null} [opts.nameFont]
- * @param {string} [opts.namePosition='TOP_LEFT']
+ * @param {string} [opts.namePosition='TOP']
  * @param {import('../../types.d.ts').ColorSpec|null} [opts.backgroundColor]
  * @param {string} [opts.backgroundType='NONE']
  * @param {string|null} [opts.borderColor]
@@ -37,7 +37,7 @@ export function makePieChart({
   glowColor = null,
   showPercentage = false,
   nameFont = null,
-  namePosition = 'TOP_LEFT',
+  namePosition = 'TOP',
   backgroundColor = null,
   backgroundType = 'NONE',
   borderColor = null,

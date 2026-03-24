@@ -15,7 +15,7 @@ import { buildEnvelope } from './_envelope.js';
  * @param {import('../../types.d.ts').GaugeSpec} opts.gauge2 - Center (3) or right (2) gauge
  * @param {import('../../types.d.ts').GaugeSpec|null} [opts.gauge3] - Optional right gauge
  * @param {import('../../types.d.ts').FontModel|null} [opts.nameFont]
- * @param {string} [opts.namePosition='TOP_LEFT']
+ * @param {string} [opts.namePosition='TOP']
  * @param {import('../../types.d.ts').ColorSpec|null} [opts.backgroundColor]
  * @param {string} [opts.backgroundType='NONE']
  * @param {string|null} [opts.borderColor]
@@ -29,7 +29,7 @@ export function makeRadialGaugeLarge({
   gauge2,
   gauge3 = null,
   nameFont = null,
-  namePosition = 'TOP_LEFT',
+  namePosition = 'TOP',
   backgroundColor = null,
   backgroundType = 'NONE',
   borderColor = null,
