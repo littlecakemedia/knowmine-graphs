@@ -629,6 +629,7 @@ stop();
 |-----|-------------|----------|
 | `cpu` | Aggregate CPU usage % across all cores | All |
 | `memory` | System RAM + process heap | All |
+| `swap` | System swap used/free/total/percent | Linux only |
 | `diskIO` | Disk read/write bytes/sec | Linux only |
 | `network` | Network RX/TX bytes/sec per interface | Linux only |
 | `diskUsage` | Disk space used/free/total | All (Linux/macOS/Windows) |
@@ -648,6 +649,9 @@ Every function accepts an optional configuration object — all parameters are o
 | `cpuChart` | `TimeSeriesLineChart` | `cpu` | All |
 | `memoryGaugeChart` | `RadialGauge` | `memory` | All |
 | `memoryAreaChart` | `AreaChart` | `memory` | All |
+| `ramKPIChart` | `KPIMetric` | `memory` | All |
+| `swapKPIChart` | `KPIMetric` | `swap` | Linux |
+| `swapGaugeChart` | `RadialGauge` | `swap` | Linux |
 | `heapKPIChart` | `KPIMetric` | `memory` | All |
 | `heapAreaChart` | `AreaChart` | `memory` | All |
 | `diskIOStackedChart` | `StackedBarChart` | `diskIO` | Linux |
@@ -708,6 +712,55 @@ Area chart of system RAM usage percentage over time.
 memoryAreaChart({
   nome: 'RAM Usage',    // string — default: 'RAM Usage'
   maxPoints: 60,        // number — default: 60
+  refreshInterval,      // number — default: 10
+  backgroundColor,      // ColorSpec
+  backgroundType,       // string — default: 'ROUND_RECT'
+})
+```
+
+#### `ramKPIChart(opts?)`
+
+KPI metric showing current system RAM used in MB with a sparkline and trend indicator.
+Trend up (more RAM used) is orange; trend down (memory freed) is green.
+Value corresponds to `MEM_USED` from `free -m` on Linux.
+
+```js
+ramKPIChart({
+  nome: 'RAM Used',     // string — default: 'RAM Used'
+  maxPoints: 30,        // number — samples used for sparkline (default: 30)
+  refreshInterval,      // number — default: 10
+  backgroundColor,      // ColorSpec
+  backgroundType,       // string — default: 'ROUND_RECT'
+})
+```
+
+---
+
+#### `swapKPIChart(opts?)` *(Linux only)*
+
+KPI metric showing current swap used in MB with a sparkline and trend indicator.
+Trend up (more swap used) is red; trend down (swap freed) is green.
+Returns a `unit: 'N/A'` placeholder on non-Linux platforms or when no swap is configured.
+
+```js
+swapKPIChart({
+  nome: 'Swap Used',    // string — default: 'Swap Used'
+  maxPoints: 30,        // number — samples used for sparkline (default: 30)
+  refreshInterval,      // number — default: 10
+  backgroundColor,      // ColorSpec
+  backgroundType,       // string — default: 'ROUND_RECT'
+})
+```
+
+#### `swapGaugeChart(opts?)` *(Linux only)*
+
+Radial gauge showing current swap usage percentage with color thresholds
+(green < 30 %, orange < 70 %, red ≤ 100 %).
+Returns a gauge labeled `'N/A'` on non-Linux platforms or when no swap is configured.
+
+```js
+swapGaugeChart({
+  nome: 'Swap',         // string — default: 'Swap'
   refreshInterval,      // number — default: 10
   backgroundColor,      // ColorSpec
   backgroundType,       // string — default: 'ROUND_RECT'

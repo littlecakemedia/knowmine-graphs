@@ -24,11 +24,12 @@ import { collectDiskUsage } from './collectors/diskUsage.js';
 import { collectLoadAverage } from './collectors/loadAverage.js';
 import { collectEventLoopLag, startEventLoopMonitor, stopEventLoopMonitor } from './collectors/eventLoop.js';
 import { collectGC, startGCMonitor, stopGCMonitor } from './collectors/gc.js';
+import { collectSwap } from './collectors/swap.js';
 
 let intervalId = null;
 
 /**
- * @typedef {'cpu'|'memory'|'diskIO'|'network'|'diskUsage'|'loadAverage'|'eventLoop'|'gc'} CollectorName
+ * @typedef {'cpu'|'memory'|'swap'|'diskIO'|'network'|'diskUsage'|'loadAverage'|'eventLoop'|'gc'} CollectorName
  */
 
 /**
@@ -38,6 +39,7 @@ let intervalId = null;
 export const ALL_COLLECTORS = [
   'cpu',
   'memory',
+  'swap',
   'diskIO',
   'network',
   'diskUsage',
@@ -75,6 +77,7 @@ export function startMonitoring({
   const tick = async () => {
     if (enabled.has('cpu')) store.push('cpu', collectCpu());
     if (enabled.has('memory')) store.push('memory', collectMemory());
+    if (enabled.has('swap')) store.push('swap', collectSwap());
     if (enabled.has('diskIO')) store.push('diskIO', collectDiskIO());
     if (enabled.has('network')) store.push('network', collectNetwork());
     if (enabled.has('loadAverage')) store.push('loadAverage', collectLoadAverage());

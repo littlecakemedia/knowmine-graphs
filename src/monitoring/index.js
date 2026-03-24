@@ -24,7 +24,10 @@ export { store } from './store/memoryStore.js';
 export { cpuChart } from './charts/cpuChart.js';
 
 // Charts — Memory
-export { memoryGaugeChart, memoryAreaChart } from './charts/memoryChart.js';
+export { memoryGaugeChart, memoryAreaChart, ramKPIChart } from './charts/memoryChart.js';
+
+// Charts — Swap
+export { swapKPIChart, swapGaugeChart } from './charts/swapChart.js';
 
 // Charts — Heap
 export { heapKPIChart, heapAreaChart } from './charts/heapChart.js';
@@ -47,6 +50,7 @@ export { gcPauseBarChart, gcKPIChart, gcFrequencyAreaChart } from './charts/gcCh
 // Collectors (for custom integrations)
 export { collectCpu } from './collectors/cpu.js';
 export { collectMemory } from './collectors/memory.js';
+export { collectSwap } from './collectors/swap.js';
 export { collectDiskIO } from './collectors/diskIO.js';
 export { collectNetwork } from './collectors/network.js';
 export { collectDiskUsage } from './collectors/diskUsage.js';
