@@ -20,9 +20,14 @@ import { validateSeriesLengths, validateColorSpec } from '../helpers/validate.js
  * @param {number} [opts.verticalPadding=10]
  * @param {string[]|null} [opts.labels]
  * @param {import('../../types.d.ts').ColorSpec|null} [opts.labelColor]
- * @param {string[]|null} [opts.yAxisLabels]
- * @param {string|null} [opts.yAxisPosition]
+ * @param {string[]|null} [opts.yAxisLabels] - Used only with LEFT/RIGHT/BOTH. Ignored in AUTO mode.
+ * @param {'NONE'|'AUTO'|'LEFT'|'RIGHT'|'BOTH'|null} [opts.yAxisPosition]
+ *   - absent/"NONE": no labels, auto-scale
+ *   - "AUTO": auto-scale, labels auto-generated from actual range (yAxisLabels ignored)
+ *   - "LEFT"/"RIGHT"/"BOTH": fixed scale if yMin+yMax provided, otherwise auto-scale
  * @param {import('../../types.d.ts').ColorSpec|null} [opts.yAxisLabelColor]
+ * @param {number|null} [opts.yMin] - Scale minimum. Required for fixed scale (LEFT/RIGHT/BOTH).
+ * @param {number|null} [opts.yMax] - Scale maximum. Required for fixed scale (LEFT/RIGHT/BOTH).
  * @param {import('../../types.d.ts').FontModel|null} [opts.nameFont]
  * @param {string} [opts.namePosition='TOP']
  * @param {import('../../types.d.ts').ColorSpec|null} [opts.backgroundColor]
@@ -45,6 +50,8 @@ export function makeStackedBarChart({
   yAxisLabels = null,
   yAxisPosition = null,
   yAxisLabelColor = null,
+  yMin = null,
+  yMax = null,
   nameFont = null,
   namePosition = 'TOP',
   backgroundColor = null,
@@ -67,6 +74,8 @@ export function makeStackedBarChart({
     yAxisLabels,
     yAxisPosition,
     yAxisLabelColor,
+    yMin,
+    yMax,
     nameFont,
     namePosition,
   };

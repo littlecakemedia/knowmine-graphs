@@ -20,9 +20,14 @@ import { gradient } from '../helpers/colors.js';
  * @param {import('../../types.d.ts').ColorSpec|null} [opts.highlightColor] - Color for the highlighted bar
  * @param {string[]|null} [opts.labels] - Labels below each bar
  * @param {import('../../types.d.ts').ColorSpec|null} [opts.labelColor] - Label text color
- * @param {string[]|null} [opts.yAxisLabels] - Y-axis labels (bottom to top)
- * @param {string|null} [opts.yAxisPosition] - 'LEFT' | 'RIGHT' | 'BOTH'
+ * @param {string[]|null} [opts.yAxisLabels] - Used only with LEFT/RIGHT/BOTH. Ignored in AUTO mode.
+ * @param {'NONE'|'AUTO'|'LEFT'|'RIGHT'|'BOTH'|null} [opts.yAxisPosition]
+ *   - absent/"NONE": no labels, auto-scale
+ *   - "AUTO": auto-scale, labels auto-generated from actual range (yAxisLabels ignored)
+ *   - "LEFT"/"RIGHT"/"BOTH": fixed scale if yMin+yMax provided, otherwise auto-scale
  * @param {import('../../types.d.ts').ColorSpec|null} [opts.yAxisLabelColor]
+ * @param {number|null} [opts.yMin] - Scale minimum. Required for fixed scale (LEFT/RIGHT/BOTH).
+ * @param {number|null} [opts.yMax] - Scale maximum. Required for fixed scale (LEFT/RIGHT/BOTH).
  * @param {number} [opts.barSpacing=4]
  * @param {number} [opts.cornerRadius=6]
  * @param {boolean} [opts.showGlow=false]
@@ -48,6 +53,8 @@ export function makeBarChart({
   yAxisLabels = null,
   yAxisPosition = null,
   yAxisLabelColor = null,
+  yMin = null,
+  yMax = null,
   barSpacing = 4,
   cornerRadius = 6,
   showGlow = false,
@@ -74,6 +81,8 @@ export function makeBarChart({
     yAxisLabels,
     yAxisPosition,
     yAxisLabelColor,
+    yMin,
+    yMax,
     barSpacing,
     cornerRadius,
     showGlow,

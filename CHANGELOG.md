@@ -6,6 +6,18 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## [2.1.0] — 2026-03-25
+
+### Changed
+
+- **`cpuTimeSeriesChart`** — default scale is now fixed **0–100 %** (`yMin: 0`, `yMax: 100`) with Y labels on **both sides** (`yAxisPosition: 'BOTH'`). Previously the chart had no fixed scale and labels only on the left.
+
+### Added
+
+- **`cpuTimeSeriesChart({ auto })`** — new boolean option (default `false`). When `true`, switches to `yAxisPosition: 'AUTO'` with no fixed min/max, fitting the Y axis to the actual data range.
+
+---
+
 ## [2.0.0] — 2026-03-25
 
 ### Breaking Changes

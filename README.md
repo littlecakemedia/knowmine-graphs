@@ -89,7 +89,16 @@ All widget DTOs share these top-level fields. Pass them alongside the chart-spec
 `TOP` *(default)*, `TOP_LEFT`, `TOP_RIGHT`, `BOTTOM_LEFT`, `BOTTOM`, `BOTTOM_RIGHT`
 
 **`yAxisPosition` values** (for charts with a Y axis):
-`LEFT`, `RIGHT`, `BOTH`
+
+| Value | Behavior |
+|-------|----------|
+| absent / `null` / `"NONE"` | No labels, auto-scale |
+| `"AUTO"` | Auto-scale, labels auto-generated from actual data range (`yAxisLabels` ignored) |
+| `"LEFT"` | Labels on the left. Fixed scale if both `yMin`+`yMax` provided, otherwise auto-scale with auto-generated labels |
+| `"RIGHT"` | Labels on the right. Same scale logic as `LEFT` |
+| `"BOTH"` | Labels on both sides. Same scale logic as `LEFT` |
+
+> When `yAxisPosition` is `LEFT`/`RIGHT`/`BOTH` but `yMin`/`yMax` are absent, the widget falls back to auto-scale and auto-generates labels from the actual data range (provided `yAxisLabels` are ignored).
 
 ---
 
@@ -105,9 +114,11 @@ Vertical bar chart. Supports a single highlighted bar and optional Y-axis labels
 | `highlightColor` | `ColorSpec\|null` | | `null` | Required when `highlightIndex` is set |
 | `labels` | `string[]\|null` | | `null` | Text labels centered below each bar |
 | `labelColor` | `ColorSpec\|null` | | `null` | Label color. Used only when `labels` is set |
-| `yAxisLabels` | `string[]\|null` | | `null` | Y-axis labels from bottom to top |
-| `yAxisPosition` | `string\|null` | | `null` | Where to render Y-axis labels |
+| `yAxisLabels` | `string[]\|null` | | `null` | Y-axis labels from bottom to top. Used only with `LEFT`/`RIGHT`/`BOTH` + `yMin`/`yMax` |
+| `yAxisPosition` | `string\|null` | | `null` | Where to render Y-axis labels. See `yAxisPosition` values table above |
 | `yAxisLabelColor` | `ColorSpec\|null` | | `null` | Y-axis label color |
+| `yMin` | `number\|null` | | `null` | Scale minimum. Enables fixed scale when set together with `yMax` |
+| `yMax` | `number\|null` | | `null` | Scale maximum. Enables fixed scale when set together with `yMin` |
 | `barSpacing` | `number` | | `4` | Gap in points between bars |
 | `cornerRadius` | `number` | | `6` | Bar corner radius in points |
 | `showGlow` | `boolean` | | `false` | Glow effect on the highlighted bar |
@@ -130,6 +141,8 @@ const dto = makeBarChart({
   yAxisLabels: makeYAxisLabels(0, 22, 3),
   yAxisPosition: 'LEFT',
   yAxisLabelColor: fill.dimWhite,
+  yMin: 0,
+  yMax: 22,
   barSpacing: 4,
   cornerRadius: 6,
   showGlow: false,
@@ -210,9 +223,11 @@ Ideal for trends over time with emphasis on the area under the curve.
 | `verticalPadding` | `number` | | `10` | Vertical inner padding of the canvas |
 | `labels` | `string[]\|null` | | `null` | X-axis labels centered on each data point |
 | `labelColor` | `ColorSpec\|null` | | `null` | Label color |
-| `yAxisLabels` | `string[]\|null` | | `null` | Y-axis labels from bottom to top |
-| `yAxisPosition` | `string\|null` | | `null` | Where to render Y-axis labels |
+| `yAxisLabels` | `string[]\|null` | | `null` | Y-axis labels from bottom to top. Used only with `LEFT`/`RIGHT`/`BOTH` + `yMin`/`yMax` |
+| `yAxisPosition` | `string\|null` | | `null` | Where to render Y-axis labels. See `yAxisPosition` values table above |
 | `yAxisLabelColor` | `ColorSpec\|null` | | `null` | Y-axis label color |
+| `yMin` | `number\|null` | | `null` | Scale minimum. Enables fixed scale when set together with `yMax` |
+| `yMax` | `number\|null` | | `null` | Scale maximum. Enables fixed scale when set together with `yMin` |
 | `nameFont` | `FontModel\|null` | | `null` | Widget title font and color |
 | `namePosition` | `string` | | `'TOP'` | Widget title position |
 
@@ -232,6 +247,8 @@ const dto = makeAreaChart({
   yAxisLabels: makeYAxisLabels(10, 22, 3),
   yAxisPosition: 'LEFT',
   yAxisLabelColor: fill.dimWhite,
+  yMin: 10,
+  yMax: 22,
   namePosition: 'TOP',
   backgroundColor: { type: 'Fill', primaryColor: '#1A1A2E' },
   backgroundType: 'ROUND_RECT',
@@ -263,9 +280,11 @@ Suited for real-time or historical data with a technical dashboard aesthetic.
 | `verticalPadding` | `number` | | `10` | Vertical inner padding of the canvas |
 | `labels` | `string[]\|null` | | `null` | X-axis labels centered on each data point |
 | `labelColor` | `ColorSpec\|null` | | `null` | Label color |
-| `yAxisLabels` | `string[]\|null` | | `null` | Y-axis labels from bottom to top |
-| `yAxisPosition` | `string\|null` | | `null` | Where to render Y-axis labels |
+| `yAxisLabels` | `string[]\|null` | | `null` | Y-axis labels from bottom to top. Used only with `LEFT`/`RIGHT`/`BOTH` + `yMin`/`yMax` |
+| `yAxisPosition` | `string\|null` | | `null` | Where to render Y-axis labels. See `yAxisPosition` values table above |
 | `yAxisLabelColor` | `ColorSpec\|null` | | `null` | Y-axis label color |
+| `yMin` | `number\|null` | | `null` | Scale minimum. Enables fixed scale when set together with `yMax` |
+| `yMax` | `number\|null` | | `null` | Scale maximum. Enables fixed scale when set together with `yMin` |
 | `nameFont` | `FontModel\|null` | | `null` | Widget title font and color |
 | `namePosition` | `string` | | `'TOP'` | Widget title position |
 
@@ -287,6 +306,8 @@ const dto = makeTimeSeriesLineChart({
   yAxisLabels: makeYAxisLabels(10, 24, 3),
   yAxisPosition: 'LEFT',
   yAxisLabelColor: fill.dimWhite,
+  yMin: 10,
+  yMax: 24,
   namePosition: 'TOP',
   backgroundColor: { type: 'Fill', primaryColor: '#1A1A2E' },
   backgroundType: 'ROUND_RECT',
@@ -311,9 +332,11 @@ Corner radius is applied only to the top and bottom of the composed bar.
 | `verticalPadding` | `number` | | `10` | Vertical inner padding of the canvas |
 | `labels` | `string[]\|null` | | `null` | Text labels centered below each bar |
 | `labelColor` | `ColorSpec\|null` | | `null` | Label color |
-| `yAxisLabels` | `string[]\|null` | | `null` | Y-axis labels from bottom to top |
-| `yAxisPosition` | `string\|null` | | `null` | Where to render Y-axis labels |
+| `yAxisLabels` | `string[]\|null` | | `null` | Y-axis labels from bottom to top. Used only with `LEFT`/`RIGHT`/`BOTH` + `yMin`/`yMax` |
+| `yAxisPosition` | `string\|null` | | `null` | Where to render Y-axis labels. See `yAxisPosition` values table above |
 | `yAxisLabelColor` | `ColorSpec\|null` | | `null` | Y-axis label color |
+| `yMin` | `number\|null` | | `null` | Scale minimum. Enables fixed scale when set together with `yMax` |
+| `yMax` | `number\|null` | | `null` | Scale maximum. Enables fixed scale when set together with `yMin` |
 | `nameFont` | `FontModel\|null` | | `null` | Widget title font and color |
 | `namePosition` | `string` | | `'TOP'` | Widget title position |
 
@@ -334,6 +357,8 @@ const dto = makeStackedBarChart({
   yAxisLabels: makeYAxisLabels(0, 19, 3),
   yAxisPosition: 'LEFT',
   yAxisLabelColor: fill.dimWhite,
+  yMin: 0,
+  yMax: 19,
   cornerRadius: 6,
   barSpacing: 4,
   namePosition: 'TOP',
@@ -675,6 +700,9 @@ Every function accepts an optional configuration object — all parameters are o
 
 Time-series line chart of aggregate CPU usage percentage over time.
 
+By default the Y-axis is fixed at **0–100 %** with labels on **both sides** (`BOTH`).
+Pass `auto: true` to switch to auto-scale mode, where the Y range fits the actual data.
+
 ```js
 cpuTimeSeriesChart({
   name: 'CPU Usage',    // string — default: 'CPU Usage'
@@ -684,10 +712,13 @@ cpuTimeSeriesChart({
   backgroundColor,      // ColorSpec — default: Fill #1A1A2E
   backgroundType,       // string — default: 'ROUND_RECT'
   refreshInterval,      // number — default: 10
+  auto: false,          // boolean — default: false
+                        //   false → fixed scale 0–100 %, yAxisPosition 'BOTH', yAxisLabels ['0','50','100']
+                        //   true  → AUTO scale, Y fits actual data range, no fixed labels
 })
 ```
 
-Y-axis is fixed 0–100 (percentage). Grid is enabled by default.
+Grid is enabled by default.
 
 ---
 
