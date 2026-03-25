@@ -1,6 +1,6 @@
 /**
  * Ready-to-use swap usage charts.
- * Exports swapKPIChart(), swapGaugeChart(), swapAreaChart() — all scoped to swap.
+ * Exports swapKPIChart(), swapGaugePercentChart(), swapGaugeSizeChart(), swapAreaChart() — all scoped to swap.
  * All charts return a 'N/A' / zero placeholder on non-Linux platforms or when no swap is configured.
  */
 
@@ -76,9 +76,9 @@ export function swapKPIChart({
 }
 
 /**
- * Returns a RadialGauge DTO showing current swap usage percentage with color thresholds.
+ * Returns a RadialGauge DTO showing current swap usage as a percentage (0–100).
  * Thresholds: green < 30 %, orange < 70 %, red ≤ 100 %.
- * Returns a placeholder gauge when swap is unavailable.
+ * Returns a placeholder gauge (label 'N/A', unit null) when swap is unavailable.
  * @param {object} [opts]
  * @param {string} [opts.name='Swap']
  * @param {number} [opts.refreshInterval=10]
@@ -86,7 +86,7 @@ export function swapKPIChart({
  * @param {string} [opts.backgroundType='ROUND_RECT']
  * @returns {object} RadialGauge DTO
  */
-export function swapGaugeChart({
+export function swapGaugePercentChart({
   name = 'Swap',
   refreshInterval = 10,
   backgroundColor = { type: 'Fill', primaryColor: '#1A1A2E' },
@@ -111,6 +111,76 @@ export function swapGaugeChart({
     gapAngle: 120,
     lineWidth: 14,
     label: snap?.available ? 'SWAP' : 'N/A',
+    unit: snap?.available ? '%' : null,
+    backgroundColor,
+    backgroundType,
+    refreshInterval,
+  });
+}
+
+/**
+ * Returns a RadialGauge DTO showing current swap usage as an absolute value.
+ * The unit is chosen automatically based on current usage:
+ *   - usedMB < 1024  →  integer MB  (e.g. 512 MB)
+ *   - usedMB ≥ 1024  →  1-decimal GB (e.g. 1.4 GB)
+ * The gauge scale (minValue/maxValue) always matches the chosen unit.
+ * Color thresholds mirror swapGaugePercentChart (30 %/70 %/100 % of total swap).
+ * Returns a placeholder gauge (label 'N/A', unit null) when swap is unavailable.
+ * @param {object} [opts]
+ * @param {string} [opts.name='Swap']
+ * @param {number} [opts.refreshInterval=10]
+ * @param {object} [opts.backgroundColor]
+ * @param {string} [opts.backgroundType='ROUND_RECT']
+ * @returns {object} RadialGauge DTO
+ */
+export function swapGaugeSizeChart({
+  name = 'Swap',
+  refreshInterval = 10,
+  backgroundColor = { type: 'Fill', primaryColor: '#1A1A2E' },
+  backgroundType = 'ROUND_RECT',
+} = {}) {
+  const entries = store.last('swap', 1);
+  const snap    = entries[0]?.value;
+
+  if (!snap?.available) {
+    return makeRadialGauge({
+      name,
+      value: 0, minValue: 0, maxValue: 1,
+      gaugeColor: gradient.amber,
+      gaugeBackgroundColor: fill.dimWhiteLow,
+      gapAngle: 120, lineWidth: 14,
+      label: 'N/A', unit: null,
+      backgroundColor, backgroundType, refreshInterval,
+    });
+  }
+
+  const usedMB  = snap.usedBytes  / 1024 / 1024;
+  const totalMB = snap.totalBytes / 1024 / 1024;
+
+  const useGB = usedMB >= 1024;
+  const value    = useGB ? parseFloat((usedMB  / 1024).toFixed(1)) : Math.round(usedMB);
+  const maxValue = useGB ? parseFloat((totalMB / 1024).toFixed(1)) : Math.round(totalMB);
+  const unit     = useGB ? 'GB' : 'MB';
+
+  const t30  = useGB ? parseFloat(((totalMB * 0.30) / 1024).toFixed(1)) : Math.round(totalMB * 0.30);
+  const t70  = useGB ? parseFloat(((totalMB * 0.70) / 1024).toFixed(1)) : Math.round(totalMB * 0.70);
+
+  return makeRadialGauge({
+    name,
+    value,
+    minValue: 0,
+    maxValue,
+    thresholds: [
+      { value: t30,      color: { type: 'Fill', primaryColor: '#00FF88' } },
+      { value: t70,      color: { type: 'Fill', primaryColor: '#FF8C00' } },
+      { value: maxValue, color: { type: 'Fill', primaryColor: '#FF4444' } },
+    ],
+    gaugeColor: gradient.amber,
+    gaugeBackgroundColor: fill.dimWhiteLow,
+    gapAngle: 120,
+    lineWidth: 14,
+    label: 'SWAP',
+    unit,
     backgroundColor,
     backgroundType,
     refreshInterval,

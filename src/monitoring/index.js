@@ -24,10 +24,10 @@ export { store } from './store/memoryStore.js';
 export { cpuTimeSeriesChart } from './charts/cpuChart.js';
 
 // Charts — RAM
-export { ramGaugeChart, ramAreaChart, ramKPIChart } from './charts/memoryChart.js';
+export { ramGaugePercentChart, ramGaugeSizeChart, ramAreaChart, ramKPIChart } from './charts/memoryChart.js';
 
 // Charts — Swap
-export { swapKPIChart, swapGaugeChart, swapAreaChart } from './charts/swapChart.js';
+export { swapKPIChart, swapGaugePercentChart, swapGaugeSizeChart, swapAreaChart } from './charts/swapChart.js';
 
 // Charts — Heap
 export { heapKPIChart, heapAreaChart } from './charts/heapChart.js';

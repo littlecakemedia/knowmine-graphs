@@ -26,6 +26,7 @@ import { gradient, fill } from '../helpers/colors.js';
  * @param {boolean} [opts.showTicks=false]
  * @param {boolean} [opts.showGlow=false]
  * @param {string|null} [opts.label] - Descriptive text below the value
+ * @param {string|null} [opts.unit] - Unit displayed inline next to the value (e.g. '%', 'MB', '°C')
  * @param {import('../../types.d.ts').FontModel|null} [opts.nameFont]
  * @param {string} [opts.namePosition='TOP']
  * @param {import('../../types.d.ts').ColorSpec|null} [opts.backgroundColor]
@@ -51,6 +52,7 @@ export function makeRadialGauge({
   showTicks = false,
   showGlow = false,
   label = null,
+  unit = null,
   nameFont = null,
   namePosition = 'TOP',
   backgroundColor = null,
@@ -77,6 +79,7 @@ export function makeRadialGauge({
     showTicks,
     showGlow,
     label,
+    unit,
     nameFont,
     namePosition,
   };

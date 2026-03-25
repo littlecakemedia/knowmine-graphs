@@ -34,6 +34,16 @@ describe('makeRadialGauge', () => {
     const dto = makeRadialGauge({ value: 50, minValue: 0, maxValue: 100, label: 'CPU' });
     assert.equal(dto.payload.label, 'CPU');
   });
+
+  test('unit defaults to null', () => {
+    const dto = makeRadialGauge({ value: 50, minValue: 0, maxValue: 100 });
+    assert.equal(dto.payload.unit, null);
+  });
+
+  test('accepts unit', () => {
+    const dto = makeRadialGauge({ value: 72, minValue: 0, maxValue: 100, unit: '%' });
+    assert.equal(dto.payload.unit, '%');
+  });
 });
 
 describe('makeThreshold', () => {

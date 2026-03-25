@@ -11,7 +11,8 @@ import { gradient, fill, fadeToTransparent } from '../../helpers/colors.js';
 import { makeYAxisLabels, formatBytes } from '../../helpers/normalize.js';
 
 /**
- * Returns a RadialGauge DTO showing current RAM usage percentage.
+ * Returns a RadialGauge DTO showing current RAM usage as a percentage (0–100).
+ * Color thresholds: green < 60 %, orange < 85 %, red ≤ 100 %.
  * @param {object} [opts]
  * @param {string} [opts.name='RAM']
  * @param {number} [opts.refreshInterval=10]
@@ -19,7 +20,7 @@ import { makeYAxisLabels, formatBytes } from '../../helpers/normalize.js';
  * @param {string} [opts.backgroundType='ROUND_RECT']
  * @returns {object} RadialGauge DTO
  */
-export function ramGaugeChart({
+export function ramGaugePercentChart({
   name = 'RAM',
   refreshInterval = 10,
   backgroundColor = { type: 'Fill', primaryColor: '#1A1A2E' },
@@ -43,6 +44,63 @@ export function ramGaugeChart({
     gapAngle: 120,
     lineWidth: 14,
     label: 'RAM',
+    unit: '%',
+    backgroundColor,
+    backgroundType,
+    refreshInterval,
+  });
+}
+
+/**
+ * Returns a RadialGauge DTO showing current RAM usage as an absolute value.
+ * The unit is chosen automatically based on current usage:
+ *   - usedMB < 1024  →  integer MB  (e.g. 512 MB)
+ *   - usedMB ≥ 1024  →  1-decimal GB (e.g. 1.4 GB)
+ * The gauge scale (minValue/maxValue) always matches the chosen unit.
+ * Color thresholds mirror ramGaugePercentChart (60 %/85 %/100 % of total RAM).
+ * @param {object} [opts]
+ * @param {string} [opts.name='RAM']
+ * @param {number} [opts.refreshInterval=10]
+ * @param {object} [opts.backgroundColor]
+ * @param {string} [opts.backgroundType='ROUND_RECT']
+ * @returns {object} RadialGauge DTO
+ */
+export function ramGaugeSizeChart({
+  name = 'RAM',
+  refreshInterval = 10,
+  backgroundColor = { type: 'Fill', primaryColor: '#1A1A2E' },
+  backgroundType = 'ROUND_RECT',
+} = {}) {
+  const entries = store.last('memory', 1);
+  const snap = entries[0]?.value ?? { usedBytes: 0, totalBytes: 1 };
+
+  const usedMB  = snap.usedBytes  / 1024 / 1024;
+  const totalMB = snap.totalBytes / 1024 / 1024;
+
+  const useGB = usedMB >= 1024;
+  const value    = useGB ? parseFloat((usedMB  / 1024).toFixed(1)) : Math.round(usedMB);
+  const maxValue = useGB ? parseFloat((totalMB / 1024).toFixed(1)) : Math.round(totalMB);
+  const unit     = useGB ? 'GB' : 'MB';
+
+  const t60  = useGB ? parseFloat(((totalMB * 0.60) / 1024).toFixed(1)) : Math.round(totalMB * 0.60);
+  const t85  = useGB ? parseFloat(((totalMB * 0.85) / 1024).toFixed(1)) : Math.round(totalMB * 0.85);
+
+  return makeRadialGauge({
+    name,
+    value,
+    minValue: 0,
+    maxValue,
+    thresholds: [
+      { value: t60,      color: { type: 'Fill', primaryColor: '#00FF88' } },
+      { value: t85,      color: { type: 'Fill', primaryColor: '#FF8C00' } },
+      { value: maxValue, color: { type: 'Fill', primaryColor: '#FF4444' } },
+    ],
+    gaugeColor: gradient.neon,
+    gaugeBackgroundColor: fill.dimWhiteLow,
+    gapAngle: 120,
+    lineWidth: 14,
+    label: 'RAM',
+    unit,
     backgroundColor,
     backgroundType,
     refreshInterval,

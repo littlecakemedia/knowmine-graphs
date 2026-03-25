@@ -238,6 +238,7 @@ export interface RadialGaugePayload {
   showTicks: boolean;
   showGlow: boolean;
   label: string | null;
+  unit: string | null;
   nameFont: FontModel | null;
   namePosition: NamePosition;
 }
@@ -467,6 +468,7 @@ export declare function makeRadialGauge(opts: {
   showTicks?: boolean;
   showGlow?: boolean;
   label?: string | null;
+  unit?: string | null;
   nameFont?: FontModel | null;
   namePosition?: NamePosition;
   backgroundColor?: ColorSpec | null;
@@ -596,11 +598,13 @@ interface MonitoringChartBaseOpts {
 }
 
 // RAM charts
-export declare function ramGaugeChart(opts?: MonitoringChartBaseOpts): RadialGaugeDTO;
+export declare function ramGaugePercentChart(opts?: MonitoringChartBaseOpts): RadialGaugeDTO;
+export declare function ramGaugeSizeChart(opts?: MonitoringChartBaseOpts): RadialGaugeDTO;
 export declare function ramAreaChart(opts?: MonitoringChartBaseOpts & { maxPoints?: number }): AreaChartDTO;
 export declare function ramKPIChart(opts?: MonitoringChartBaseOpts & { maxPoints?: number }): KPIMetricDTO;
 
 // Swap charts
 export declare function swapKPIChart(opts?: MonitoringChartBaseOpts & { maxPoints?: number }): KPIMetricDTO;
-export declare function swapGaugeChart(opts?: MonitoringChartBaseOpts): RadialGaugeDTO;
+export declare function swapGaugePercentChart(opts?: MonitoringChartBaseOpts): RadialGaugeDTO;
+export declare function swapGaugeSizeChart(opts?: MonitoringChartBaseOpts): RadialGaugeDTO;
 export declare function swapAreaChart(opts?: MonitoringChartBaseOpts & { maxPoints?: number }): AreaChartDTO;

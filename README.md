@@ -672,11 +672,13 @@ Every function accepts an optional configuration object — all parameters are o
 | Function | Returns | Requires collector | Platform |
 |----------|---------|-------------------|----------|
 | `cpuTimeSeriesChart` | `TimeSeriesLineChart` | `cpu` | All |
-| `ramGaugeChart` | `RadialGauge` | `memory` | All |
+| `ramGaugePercentChart` | `RadialGauge` | `memory` | All |
+| `ramGaugeSizeChart` | `RadialGauge` | `memory` | All |
 | `ramAreaChart` | `AreaChart` | `memory` | All |
 | `ramKPIChart` | `KPIMetric` | `memory` | All |
 | `swapKPIChart` | `KPIMetric` | `swap` | Linux |
-| `swapGaugeChart` | `RadialGauge` | `swap` | Linux |
+| `swapGaugePercentChart` | `RadialGauge` | `swap` | Linux |
+| `swapGaugeSizeChart` | `RadialGauge` | `swap` | Linux |
 | `swapAreaChart` | `AreaChart` | `swap` | Linux |
 | `heapKPIChart` | `KPIMetric` | `memory` | All |
 | `heapAreaChart` | `AreaChart` | `memory` | All |
@@ -722,13 +724,32 @@ Grid is enabled by default.
 
 ---
 
-#### `ramGaugeChart(opts?)`
+#### `ramGaugePercentChart(opts?)`
 
-Radial gauge showing current system RAM usage percentage with color thresholds
-(green < 60 %, orange < 85 %, red ≤ 100 %).
+Radial gauge showing current system RAM usage as a **percentage** (0–100, `unit: '%'`).
+Color thresholds: green < 60 %, orange < 85 %, red ≤ 100 %.
 
 ```js
-ramGaugeChart({
+ramGaugePercentChart({
+  name: 'RAM',          // string — default: 'RAM'
+  refreshInterval,      // number — default: 10
+  backgroundColor,      // ColorSpec — default: Fill #1A1A2E
+  backgroundType,       // string — default: 'ROUND_RECT'
+})
+```
+
+#### `ramGaugeSizeChart(opts?)`
+
+Radial gauge showing current system RAM usage as an **absolute value** with auto-selected unit:
+- `unit: 'MB'` (integer) when used RAM < 1024 MB
+- `unit: 'GB'` (1 decimal, e.g. `1.4 GB`) when used RAM ≥ 1 GB
+
+The gauge scale (min/max) always matches the chosen unit.
+Color thresholds mirror `ramGaugePercentChart` (60 %/85 %/100 % of total RAM).
+Label is always `'RAM'`.
+
+```js
+ramGaugeSizeChart({
   name: 'RAM',          // string — default: 'RAM'
   refreshInterval,      // number — default: 10
   backgroundColor,      // ColorSpec — default: Fill #1A1A2E
@@ -784,14 +805,34 @@ swapKPIChart({
 })
 ```
 
-#### `swapGaugeChart(opts?)` *(Linux only)*
+#### `swapGaugePercentChart(opts?)` *(Linux only)*
 
-Radial gauge showing current swap usage percentage with color thresholds
-(green < 30 %, orange < 70 %, red ≤ 100 %).
-Returns a gauge labeled `'N/A'` on non-Linux platforms or when no swap is configured.
+Radial gauge showing current swap usage as a **percentage** (0–100, `unit: '%'`).
+Color thresholds: green < 30 %, orange < 70 %, red ≤ 100 %.
+Returns a placeholder gauge (label `'N/A'`, `unit: null`) on non-Linux platforms or when no swap is configured.
 
 ```js
-swapGaugeChart({
+swapGaugePercentChart({
+  name: 'Swap',         // string — default: 'Swap'
+  refreshInterval,      // number — default: 10
+  backgroundColor,      // ColorSpec
+  backgroundType,       // string — default: 'ROUND_RECT'
+})
+```
+
+#### `swapGaugeSizeChart(opts?)` *(Linux only)*
+
+Radial gauge showing current swap usage as an **absolute value** with auto-selected unit:
+- `unit: 'MB'` (integer) when used swap < 1024 MB
+- `unit: 'GB'` (1 decimal, e.g. `1.4 GB`) when used swap ≥ 1 GB
+
+The gauge scale (min/max) always matches the chosen unit.
+Color thresholds mirror `swapGaugePercentChart` (30 %/70 %/100 % of total swap).
+Label is always `'SWAP'`.
+Returns a placeholder gauge (label `'N/A'`, `unit: null`) on non-Linux platforms or when no swap is configured.
+
+```js
+swapGaugeSizeChart({
   name: 'Swap',         // string — default: 'Swap'
   refreshInterval,      // number — default: 10
   backgroundColor,      // ColorSpec
@@ -1022,7 +1063,7 @@ gcFrequencyAreaChart({
 ```js
 import { startMonitoring } from 'knowmine-graphs/monitoring';
 import {
-  cpuTimeSeriesChart, ramGaugeChart, heapKPIChart,
+  cpuTimeSeriesChart, ramGaugePercentChart, ramGaugeSizeChart, heapKPIChart,
   loadAverageGaugeChart, eventLoopGaugeChart,
   gcPauseBarChart,
 } from 'knowmine-graphs/monitoring';
@@ -1031,7 +1072,7 @@ startMonitoring({ intervalMs: 10000, bufferSize: 360 });
 
 // Express routes — each returns a KnowMine-compatible DTO
 app.get('/widgets/cpu',        (req, res) => res.json(cpuTimeSeriesChart()));
-app.get('/widgets/memory',     (req, res) => res.json(ramGaugeChart()));
+app.get('/widgets/memory',     (req, res) => res.json(ramGaugePercentChart()));
 app.get('/widgets/heap',       (req, res) => res.json(heapKPIChart()));
 app.get('/widgets/load',       (req, res) => res.json(loadAverageGaugeChart()));
 app.get('/widgets/event-loop', (req, res) => res.json(eventLoopGaugeChart()));
