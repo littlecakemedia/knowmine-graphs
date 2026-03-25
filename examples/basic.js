@@ -23,7 +23,7 @@ import {
 // --- BarChart ---
 
 const barChart = makeBarChart({
-  nome: 'Monthly Sales',
+  name: 'Monthly Sales',
   values: [8, 14, 10, 18, 12, 22],
   barColor: gradient.blue,
   highlightIndex: 5,
@@ -42,7 +42,7 @@ console.log('BarChart:', JSON.stringify(barChart, null, 2));
 // --- PieChart ---
 
 const pieChart = makePieChart({
-  nome: 'Expense Breakdown',
+  name: 'Expense Breakdown',
   slices: [
     makeSlice({ value: 40, color: gradient.blue, label: 'Rent', labelColor: solidColor('#00FFFF') }),
     makeSlice({ value: 35, color: gradient.sunset, label: 'Food', labelColor: solidColor('#FF8C00') }),
@@ -58,7 +58,7 @@ console.log('\nPieChart:', JSON.stringify(pieChart, null, 2));
 // --- AreaChart ---
 
 const areaChart = makeAreaChart({
-  nome: 'Weekly Temperature',
+  name: 'Weekly Temperature',
   values: [12, 15, 13, 18, 16, 22, 20],
   lineColor: solidColor('#00FFFF'),
   areaColor: fadeToTransparent('#00FFFF'),
@@ -74,7 +74,7 @@ console.log('\nAreaChart:', JSON.stringify(areaChart, null, 2));
 // --- RadialGauge ---
 
 const gauge = makeRadialGauge({
-  nome: 'CPU Usage',
+  name: 'CPU Usage',
   value: 72,
   minValue: 0,
   maxValue: 100,
@@ -95,7 +95,7 @@ console.log('\nRadialGauge:', JSON.stringify(gauge, null, 2));
 // --- CircularProgress ---
 
 const progress = makeCircularProgress({
-  nome: 'Goal Completion',
+  name: 'Goal Completion',
   progress: 0.72,
   label: '72%',
   caption: 'Goal',
@@ -110,7 +110,7 @@ console.log('\nCircularProgress:', JSON.stringify(progress, null, 2));
 // --- KPIMetric with palette key ---
 
 const kpi = makeKPIMetric({
-  nome: 'Steps Today',
+  name: 'Steps Today',
   value: 8432,
   valueColor: { type: 'Fill', primaryColor: palette.text }, // resolves to user's page text color
   unit: 'steps',

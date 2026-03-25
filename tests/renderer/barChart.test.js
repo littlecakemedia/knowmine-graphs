@@ -25,13 +25,13 @@ describe('makeBarChart', () => {
     const dto = makeBarChart({ values: [1] });
     assert.equal(dto.version, '1.0');
     assert.equal(dto.refreshInterval, 30);
-    assert.equal(dto.nome, null);
+    assert.equal(dto.name, null);
     assert.equal(dto.backgroundType, 'NONE');
   });
 
-  test('sets nome when provided', () => {
+  test('sets name when provided', () => {
     const dto = makeBarChart({ name: 'My Chart', values: [1] });
-    assert.equal(dto.nome, 'My Chart');
+    assert.equal(dto.name, 'My Chart');
   });
 
   test('sets highlightIndex and highlightColor', () => {

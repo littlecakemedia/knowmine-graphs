@@ -75,7 +75,7 @@ All widget DTOs share these top-level fields. Pass them alongside the chart-spec
 
 | Field | Type | Default | Notes |
 |-------|------|---------|-------|
-| `nome` | `string\|null` | `null` | Display name shown in the dashboard (user-overridable in-app) |
+| `name` | `string\|null` | `null` | Display name shown in the dashboard (user-overridable in-app) |
 | `version` | `string` | `'1.0'` | DTO format version — reserved for future compatibility |
 | `refreshInterval` | `number` | `30` | Auto-refresh interval in seconds. Min: 5, Max: 60 |
 | `backgroundColor` | `ColorSpec\|null` | `null` | Background color of the widget container |

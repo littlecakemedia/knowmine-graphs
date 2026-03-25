@@ -6,6 +6,24 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## [2.0.0] — 2026-03-25
+
+### Breaking Changes
+
+- **`dto.nome` → `dto.name`** in the response envelope — the JSON field returned by all renderer functions is now `name` instead of `nome`. Any consumer reading `dto.nome` must update to `dto.name`. This applies to all chart types.
+
+### Migration
+
+```json
+// Before (1.x)
+{ "nome": "Widget Title", "type": "BarChart", ... }
+
+// After (2.0)
+{ "name": "Widget Title", "type": "BarChart", ... }
+```
+
+---
+
 ## [1.1.0] — 2026-03-25
 
 ### Added

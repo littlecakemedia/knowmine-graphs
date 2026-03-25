@@ -15,7 +15,7 @@ export function buildEnvelope({
   shadowColor = null,
 }) {
   return {
-    nome: name,
+    name,
     type,
     version,
     payload,

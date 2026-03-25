@@ -57,7 +57,7 @@ export type BackgroundType =
 
 /** Common envelope fields present on every widget DTO. */
 export interface WidgetEnvelope {
-  nome: string | null;
+  name: string | null;
   type: string;
   version: string | null;
   refreshInterval: number;
