@@ -339,7 +339,7 @@ export type AnyWidgetDTO =
 
 export declare function makeBarChart(opts: Partial<BarChartPayload> & {
   values: number[];
-  nome?: string | null;
+  name?: string | null;
   backgroundColor?: ColorSpec | null;
   backgroundType?: BackgroundType;
   borderColor?: ColorString | null;
@@ -349,7 +349,7 @@ export declare function makeBarChart(opts: Partial<BarChartPayload> & {
 
 export declare function makePieChart(opts: {
   slices: SliceSpec[];
-  nome?: string | null;
+  name?: string | null;
   innerRadiusRatio?: number;
   sliceSpacing?: number;
   outerPadding?: number;
@@ -376,7 +376,7 @@ export declare function makeAreaChart(opts: {
   values: number[];
   lineColor?: ColorSpec;
   areaColor?: ColorSpec;
-  nome?: string | null;
+  name?: string | null;
   baselineValue?: number | null;
   glowColor?: ColorSpec | null;
   lineWidth?: number;
@@ -402,7 +402,7 @@ export declare function makeTimeSeriesLineChart(opts: {
   values: number[];
   lineColor?: ColorSpec;
   areaColor?: ColorSpec;
-  nome?: string | null;
+  name?: string | null;
   gridColor?: ColorSpec | null;
   glowColor?: ColorSpec | null;
   lineWidth?: number;
@@ -429,7 +429,7 @@ export declare function makeTimeSeriesLineChart(opts: {
 
 export declare function makeStackedBarChart(opts: {
   series: SeriesSpec[];
-  nome?: string | null;
+  name?: string | null;
   cornerRadius?: number;
   barSpacing?: number;
   showGlow?: boolean;
@@ -456,7 +456,7 @@ export declare function makeRadialGauge(opts: {
   minValue: number;
   maxValue: number;
   gaugeColor?: ColorSpec;
-  nome?: string | null;
+  name?: string | null;
   thresholds?: ThresholdSpec[];
   gaugeBackgroundColor?: ColorSpec | null;
   glowColor?: ColorSpec | null;
@@ -482,7 +482,7 @@ export declare function makeRadialGaugeLarge(opts: {
   gauge1: GaugeSpec;
   gauge2: GaugeSpec;
   gauge3?: GaugeSpec | null;
-  nome?: string | null;
+  name?: string | null;
   nameFont?: FontModel | null;
   namePosition?: NamePosition;
   backgroundColor?: ColorSpec | null;
@@ -495,7 +495,7 @@ export declare function makeRadialGaugeLarge(opts: {
 export declare function makeCircularProgress(opts: {
   progress: number;
   ringColor?: ColorSpec;
-  nome?: string | null;
+  name?: string | null;
   label?: string | null;
   ringBackgroundColor?: ColorSpec | null;
   valueColor?: ColorSpec | null;
@@ -517,7 +517,7 @@ export declare function makeCircularProgress(opts: {
 export declare function makeKPIMetric(opts: {
   value: number;
   valueColor?: ColorSpec;
-  nome?: string | null;
+  name?: string | null;
   unit?: string | null;
   trendPercentage?: number | null;
   trendDirection?: 'up' | 'down' | 'neutral';
@@ -567,6 +567,7 @@ export declare function isValidationEnabled(): boolean;
 export type CollectorName =
   | 'cpu'
   | 'memory'
+  | 'swap'
   | 'diskIO'
   | 'network'
   | 'diskUsage'
@@ -585,3 +586,21 @@ export declare function startMonitoring(opts?: {
 
 export declare function stopMonitoring(): void;
 export declare function isMonitoring(): boolean;
+
+// Monitoring chart options shared shape
+interface MonitoringChartBaseOpts {
+  name?: string;
+  refreshInterval?: number;
+  backgroundColor?: ColorSpec;
+  backgroundType?: BackgroundType;
+}
+
+// RAM charts
+export declare function ramGaugeChart(opts?: MonitoringChartBaseOpts): RadialGaugeDTO;
+export declare function ramAreaChart(opts?: MonitoringChartBaseOpts & { maxPoints?: number }): AreaChartDTO;
+export declare function ramKPIChart(opts?: MonitoringChartBaseOpts & { maxPoints?: number }): KPIMetricDTO;
+
+// Swap charts
+export declare function swapKPIChart(opts?: MonitoringChartBaseOpts & { maxPoints?: number }): KPIMetricDTO;
+export declare function swapGaugeChart(opts?: MonitoringChartBaseOpts): RadialGaugeDTO;
+export declare function swapAreaChart(opts?: MonitoringChartBaseOpts & { maxPoints?: number }): AreaChartDTO;

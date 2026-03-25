@@ -1,7 +1,6 @@
 /**
- * Ready-to-use system memory usage chart.
- * Returns a RadialGaugeLarge DTO with RAM usage gauge and a secondary KPI.
- * Also exports memoryAreaChart() for a time-series area view.
+ * Ready-to-use system RAM usage charts.
+ * Exports ramGaugeChart(), ramKPIChart(), ramAreaChart() — all scoped to RAM/memory.
  */
 
 import { store } from '../store/memoryStore.js';
@@ -14,14 +13,14 @@ import { makeYAxisLabels, formatBytes } from '../../helpers/normalize.js';
 /**
  * Returns a RadialGauge DTO showing current RAM usage percentage.
  * @param {object} [opts]
- * @param {string} [opts.nome='Memory']
+ * @param {string} [opts.name='RAM']
  * @param {number} [opts.refreshInterval=10]
  * @param {object} [opts.backgroundColor]
  * @param {string} [opts.backgroundType='ROUND_RECT']
  * @returns {object} RadialGauge DTO
  */
-export function memoryGaugeChart({
-  nome = 'Memory',
+export function ramGaugeChart({
+  name = 'RAM',
   refreshInterval = 10,
   backgroundColor = { type: 'Fill', primaryColor: '#1A1A2E' },
   backgroundType = 'ROUND_RECT',
@@ -30,7 +29,7 @@ export function memoryGaugeChart({
   const snap = entries[0]?.value ?? { usedPercent: 0 };
 
   return makeRadialGauge({
-    nome,
+    name,
     value: snap.usedPercent ?? 0,
     minValue: 0,
     maxValue: 100,
@@ -53,7 +52,7 @@ export function memoryGaugeChart({
 /**
  * Returns a KPIMetric DTO showing current system RAM used in MB with a sparkline.
  * @param {object} [opts]
- * @param {string} [opts.nome='RAM Used']
+ * @param {string} [opts.name='RAM Used']
  * @param {number} [opts.maxPoints=30]
  * @param {number} [opts.refreshInterval=10]
  * @param {object} [opts.backgroundColor]
@@ -61,7 +60,7 @@ export function memoryGaugeChart({
  * @returns {object} KPIMetric DTO
  */
 export function ramKPIChart({
-  nome = 'RAM Used',
+  name = 'RAM Used',
   maxPoints = 30,
   refreshInterval = 10,
   backgroundColor = { type: 'Fill', primaryColor: '#1A1A2E' },
@@ -82,7 +81,7 @@ export function ramKPIChart({
     : 'neutral';
 
   return makeKPIMetric({
-    nome,
+    name,
     value: parseFloat(usedMB.toFixed(0)),
     valueColor: { type: 'Fill', primaryColor: '#FFFFFF' },
     unit: 'MB',
@@ -101,17 +100,17 @@ export function ramKPIChart({
 }
 
 /**
- * Returns a time-series AreaChart of RAM usage over time.
+ * Returns a time-series AreaChart of RAM usage percentage over time.
  * @param {object} [opts]
- * @param {string} [opts.nome='RAM Usage']
+ * @param {string} [opts.name='RAM Usage']
  * @param {number} [opts.maxPoints=60]
  * @param {number} [opts.refreshInterval=10]
  * @param {object} [opts.backgroundColor]
  * @param {string} [opts.backgroundType='ROUND_RECT']
  * @returns {object} AreaChart DTO
  */
-export function memoryAreaChart({
-  nome = 'RAM Usage',
+export function ramAreaChart({
+  name = 'RAM Usage',
   maxPoints = 60,
   refreshInterval = 10,
   backgroundColor = { type: 'Fill', primaryColor: '#1A1A2E' },
@@ -123,7 +122,7 @@ export function memoryAreaChart({
     : [0, 0];
 
   return makeAreaChart({
-    nome,
+    name,
     values,
     lineColor: { type: 'Fill', primaryColor: '#00FFCC' },
     areaColor: fadeToTransparent('#00FFCC'),

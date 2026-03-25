@@ -10,7 +10,7 @@ import { makeYAxisLabels } from '../../helpers/normalize.js';
 
 /**
  * @param {object} [opts]
- * @param {string} [opts.nome='CPU Usage']
+ * @param {string} [opts.name='CPU Usage']
  * @param {number} [opts.maxPoints=60] - Number of recent samples to display
  * @param {object} [opts.lineColor]
  * @param {object} [opts.areaColor]
@@ -19,8 +19,8 @@ import { makeYAxisLabels } from '../../helpers/normalize.js';
  * @param {number} [opts.refreshInterval=10]
  * @returns {object} TimeSeriesLineChart DTO
  */
-export function cpuChart({
-  nome = 'CPU Usage',
+export function cpuTimeSeriesChart({
+  name = 'CPU Usage',
   maxPoints = 60,
   lineColor = gradient.blue,
   areaColor = fadeToTransparent('#00FFFF'),
@@ -32,7 +32,7 @@ export function cpuChart({
   const values = entries.length ? entries.map(e => e.value) : [0, 0];
 
   return makeTimeSeriesLineChart({
-    nome,
+    name,
     values,
     lineColor,
     areaColor,

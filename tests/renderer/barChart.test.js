@@ -30,7 +30,7 @@ describe('makeBarChart', () => {
   });
 
   test('sets nome when provided', () => {
-    const dto = makeBarChart({ nome: 'My Chart', values: [1] });
+    const dto = makeBarChart({ name: 'My Chart', values: [1] });
     assert.equal(dto.nome, 'My Chart');
   });
 

@@ -18,7 +18,7 @@ function toKB(bytes) {
 /**
  * Returns an AreaChart showing inbound (RX) bandwidth in KB/s.
  * @param {object} [opts]
- * @param {string} [opts.nome='Network RX']
+ * @param {string} [opts.name='Network RX']
  * @param {number} [opts.maxPoints=60]
  * @param {number} [opts.refreshInterval=10]
  * @param {object} [opts.backgroundColor]
@@ -26,7 +26,7 @@ function toKB(bytes) {
  * @returns {object} AreaChart DTO
  */
 export function networkRxChart({
-  nome = 'Network RX',
+  name = 'Network RX',
   maxPoints = 60,
   refreshInterval = 10,
   backgroundColor = { type: 'Fill', primaryColor: '#1A1A2E' },
@@ -35,14 +35,14 @@ export function networkRxChart({
   const entries = store.last('network', maxPoints);
 
   if (!entries.length || entries[0]?.value?.supported === false) {
-    return makeKPIMetric({ nome, value: 0, valueColor: fill.dimWhite, unit: 'N/A', backgroundColor, backgroundType, refreshInterval });
+    return makeKPIMetric({ name, value: 0, valueColor: fill.dimWhite, unit: 'N/A', backgroundColor, backgroundType, refreshInterval });
   }
 
   const values = entries.map(e => toKB(e.value?.rxBytesPerSec ?? 0));
   const max = Math.max(...values, 1);
 
   return makeAreaChart({
-    nome,
+    name,
     values,
     lineColor: solidColor('#00FFCC'),
     areaColor: fadeToTransparent('#00FFCC'),
@@ -58,7 +58,7 @@ export function networkRxChart({
 /**
  * Returns an AreaChart showing outbound (TX) bandwidth in KB/s.
  * @param {object} [opts]
- * @param {string} [opts.nome='Network TX']
+ * @param {string} [opts.name='Network TX']
  * @param {number} [opts.maxPoints=60]
  * @param {number} [opts.refreshInterval=10]
  * @param {object} [opts.backgroundColor]
@@ -66,7 +66,7 @@ export function networkRxChart({
  * @returns {object} AreaChart DTO
  */
 export function networkTxChart({
-  nome = 'Network TX',
+  name = 'Network TX',
   maxPoints = 60,
   refreshInterval = 10,
   backgroundColor = { type: 'Fill', primaryColor: '#1A1A2E' },
@@ -75,14 +75,14 @@ export function networkTxChart({
   const entries = store.last('network', maxPoints);
 
   if (!entries.length || entries[0]?.value?.supported === false) {
-    return makeKPIMetric({ nome, value: 0, valueColor: fill.dimWhite, unit: 'N/A', backgroundColor, backgroundType, refreshInterval });
+    return makeKPIMetric({ name, value: 0, valueColor: fill.dimWhite, unit: 'N/A', backgroundColor, backgroundType, refreshInterval });
   }
 
   const values = entries.map(e => toKB(e.value?.txBytesPerSec ?? 0));
   const max = Math.max(...values, 1);
 
   return makeAreaChart({
-    nome,
+    name,
     values,
     lineColor: solidColor('#FF8C00'),
     areaColor: fadeToTransparent('#FF8C00'),

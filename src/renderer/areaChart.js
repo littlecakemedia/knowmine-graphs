@@ -11,7 +11,7 @@ import { gradient, fadeToTransparent, fill } from '../helpers/colors.js';
 
 /**
  * @param {object} opts
- * @param {string|null} [opts.nome]
+ * @param {string|null} [opts.name]
  * @param {number[]} opts.values - Chronological values (minimum 2)
  * @param {import('../../types.d.ts').ColorSpec} opts.lineColor
  * @param {import('../../types.d.ts').ColorSpec} opts.areaColor - Gradient fill (opaque → transparent)
@@ -37,7 +37,7 @@ import { gradient, fadeToTransparent, fill } from '../helpers/colors.js';
  * @returns {import('../../types.d.ts').AreaChartDTO}
  */
 export function makeAreaChart({
-  nome = null,
+  name = null,
   values,
   lineColor = { type: 'Fill', primaryColor: '#00FFFF' },
   areaColor = fadeToTransparent('#00FFFF'),
@@ -85,7 +85,7 @@ export function makeAreaChart({
     namePosition,
   };
 
-  return buildEnvelope({ nome, type: 'AreaChart', payload, refreshInterval, backgroundColor, backgroundType, borderColor, shadowColor });
+  return buildEnvelope({ name, type: 'AreaChart', payload, refreshInterval, backgroundColor, backgroundType, borderColor, shadowColor });
 }
 
 makeAreaChart.fromDTO = (dto) => dto;

@@ -4,7 +4,7 @@
  * @internal
  */
 export function buildEnvelope({
-  nome = null,
+  name = null,
   type,
   version = '1.0',
   payload,
@@ -15,7 +15,7 @@ export function buildEnvelope({
   shadowColor = null,
 }) {
   return {
-    nome,
+    nome: name,
     type,
     version,
     payload,

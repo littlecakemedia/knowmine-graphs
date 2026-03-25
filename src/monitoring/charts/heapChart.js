@@ -13,7 +13,7 @@ import { makeYAxisLabels, formatBytes } from '../../helpers/normalize.js';
 /**
  * Returns a KPIMetric DTO for current heap used vs heap total.
  * @param {object} [opts]
- * @param {string} [opts.nome='Heap']
+ * @param {string} [opts.name='Heap']
  * @param {number} [opts.maxPoints=30]
  * @param {number} [opts.refreshInterval=10]
  * @param {object} [opts.backgroundColor]
@@ -21,7 +21,7 @@ import { makeYAxisLabels, formatBytes } from '../../helpers/normalize.js';
  * @returns {object} KPIMetric DTO
  */
 export function heapKPIChart({
-  nome = 'Heap',
+  name = 'Heap',
   maxPoints = 30,
   refreshInterval = 10,
   backgroundColor = { type: 'Fill', primaryColor: '#1A1A2E' },
@@ -40,7 +40,7 @@ export function heapKPIChart({
   const trendDir = previous ? (current_ > previous ? 'up' : current_ < previous ? 'down' : 'neutral') : 'neutral';
 
   return makeKPIMetric({
-    nome,
+    name,
     value: parseFloat(heapUsedMB.toFixed(1)),
     valueColor: { type: 'Fill', primaryColor: '#FFFFFF' },
     unit: 'MB',
@@ -61,7 +61,7 @@ export function heapKPIChart({
 /**
  * Returns an AreaChart of heap used (in MB) over time.
  * @param {object} [opts]
- * @param {string} [opts.nome='Heap Used']
+ * @param {string} [opts.name='Heap Used']
  * @param {number} [opts.maxPoints=60]
  * @param {number} [opts.refreshInterval=10]
  * @param {object} [opts.backgroundColor]
@@ -69,7 +69,7 @@ export function heapKPIChart({
  * @returns {object} AreaChart DTO
  */
 export function heapAreaChart({
-  nome = 'Heap Used',
+  name = 'Heap Used',
   maxPoints = 60,
   refreshInterval = 10,
   backgroundColor = { type: 'Fill', primaryColor: '#1A1A2E' },
@@ -83,7 +83,7 @@ export function heapAreaChart({
   const max = Math.max(...values, 1);
 
   return makeAreaChart({
-    nome,
+    name,
     values,
     lineColor: { type: 'Fill', primaryColor: '#CC66FF' },
     areaColor: fadeToTransparent('#CC66FF'),

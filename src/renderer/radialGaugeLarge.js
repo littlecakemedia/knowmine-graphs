@@ -10,7 +10,7 @@ import { buildEnvelope } from './_envelope.js';
 
 /**
  * @param {object} opts
- * @param {string|null} [opts.nome]
+ * @param {string|null} [opts.name]
  * @param {import('../../types.d.ts').GaugeSpec} opts.gauge1 - Left gauge
  * @param {import('../../types.d.ts').GaugeSpec} opts.gauge2 - Center (3) or right (2) gauge
  * @param {import('../../types.d.ts').GaugeSpec|null} [opts.gauge3] - Optional right gauge
@@ -24,7 +24,7 @@ import { buildEnvelope } from './_envelope.js';
  * @returns {import('../../types.d.ts').RadialGaugeLargeDTO}
  */
 export function makeRadialGaugeLarge({
-  nome = null,
+  name = null,
   gauge1,
   gauge2,
   gauge3 = null,
@@ -44,7 +44,7 @@ export function makeRadialGaugeLarge({
     namePosition,
   };
 
-  return buildEnvelope({ nome, type: 'RadialGaugeLarge', payload, refreshInterval, backgroundColor, backgroundType, borderColor, shadowColor });
+  return buildEnvelope({ name, type: 'RadialGaugeLarge', payload, refreshInterval, backgroundColor, backgroundType, borderColor, shadowColor });
 }
 
 makeRadialGaugeLarge.fromDTO = (dto) => dto;

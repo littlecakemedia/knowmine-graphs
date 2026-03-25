@@ -17,14 +17,14 @@ const cpuCount = os.cpus().length;
  * Returns a BarChart DTO showing the last 1m, 5m, 15m load averages as bars.
  * The max scale is the number of CPU cores (load > cores = overloaded).
  * @param {object} [opts]
- * @param {string} [opts.nome='Load Average']
+ * @param {string} [opts.name='Load Average']
  * @param {number} [opts.refreshInterval=30]
  * @param {object} [opts.backgroundColor]
  * @param {string} [opts.backgroundType='ROUND_RECT']
  * @returns {object} BarChart DTO
  */
 export function loadAverageBarChart({
-  nome = 'Load Average',
+  name = 'Load Average',
   refreshInterval = 30,
   backgroundColor = { type: 'Fill', primaryColor: '#1A1A2E' },
   backgroundType = 'ROUND_RECT',
@@ -34,7 +34,7 @@ export function loadAverageBarChart({
 
   if (!snap?.supported) {
     return makeKPIMetric({
-      nome,
+      name,
       value: 0,
       valueColor: fill.dimWhite,
       unit: 'N/A',
@@ -45,7 +45,7 @@ export function loadAverageBarChart({
   }
 
   return makeBarChart({
-    nome,
+    name,
     values: [snap.one, snap.five, snap.fifteen],
     labels: ['1m', '5m', '15m'],
     barColor: gradient.neon,
@@ -64,14 +64,14 @@ export function loadAverageBarChart({
  * Returns a RadialGaugeLarge DTO with 3 gauges: 1m / 5m / 15m load.
  * Scale max = number of CPU cores.
  * @param {object} [opts]
- * @param {string} [opts.nome='System Load']
+ * @param {string} [opts.name='System Load']
  * @param {number} [opts.refreshInterval=30]
  * @param {object} [opts.backgroundColor]
  * @param {string} [opts.backgroundType='ROUND_RECT']
  * @returns {object} RadialGaugeLarge DTO
  */
 export function loadAverageGaugeChart({
-  nome = 'System Load',
+  name = 'System Load',
   refreshInterval = 30,
   backgroundColor = { type: 'Fill', primaryColor: '#1A1A2E' },
   backgroundType = 'ROUND_RECT',
@@ -80,7 +80,7 @@ export function loadAverageGaugeChart({
   const snap = entries[0]?.value;
 
   if (!snap?.supported) {
-    return makeKPIMetric({ nome, value: 0, valueColor: fill.dimWhite, unit: 'N/A', backgroundColor, backgroundType, refreshInterval });
+    return makeKPIMetric({ name, value: 0, valueColor: fill.dimWhite, unit: 'N/A', backgroundColor, backgroundType, refreshInterval });
   }
 
   const gaugeSpec = (value, label) => ({
@@ -101,7 +101,7 @@ export function loadAverageGaugeChart({
   });
 
   return makeRadialGaugeLarge({
-    nome,
+    name,
     gauge1: gaugeSpec(snap.one, '1m'),
     gauge2: gaugeSpec(snap.five, '5m'),
     gauge3: gaugeSpec(snap.fifteen, '15m'),

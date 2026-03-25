@@ -12,7 +12,7 @@ import { gradient, fadeToTransparent, fill } from '../helpers/colors.js';
 
 /**
  * @param {object} opts
- * @param {string|null} [opts.nome]
+ * @param {string|null} [opts.name]
  * @param {number[]} opts.values - Chronologically ordered values (minimum 2)
  * @param {import('../../types.d.ts').ColorSpec} opts.lineColor - Horizontal gradient on the line
  * @param {import('../../types.d.ts').ColorSpec} opts.areaColor - Vertical gradient fill below the line
@@ -41,7 +41,7 @@ import { gradient, fadeToTransparent, fill } from '../helpers/colors.js';
  * @returns {import('../../types.d.ts').TimeSeriesLineChartDTO}
  */
 export function makeTimeSeriesLineChart({
-  nome = null,
+  name = null,
   values,
   lineColor = gradient.blue,
   areaColor = fadeToTransparent('#00FFFF'),
@@ -95,7 +95,7 @@ export function makeTimeSeriesLineChart({
     namePosition,
   };
 
-  return buildEnvelope({ nome, type: 'TimeSeriesLineChart', payload, refreshInterval, backgroundColor, backgroundType, borderColor, shadowColor });
+  return buildEnvelope({ name, type: 'TimeSeriesLineChart', payload, refreshInterval, backgroundColor, backgroundType, borderColor, shadowColor });
 }
 
 makeTimeSeriesLineChart.fromDTO = (dto) => dto;

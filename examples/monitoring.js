@@ -9,8 +9,8 @@
 
 import { startMonitoring, stopMonitoring } from '../src/monitoring/startMonitoring.js';
 import {
-  cpuChart,
-  memoryGaugeChart, memoryAreaChart,
+  cpuTimeSeriesChart,
+  ramGaugeChart, ramAreaChart,
   heapKPIChart, heapAreaChart,
   diskIOStackedChart,
   networkRxChart, networkTxChart,
@@ -33,9 +33,9 @@ setTimeout(() => {
   console.log('\n--- Generated Chart DTOs ---\n');
 
   const charts = {
-    cpu: cpuChart({ nome: 'CPU Last 2 min', maxPoints: 30 }),
-    memoryGauge: memoryGaugeChart(),
-    memoryArea: memoryAreaChart(),
+    cpu: cpuTimeSeriesChart({ name: 'CPU Last 2 min', maxPoints: 30 }),
+    memoryGauge: ramGaugeChart(),
+    memoryArea: ramAreaChart(),
     heap: heapKPIChart(),
     heapArea: heapAreaChart(),
     eventLoopSeries: eventLoopTimeSeriesChart(),

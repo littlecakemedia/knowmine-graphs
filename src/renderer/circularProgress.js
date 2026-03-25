@@ -12,7 +12,7 @@ import { gradient, fill } from '../helpers/colors.js';
 
 /**
  * @param {object} opts
- * @param {string|null} [opts.nome]
+ * @param {string|null} [opts.name]
  * @param {number} opts.progress - Progress value from 0.0 to 1.0
  * @param {import('../../types.d.ts').ColorSpec} [opts.ringColor]
  * @param {string|null} [opts.label] - Main center text (auto-percentage if omitted)
@@ -34,7 +34,7 @@ import { gradient, fill } from '../helpers/colors.js';
  * @returns {import('../../types.d.ts').CircularProgressDTO}
  */
 export function makeCircularProgress({
-  nome = null,
+  name = null,
   progress,
   ringColor = gradient.blue,
   label = null,
@@ -73,7 +73,7 @@ export function makeCircularProgress({
     namePosition,
   };
 
-  return buildEnvelope({ nome, type: 'CircularProgress', payload, refreshInterval, backgroundColor, backgroundType, borderColor, shadowColor });
+  return buildEnvelope({ name, type: 'CircularProgress', payload, refreshInterval, backgroundColor, backgroundType, borderColor, shadowColor });
 }
 
 makeCircularProgress.fromDTO = (dto) => dto;

@@ -10,7 +10,7 @@ import { gradient } from '../helpers/colors.js';
 
 /**
  * @param {object} opts
- * @param {string|null} [opts.nome]
+ * @param {string|null} [opts.name]
  * @param {import('../../types.d.ts').SliceSpec[]} opts.slices
  * @param {number} [opts.innerRadiusRatio=0.0] - 0 = full pie, 0.5 = donut, max 0.9
  * @param {number} [opts.sliceSpacing=3]
@@ -28,7 +28,7 @@ import { gradient } from '../helpers/colors.js';
  * @returns {import('../../types.d.ts').PieChartDTO}
  */
 export function makePieChart({
-  nome = null,
+  name = null,
   slices,
   innerRadiusRatio = 0.0,
   sliceSpacing = 3,
@@ -56,7 +56,7 @@ export function makePieChart({
     namePosition,
   };
 
-  return buildEnvelope({ nome, type: 'PieChart', payload, refreshInterval, backgroundColor, backgroundType, borderColor, shadowColor });
+  return buildEnvelope({ name, type: 'PieChart', payload, refreshInterval, backgroundColor, backgroundType, borderColor, shadowColor });
 }
 
 /**

@@ -11,7 +11,7 @@ import { validateSeriesLengths, validateColorSpec } from '../helpers/validate.js
 
 /**
  * @param {object} opts
- * @param {string|null} [opts.nome]
+ * @param {string|null} [opts.name]
  * @param {import('../../types.d.ts').SeriesSpec[]} opts.series - First = bottom segment, last = top segment
  * @param {number} [opts.cornerRadius=6]
  * @param {number} [opts.barSpacing=4]
@@ -33,7 +33,7 @@ import { validateSeriesLengths, validateColorSpec } from '../helpers/validate.js
  * @returns {import('../../types.d.ts').StackedBarChartDTO}
  */
 export function makeStackedBarChart({
-  nome = null,
+  name = null,
   series,
   cornerRadius = 6,
   barSpacing = 4,
@@ -71,7 +71,7 @@ export function makeStackedBarChart({
     namePosition,
   };
 
-  return buildEnvelope({ nome, type: 'StackedBarChart', payload, refreshInterval, backgroundColor, backgroundType, borderColor, shadowColor });
+  return buildEnvelope({ name, type: 'StackedBarChart', payload, refreshInterval, backgroundColor, backgroundType, borderColor, shadowColor });
 }
 
 /**

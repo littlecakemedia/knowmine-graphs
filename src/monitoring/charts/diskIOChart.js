@@ -18,7 +18,7 @@ function toMB(bytes) {
 /**
  * Returns a StackedBarChart DTO showing disk read (bottom) and write (top) MB/s.
  * @param {object} [opts]
- * @param {string} [opts.nome='Disk I/O']
+ * @param {string} [opts.name='Disk I/O']
  * @param {number} [opts.maxPoints=30]
  * @param {number} [opts.refreshInterval=10]
  * @param {object} [opts.backgroundColor]
@@ -26,7 +26,7 @@ function toMB(bytes) {
  * @returns {object} StackedBarChart DTO
  */
 export function diskIOStackedChart({
-  nome = 'Disk I/O',
+  name = 'Disk I/O',
   maxPoints = 30,
   refreshInterval = 10,
   backgroundColor = { type: 'Fill', primaryColor: '#1A1A2E' },
@@ -36,7 +36,7 @@ export function diskIOStackedChart({
 
   if (!entries.length || entries[0]?.value?.supported === false) {
     return makeKPIMetric({
-      nome,
+      name,
       value: 0,
       valueColor: fill.dimWhite,
       unit: 'N/A',
@@ -51,7 +51,7 @@ export function diskIOStackedChart({
   const max = Math.max(...reads, ...writes, 1);
 
   return makeStackedBarChart({
-    nome,
+    name,
     series: [
       makeSeries(reads, gradient.blue),
       makeSeries(writes, gradient.sunset),
@@ -68,7 +68,7 @@ export function diskIOStackedChart({
 /**
  * Returns an AreaChart DTO of total disk throughput (read + write) over time.
  * @param {object} [opts]
- * @param {string} [opts.nome='Disk Throughput']
+ * @param {string} [opts.name='Disk Throughput']
  * @param {number} [opts.maxPoints=60]
  * @param {number} [opts.refreshInterval=10]
  * @param {object} [opts.backgroundColor]
@@ -76,7 +76,7 @@ export function diskIOStackedChart({
  * @returns {object} AreaChart DTO
  */
 export function diskIOAreaChart({
-  nome = 'Disk Throughput',
+  name = 'Disk Throughput',
   maxPoints = 60,
   refreshInterval = 10,
   backgroundColor = { type: 'Fill', primaryColor: '#1A1A2E' },
@@ -90,7 +90,7 @@ export function diskIOAreaChart({
   const max = Math.max(...values, 1);
 
   return makeAreaChart({
-    nome,
+    name,
     values,
     lineColor: { type: 'Fill', primaryColor: '#FFD700' },
     areaColor: fadeToTransparent('#FFD700'),

@@ -7,10 +7,10 @@
  * The core renderer (import from 'knowmine-graphs') does NOT require this module.
  *
  * @example
- * import { startMonitoring, cpuChart } from 'knowmine-graphs/monitoring';
+ * import { startMonitoring, cpuTimeSeriesChart } from 'knowmine-graphs/monitoring';
  *
  * startMonitoring({ intervalMs: 5000 });
- * const dto = cpuChart();
+ * const dto = cpuTimeSeriesChart();
  * res.json(dto);
  */
 
@@ -21,13 +21,13 @@ export { startMonitoring, stopMonitoring, isMonitoring, ALL_COLLECTORS } from '.
 export { store } from './store/memoryStore.js';
 
 // Charts — CPU
-export { cpuChart } from './charts/cpuChart.js';
+export { cpuTimeSeriesChart } from './charts/cpuChart.js';
 
-// Charts — Memory
-export { memoryGaugeChart, memoryAreaChart, ramKPIChart } from './charts/memoryChart.js';
+// Charts — RAM
+export { ramGaugeChart, ramAreaChart, ramKPIChart } from './charts/memoryChart.js';
 
 // Charts — Swap
-export { swapKPIChart, swapGaugeChart } from './charts/swapChart.js';
+export { swapKPIChart, swapGaugeChart, swapAreaChart } from './charts/swapChart.js';
 
 // Charts — Heap
 export { heapKPIChart, heapAreaChart } from './charts/heapChart.js';

@@ -11,7 +11,7 @@ import { gradient, fill, fadeToTransparent } from '../helpers/colors.js';
 
 /**
  * @param {object} opts
- * @param {string|null} [opts.nome]
+ * @param {string|null} [opts.name]
  * @param {number} opts.value - Primary KPI value
  * @param {import('../../types.d.ts').ColorSpec} [opts.valueColor]
  * @param {string|null} [opts.unit] - Unit of measure (e.g. 'km', 'bpm', '°C')
@@ -34,7 +34,7 @@ import { gradient, fill, fadeToTransparent } from '../helpers/colors.js';
  * @returns {import('../../types.d.ts').KPIMetricDTO}
  */
 export function makeKPIMetric({
-  nome = null,
+  name = null,
   value,
   valueColor = { type: 'Fill', primaryColor: '#FFFFFF' },
   unit = null,
@@ -74,7 +74,7 @@ export function makeKPIMetric({
     namePosition,
   };
 
-  return buildEnvelope({ nome, type: 'KPIMetric', payload, refreshInterval, backgroundColor, backgroundType, borderColor, shadowColor });
+  return buildEnvelope({ name, type: 'KPIMetric', payload, refreshInterval, backgroundColor, backgroundType, borderColor, shadowColor });
 }
 
 makeKPIMetric.fromDTO = (dto) => dto;

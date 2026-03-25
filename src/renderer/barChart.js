@@ -13,7 +13,7 @@ import { gradient } from '../helpers/colors.js';
  * Generates a BarChart DTO compatible with the KnowMine widget.
  *
  * @param {object} opts
- * @param {string|null} [opts.nome] - Widget display name
+ * @param {string|null} [opts.name] - Widget display name
  * @param {number[]} opts.values - Bar values (at least one)
  * @param {import('../../types.d.ts').ColorSpec} [opts.barColor] - Bar color/gradient
  * @param {number|null} [opts.highlightIndex] - 0-based index of the highlighted bar
@@ -38,7 +38,7 @@ import { gradient } from '../helpers/colors.js';
  * @returns {import('../../types.d.ts').BarChartDTO}
  */
 export function makeBarChart({
-  nome = null,
+  name = null,
   values,
   barColor = gradient.blue,
   highlightIndex = null,
@@ -83,7 +83,7 @@ export function makeBarChart({
     namePosition,
   };
 
-  return buildEnvelope({ nome, type: 'BarChart', payload, refreshInterval, backgroundColor, backgroundType, borderColor, shadowColor });
+  return buildEnvelope({ name, type: 'BarChart', payload, refreshInterval, backgroundColor, backgroundType, borderColor, shadowColor });
 }
 
 /**

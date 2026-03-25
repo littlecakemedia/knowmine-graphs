@@ -11,7 +11,7 @@ import { gradient, fill } from '../helpers/colors.js';
 
 /**
  * @param {object} opts
- * @param {string|null} [opts.nome]
+ * @param {string|null} [opts.name]
  * @param {number} opts.value - Current value (clamped to [minValue, maxValue])
  * @param {number} opts.minValue
  * @param {number} opts.maxValue
@@ -36,7 +36,7 @@ import { gradient, fill } from '../helpers/colors.js';
  * @returns {import('../../types.d.ts').RadialGaugeDTO}
  */
 export function makeRadialGauge({
-  nome = null,
+  name = null,
   value,
   minValue,
   maxValue,
@@ -81,7 +81,7 @@ export function makeRadialGauge({
     namePosition,
   };
 
-  return buildEnvelope({ nome, type: 'RadialGauge', payload, refreshInterval, backgroundColor, backgroundType, borderColor, shadowColor });
+  return buildEnvelope({ name, type: 'RadialGauge', payload, refreshInterval, backgroundColor, backgroundType, borderColor, shadowColor });
 }
 
 /**

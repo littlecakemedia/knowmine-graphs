@@ -36,7 +36,7 @@ All outputs comply with the KnowMine Graph Widget DTO Specification.
 import { makeBarChart, gradient, makeYAxisLabels } from 'knowmine-graphs';
 
 const dto = makeBarChart({
-  nome: 'Monthly Sales',
+  name: 'Monthly Sales',
   values: [8, 14, 10, 18, 12, 22],
   barColor: gradient.blue,
   labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
@@ -120,7 +120,7 @@ Vertical bar chart. Supports a single highlighted bar and optional Y-axis labels
 import { makeBarChart, gradient, fill, makeYAxisLabels } from 'knowmine-graphs';
 
 const dto = makeBarChart({
-  nome: 'Monthly Sales',
+  name: 'Monthly Sales',
   values: [8, 14, 10, 18, 12, 22],
   barColor: gradient.blue,
   highlightIndex: 5,
@@ -172,7 +172,7 @@ the right with up to 5 slices (extras are aggregated as "Others").
 import { makePieChart, makeSlice, gradient, solidColor } from 'knowmine-graphs';
 
 const dto = makePieChart({
-  nome: 'Expense Breakdown',
+  name: 'Expense Breakdown',
   slices: [
     makeSlice({ value: 40, color: gradient.blue,   label: 'Rent',  labelColor: solidColor('#00FFFF') }),
     makeSlice({ value: 35, color: gradient.sunset, label: 'Food',  labelColor: solidColor('#FF8C00') }),
@@ -220,7 +220,7 @@ Ideal for trends over time with emphasis on the area under the curve.
 import { makeAreaChart, solidColor, fadeToTransparent, fill, makeYAxisLabels } from 'knowmine-graphs';
 
 const dto = makeAreaChart({
-  nome: 'Weekly Temperature',
+  name: 'Weekly Temperature',
   values: [12, 15, 13, 18, 16, 22, 20],
   lineColor: solidColor('#00FFFF'),
   areaColor: fadeToTransparent('#00FFFF'),
@@ -273,7 +273,7 @@ Suited for real-time or historical data with a technical dashboard aesthetic.
 import { makeTimeSeriesLineChart, gradient, fadeToTransparent, fill, makeYAxisLabels } from 'knowmine-graphs';
 
 const dto = makeTimeSeriesLineChart({
-  nome: 'Energy Consumption',
+  name: 'Energy Consumption',
   values: [10, 13, 11, 17, 15, 20, 18, 24],
   lineColor: gradient.blue,
   areaColor: fadeToTransparent('#00FFFF'),
@@ -323,7 +323,7 @@ Corner radius is applied only to the top and bottom of the composed bar.
 import { makeStackedBarChart, makeSeries, gradient, fill, makeYAxisLabels } from 'knowmine-graphs';
 
 const dto = makeStackedBarChart({
-  nome: 'Traffic by Category',
+  name: 'Traffic by Category',
   series: [
     makeSeries([4, 6, 5, 8, 7, 9], gradient.blue),    // bottom segment
     makeSeries([3, 4, 3, 5, 4, 6], gradient.purple),   // middle segment
@@ -376,7 +376,7 @@ Color thresholds override `gaugeColor` when the value falls within their range.
 import { makeRadialGauge, makeThreshold, gradient, solidColor, fill } from 'knowmine-graphs';
 
 const dto = makeRadialGauge({
-  nome: 'CPU Usage',
+  name: 'CPU Usage',
   value: 72,
   minValue: 0,
   maxValue: 100,
@@ -433,7 +433,7 @@ const gaugeDefaults = {
 };
 
 const dto = makeRadialGaugeLarge({
-  nome: 'System Status',
+  name: 'System Status',
   gauge1: { ...gaugeDefaults, value: 72, label: 'CPU' },
   gauge2: { ...gaugeDefaults, value: 45, label: 'RAM' },
   gauge3: { ...gaugeDefaults, value: 55, maxValue: 200, gaugeColor: gradient.sunset, label: 'Disk' },
@@ -471,7 +471,7 @@ Shows a value or custom label at the center with an optional secondary caption.
 import { makeCircularProgress, gradient, fill, solidColor } from 'knowmine-graphs';
 
 const dto = makeCircularProgress({
-  nome: 'Goal Completion',
+  name: 'Goal Completion',
   progress: 0.72,
   ringColor: gradient.blue,
   ringBackgroundColor: fill.dimWhiteLow,
@@ -518,7 +518,7 @@ KPI display widget with a primary value, optional unit of measure, trend indicat
 import { makeKPIMetric, fill, solidColor, fadeToTransparent } from 'knowmine-graphs';
 
 const dto = makeKPIMetric({
-  nome: 'Steps Today',
+  name: 'Steps Today',
   value: 8432,
   valueColor: fill.white,
   unit: 'steps',
@@ -646,12 +646,13 @@ Every function accepts an optional configuration object — all parameters are o
 
 | Function | Returns | Requires collector | Platform |
 |----------|---------|-------------------|----------|
-| `cpuChart` | `TimeSeriesLineChart` | `cpu` | All |
-| `memoryGaugeChart` | `RadialGauge` | `memory` | All |
-| `memoryAreaChart` | `AreaChart` | `memory` | All |
+| `cpuTimeSeriesChart` | `TimeSeriesLineChart` | `cpu` | All |
+| `ramGaugeChart` | `RadialGauge` | `memory` | All |
+| `ramAreaChart` | `AreaChart` | `memory` | All |
 | `ramKPIChart` | `KPIMetric` | `memory` | All |
 | `swapKPIChart` | `KPIMetric` | `swap` | Linux |
 | `swapGaugeChart` | `RadialGauge` | `swap` | Linux |
+| `swapAreaChart` | `AreaChart` | `swap` | Linux |
 | `heapKPIChart` | `KPIMetric` | `memory` | All |
 | `heapAreaChart` | `AreaChart` | `memory` | All |
 | `diskIOStackedChart` | `StackedBarChart` | `diskIO` | Linux |
@@ -670,13 +671,13 @@ Every function accepts an optional configuration object — all parameters are o
 
 ---
 
-#### `cpuChart(opts?)`
+#### `cpuTimeSeriesChart(opts?)`
 
 Time-series line chart of aggregate CPU usage percentage over time.
 
 ```js
-cpuChart({
-  nome: 'CPU Usage',    // string — default: 'CPU Usage'
+cpuTimeSeriesChart({
+  name: 'CPU Usage',    // string — default: 'CPU Usage'
   maxPoints: 60,        // number — samples to display (default: 60)
   lineColor,            // ColorSpec — default: gradient.blue
   areaColor,            // ColorSpec — default: fadeToTransparent('#00FFFF')
@@ -690,27 +691,27 @@ Y-axis is fixed 0–100 (percentage). Grid is enabled by default.
 
 ---
 
-#### `memoryGaugeChart(opts?)`
+#### `ramGaugeChart(opts?)`
 
 Radial gauge showing current system RAM usage percentage with color thresholds
 (green < 60 %, orange < 85 %, red ≤ 100 %).
 
 ```js
-memoryGaugeChart({
-  nome: 'Memory',       // string — default: 'Memory'
+ramGaugeChart({
+  name: 'RAM',          // string — default: 'RAM'
   refreshInterval,      // number — default: 10
   backgroundColor,      // ColorSpec — default: Fill #1A1A2E
   backgroundType,       // string — default: 'ROUND_RECT'
 })
 ```
 
-#### `memoryAreaChart(opts?)`
+#### `ramAreaChart(opts?)`
 
 Area chart of system RAM usage percentage over time.
 
 ```js
-memoryAreaChart({
-  nome: 'RAM Usage',    // string — default: 'RAM Usage'
+ramAreaChart({
+  name: 'RAM Usage',    // string — default: 'RAM Usage'
   maxPoints: 60,        // number — default: 60
   refreshInterval,      // number — default: 10
   backgroundColor,      // ColorSpec
@@ -726,7 +727,7 @@ Value corresponds to `MEM_USED` from `free -m` on Linux.
 
 ```js
 ramKPIChart({
-  nome: 'RAM Used',     // string — default: 'RAM Used'
+  name: 'RAM Used',     // string — default: 'RAM Used'
   maxPoints: 30,        // number — samples used for sparkline (default: 30)
   refreshInterval,      // number — default: 10
   backgroundColor,      // ColorSpec
@@ -744,7 +745,7 @@ Returns a `unit: 'N/A'` placeholder on non-Linux platforms or when no swap is co
 
 ```js
 swapKPIChart({
-  nome: 'Swap Used',    // string — default: 'Swap Used'
+  name: 'Swap Used',    // string — default: 'Swap Used'
   maxPoints: 30,        // number — samples used for sparkline (default: 30)
   refreshInterval,      // number — default: 10
   backgroundColor,      // ColorSpec
@@ -760,7 +761,22 @@ Returns a gauge labeled `'N/A'` on non-Linux platforms or when no swap is config
 
 ```js
 swapGaugeChart({
-  nome: 'Swap',         // string — default: 'Swap'
+  name: 'Swap',         // string — default: 'Swap'
+  refreshInterval,      // number — default: 10
+  backgroundColor,      // ColorSpec
+  backgroundType,       // string — default: 'ROUND_RECT'
+})
+```
+
+#### `swapAreaChart(opts?)` *(Linux only)*
+
+Area chart of swap usage percentage over time.
+Returns a flat zero chart on non-Linux platforms or when no swap is configured.
+
+```js
+swapAreaChart({
+  name: 'Swap Usage',   // string — default: 'Swap Usage'
+  maxPoints: 60,        // number — default: 60
   refreshInterval,      // number — default: 10
   backgroundColor,      // ColorSpec
   backgroundType,       // string — default: 'ROUND_RECT'
@@ -776,7 +792,7 @@ Trend is calculated against the previous sample (up = more heap used = orange, d
 
 ```js
 heapKPIChart({
-  nome: 'Heap',         // string — default: 'Heap'
+  name: 'Heap',         // string — default: 'Heap'
   maxPoints: 30,        // number — samples used for sparkline (default: 30)
   refreshInterval,      // number — default: 10
   backgroundColor,      // ColorSpec
@@ -790,7 +806,7 @@ Area chart of Node.js heap used (in MB) over time.
 
 ```js
 heapAreaChart({
-  nome: 'Heap Used',    // string — default: 'Heap Used'
+  name: 'Heap Used',    // string — default: 'Heap Used'
   maxPoints: 60,        // number — default: 60
   refreshInterval,      // number — default: 10
   backgroundColor,      // ColorSpec
@@ -807,7 +823,7 @@ in MB/s per sample interval.
 
 ```js
 diskIOStackedChart({
-  nome: 'Disk I/O',     // string — default: 'Disk I/O'
+  name: 'Disk I/O',     // string — default: 'Disk I/O'
   maxPoints: 30,        // number — default: 30
   refreshInterval,      // number — default: 10
   backgroundColor,      // ColorSpec
@@ -821,7 +837,7 @@ Area chart of total disk throughput (read + write) in MB/s over time.
 
 ```js
 diskIOAreaChart({
-  nome: 'Disk Throughput', // string — default: 'Disk Throughput'
+  name: 'Disk Throughput', // string — default: 'Disk Throughput'
   maxPoints: 60,            // number — default: 60
   refreshInterval,          // number — default: 10
   backgroundColor,          // ColorSpec
@@ -837,7 +853,7 @@ Area chart of inbound (received) network bandwidth in KB/s over time.
 
 ```js
 networkRxChart({
-  nome: 'Network RX',   // string — default: 'Network RX'
+  name: 'Network RX',   // string — default: 'Network RX'
   maxPoints: 60,        // number — default: 60
   refreshInterval,      // number — default: 10
   backgroundColor,      // ColorSpec
@@ -851,7 +867,7 @@ Area chart of outbound (transmitted) network bandwidth in KB/s over time.
 
 ```js
 networkTxChart({
-  nome: 'Network TX',   // string — default: 'Network TX'
+  name: 'Network TX',   // string — default: 'Network TX'
   maxPoints: 60,        // number — default: 60
   refreshInterval,      // number — default: 10
   backgroundColor,      // ColorSpec
@@ -868,7 +884,7 @@ The 1m bar is highlighted in red when it exceeds the number of CPU cores (overlo
 
 ```js
 loadAverageBarChart({
-  nome: 'Load Average', // string — default: 'Load Average'
+  name: 'Load Average', // string — default: 'Load Average'
   refreshInterval,      // number — default: 30
   backgroundColor,      // ColorSpec
   backgroundType,       // string — default: 'ROUND_RECT'
@@ -882,7 +898,7 @@ Scale max = number of CPU cores. Threshold colors: green < 70 %, orange < 90 %, 
 
 ```js
 loadAverageGaugeChart({
-  nome: 'System Load',  // string — default: 'System Load'
+  name: 'System Load',  // string — default: 'System Load'
   refreshInterval,      // number — default: 30
   backgroundColor,      // ColorSpec
   backgroundType,       // string — default: 'ROUND_RECT'
@@ -898,7 +914,7 @@ A healthy server should stay below 10 ms. Values above 50 ms indicate blocking w
 
 ```js
 eventLoopTimeSeriesChart({
-  nome: 'Event Loop Lag', // string — default: 'Event Loop Lag'
+  name: 'Event Loop Lag', // string — default: 'Event Loop Lag'
   maxPoints: 60,          // number — default: 60
   warnMs: 10,             // number — warn threshold for axis scaling (default: 10)
   criticalMs: 50,         // number — critical threshold / axis max (default: 50)
@@ -915,7 +931,7 @@ Radial gauge showing the current event loop mean lag with color thresholds
 
 ```js
 eventLoopGaugeChart({
-  nome: 'Loop Lag',     // string — default: 'Loop Lag'
+  name: 'Loop Lag',     // string — default: 'Loop Lag'
   maxMs: 100,           // number — full-scale value in ms (default: 100)
   refreshInterval,      // number — default: 10
   backgroundColor,      // ColorSpec
@@ -932,7 +948,7 @@ Each bar represents the total GC pause time in that monitoring period.
 
 ```js
 gcPauseBarChart({
-  nome: 'GC Pauses',    // string — default: 'GC Pauses'
+  name: 'GC Pauses',    // string — default: 'GC Pauses'
   maxPoints: 30,        // number — default: 30
   refreshInterval,      // number — default: 10
   backgroundColor,      // ColorSpec
@@ -946,7 +962,7 @@ KPI metric showing the average GC pause duration (`ms/gc`) with a sparkline of G
 
 ```js
 gcKPIChart({
-  nome: 'GC Stats',     // string — default: 'GC Stats'
+  name: 'GC Stats',     // string — default: 'GC Stats'
   refreshInterval,      // number — default: 10
   backgroundColor,      // ColorSpec
   backgroundType,       // string — default: 'ROUND_RECT'
@@ -960,7 +976,7 @@ Useful for correlating GC pressure with other metrics.
 
 ```js
 gcFrequencyAreaChart({
-  nome: 'GC Frequency', // string — default: 'GC Frequency'
+  name: 'GC Frequency', // string — default: 'GC Frequency'
   maxPoints: 60,        // number — default: 60
   refreshInterval,      // number — default: 10
   backgroundColor,      // ColorSpec
@@ -975,7 +991,7 @@ gcFrequencyAreaChart({
 ```js
 import { startMonitoring } from 'knowmine-graphs/monitoring';
 import {
-  cpuChart, memoryGaugeChart, heapKPIChart,
+  cpuTimeSeriesChart, ramGaugeChart, heapKPIChart,
   loadAverageGaugeChart, eventLoopGaugeChart,
   gcPauseBarChart,
 } from 'knowmine-graphs/monitoring';
@@ -983,8 +999,8 @@ import {
 startMonitoring({ intervalMs: 10000, bufferSize: 360 });
 
 // Express routes — each returns a KnowMine-compatible DTO
-app.get('/widgets/cpu',        (req, res) => res.json(cpuChart()));
-app.get('/widgets/memory',     (req, res) => res.json(memoryGaugeChart()));
+app.get('/widgets/cpu',        (req, res) => res.json(cpuTimeSeriesChart()));
+app.get('/widgets/memory',     (req, res) => res.json(ramGaugeChart()));
 app.get('/widgets/heap',       (req, res) => res.json(heapKPIChart()));
 app.get('/widgets/load',       (req, res) => res.json(loadAverageGaugeChart()));
 app.get('/widgets/event-loop', (req, res) => res.json(eventLoopGaugeChart()));

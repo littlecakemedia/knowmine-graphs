@@ -15,7 +15,7 @@ import { makeYAxisLabels } from '../../helpers/normalize.js';
  * Returns a TimeSeriesLineChart of event loop mean lag (ms) over time.
  * A healthy Node.js server should show lag < 10ms.
  * @param {object} [opts]
- * @param {string} [opts.nome='Event Loop Lag']
+ * @param {string} [opts.name='Event Loop Lag']
  * @param {number} [opts.maxPoints=60]
  * @param {number} [opts.warnMs=10]   - Warn threshold in ms
  * @param {number} [opts.criticalMs=50] - Critical threshold in ms
@@ -25,7 +25,7 @@ import { makeYAxisLabels } from '../../helpers/normalize.js';
  * @returns {object} TimeSeriesLineChart DTO
  */
 export function eventLoopTimeSeriesChart({
-  nome = 'Event Loop Lag',
+  name = 'Event Loop Lag',
   maxPoints = 60,
   warnMs = 10,
   criticalMs = 50,
@@ -41,7 +41,7 @@ export function eventLoopTimeSeriesChart({
   const max = Math.max(...values, criticalMs);
 
   return makeTimeSeriesLineChart({
-    nome,
+    name,
     values,
     lineColor: gradient.neon,
     areaColor: fadeToTransparent('#00FFCC'),
@@ -59,7 +59,7 @@ export function eventLoopTimeSeriesChart({
 /**
  * Returns a RadialGauge DTO showing the current event loop mean lag.
  * @param {object} [opts]
- * @param {string} [opts.nome='Loop Lag']
+ * @param {string} [opts.name='Loop Lag']
  * @param {number} [opts.maxMs=100] - Full-scale value in ms
  * @param {number} [opts.refreshInterval=10]
  * @param {object} [opts.backgroundColor]
@@ -67,7 +67,7 @@ export function eventLoopTimeSeriesChart({
  * @returns {object} RadialGauge DTO
  */
 export function eventLoopGaugeChart({
-  nome = 'Loop Lag',
+  name = 'Loop Lag',
   maxMs = 100,
   refreshInterval = 10,
   backgroundColor = { type: 'Fill', primaryColor: '#1A1A2E' },
@@ -77,7 +77,7 @@ export function eventLoopGaugeChart({
   const lag = entries[0]?.value?.meanMs ?? 0;
 
   return makeRadialGauge({
-    nome,
+    name,
     value: Math.min(lag, maxMs),
     minValue: 0,
     maxValue: maxMs,
