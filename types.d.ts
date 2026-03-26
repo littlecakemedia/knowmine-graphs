@@ -79,6 +79,7 @@ export interface BarChartPayload {
   labels: string[] | null;
   labelColor: ColorSpec | null;
   yAxisLabels: string[] | null;
+  yAxisUnit: string | null;
   yAxisPosition: YAxisPosition | null;
   yAxisLabelColor: ColorSpec | null;
   barSpacing: number;
@@ -342,6 +343,7 @@ export type AnyWidgetDTO =
 export declare function makeBarChart(opts: Partial<BarChartPayload> & {
   values: number[];
   name?: string | null;
+  yAxisUnit?: string | null;
   backgroundColor?: ColorSpec | null;
   backgroundType?: BackgroundType;
   borderColor?: ColorString | null;

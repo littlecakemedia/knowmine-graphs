@@ -115,6 +115,7 @@ Vertical bar chart. Supports a single highlighted bar and optional Y-axis labels
 | `labels` | `string[]\|null` | | `null` | Text labels centered below each bar |
 | `labelColor` | `ColorSpec\|null` | | `null` | Label color. Used only when `labels` is set |
 | `yAxisLabels` | `string[]\|null` | | `null` | Y-axis labels from bottom to top. Used only with `LEFT`/`RIGHT`/`BOTH` + `yMin`/`yMax` |
+| `yAxisUnit` | `string\|null` | | `null` | Unit suffix appended to every Y-axis label (e.g. `'0 MB/s'`, `'512 MB/s'`). `null` = no unit |
 | `yAxisPosition` | `string\|null` | | `null` | Where to render Y-axis labels. See `yAxisPosition` values table above |
 | `yAxisLabelColor` | `ColorSpec\|null` | | `null` | Y-axis label color |
 | `yMin` | `number\|null` | | `null` | Scale minimum. Enables fixed scale when set together with `yMax` |

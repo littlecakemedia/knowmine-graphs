@@ -18,6 +18,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 - **`ramAreaSizeChart()`** — time-series AreaChart of RAM usage as an absolute value (MB or GB). Unit is auto-selected based on total RAM (`MB` if < 1024 MB, `GB` with 1 decimal otherwise). Y-axis is fixed from 0 to total RAM in the chosen unit.
 - **`swapAreaSizeChart()`** — time-series AreaChart of swap usage as an absolute value (MB or GB). Same unit logic as `ramAreaSizeChart`. Returns a flat zero placeholder on non-Linux platforms or when no swap is configured.
 - **`yAxisUnit` field on `makeAreaChart`** — optional `string | null` parameter (default `null`). When set, the unit string is appended to the topmost Y-axis label (e.g. `"1024 KB/s"`) so consumers know the unit without embedding it in every label. iOS uses this field to widen the Y-axis label area dynamically.
+- **`yAxisUnit` field on `makeBarChart`** — optional `string | null` parameter (default `null`). Same behaviour as `makeAreaChart`: the unit suffix is appended to every Y-axis label and iOS widens the Y-axis column from 28pt to 44pt when the field is set.
 
 ### Changed
 
