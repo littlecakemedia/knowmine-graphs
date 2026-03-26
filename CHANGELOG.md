@@ -6,7 +6,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
-## [2.2.0] — 2026-03-26
+## [Unreleased]
 
 ### Breaking Changes
 
@@ -17,6 +17,19 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 - **`ramAreaSizeChart()`** — time-series AreaChart of RAM usage as an absolute value (MB or GB). Unit is auto-selected based on total RAM (`MB` if < 1024 MB, `GB` with 1 decimal otherwise). Y-axis is fixed from 0 to total RAM in the chosen unit.
 - **`swapAreaSizeChart()`** — time-series AreaChart of swap usage as an absolute value (MB or GB). Same unit logic as `ramAreaSizeChart`. Returns a flat zero placeholder on non-Linux platforms or when no swap is configured.
+- **`yAxisUnit` field on `makeAreaChart`** — optional `string | null` parameter (default `null`). When set, the unit string is appended to the topmost Y-axis label (e.g. `"1024 KB/s"`) so consumers know the unit without embedding it in every label. iOS uses this field to widen the Y-axis label area dynamically.
+
+### Changed
+
+- **`networkRxChart` → `networkRxAreaChart`** — renamed to carry the `*AreaChart` suffix, consistent with `ramAreaSizeChart`, `swapAreaSizeChart`, `heapAreaChart`, etc. Any consumer importing `networkRxChart` must update the import.
+- **`networkTxChart` → `networkTxAreaChart`** — same rename rationale.
+- **Monitoring charts now populate `yAxisUnit`** — charts with absolute (non-percentage) scales pass the appropriate unit to `makeAreaChart`:
+  - `networkRxAreaChart` / `networkTxAreaChart` → `'KB/s'`
+  - `diskIOAreaChart` → `'MB/s'`
+  - `ramAreaSizeChart` → `'MB'` or `'GB'` (matches the auto-selected unit)
+  - `swapAreaSizeChart` → `'MB'` or `'GB'` (matches the auto-selected unit)
+  - `heapAreaChart` → `'MB'`
+  - Percentage charts (`ramAreaPercentChart`, `swapAreaPercentChart`, `cpuTimeSeriesChart`) leave `yAxisUnit: null`.
 
 ### Migration
 

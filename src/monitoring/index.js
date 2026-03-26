@@ -36,7 +36,7 @@ export { heapKPIChart, heapAreaChart } from './charts/heapChart.js';
 export { diskIOStackedChart, diskIOAreaChart } from './charts/diskIOChart.js';
 
 // Charts — Network
-export { networkRxChart, networkTxChart } from './charts/networkChart.js';
+export { networkRxAreaChart, networkTxAreaChart } from './charts/networkChart.js';
 
 // Charts — Load Average
 export { loadAverageBarChart, loadAverageGaugeChart } from './charts/loadAverageChart.js';

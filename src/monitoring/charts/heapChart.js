@@ -88,6 +88,7 @@ export function heapAreaChart({
     lineColor: { type: 'Fill', primaryColor: '#CC66FF' },
     areaColor: fadeToTransparent('#CC66FF'),
     yAxisLabels: makeYAxisLabels(0, max, 3, 0),
+    yAxisUnit: 'MB',
     yAxisPosition: 'LEFT',
     yAxisLabelColor: fill.dimWhite,
     backgroundColor,

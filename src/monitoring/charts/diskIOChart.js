@@ -95,6 +95,7 @@ export function diskIOAreaChart({
     lineColor: { type: 'Fill', primaryColor: '#FFD700' },
     areaColor: fadeToTransparent('#FFD700'),
     yAxisLabels: makeYAxisLabels(0, max, 3, 1),
+    yAxisUnit: 'MB/s',
     yAxisPosition: 'LEFT',
     yAxisLabelColor: fill.dimWhite,
     backgroundColor,

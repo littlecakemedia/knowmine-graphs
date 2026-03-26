@@ -25,7 +25,7 @@ function toKB(bytes) {
  * @param {string} [opts.backgroundType='ROUND_RECT']
  * @returns {object} AreaChart DTO
  */
-export function networkRxChart({
+export function networkRxAreaChart({
   name = 'Network RX',
   maxPoints = 60,
   refreshInterval = 10,
@@ -47,6 +47,7 @@ export function networkRxChart({
     lineColor: solidColor('#00FFCC'),
     areaColor: fadeToTransparent('#00FFCC'),
     yAxisLabels: makeYAxisLabels(0, max, 3, 0),
+    yAxisUnit: 'KB/s',
     yAxisPosition: 'LEFT',
     yAxisLabelColor: fill.dimWhite,
     backgroundColor,
@@ -65,7 +66,7 @@ export function networkRxChart({
  * @param {string} [opts.backgroundType='ROUND_RECT']
  * @returns {object} AreaChart DTO
  */
-export function networkTxChart({
+export function networkTxAreaChart({
   name = 'Network TX',
   maxPoints = 60,
   refreshInterval = 10,
@@ -87,6 +88,7 @@ export function networkTxChart({
     lineColor: solidColor('#FF8C00'),
     areaColor: fadeToTransparent('#FF8C00'),
     yAxisLabels: makeYAxisLabels(0, max, 3, 0),
+    yAxisUnit: 'KB/s',
     yAxisPosition: 'LEFT',
     yAxisLabelColor: fill.dimWhite,
     backgroundColor,

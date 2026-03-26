@@ -279,6 +279,7 @@ export function swapAreaSizeChart({
   };
 
   const maxValue = useGB ? parseFloat((totalMB / 1024).toFixed(1)) : Math.round(totalMB);
+  const unit = useGB ? 'GB' : 'MB';
 
   const values = entries.length
     ? entries.map(e => toUnit(e.value?.usedBytes ?? 0))
@@ -290,6 +291,7 @@ export function swapAreaSizeChart({
     lineColor: { type: 'Fill', primaryColor: '#FFB347' },
     areaColor: fadeToTransparent('#FFB347'),
     yAxisLabels: makeYAxisLabels(0, maxValue, 3),
+    yAxisUnit: unit,
     yAxisPosition: 'LEFT',
     yAxisLabelColor: fill.dimWhite,
     yMin: 0,

@@ -141,6 +141,7 @@ export interface AreaChartPayload {
   labels: string[] | null;
   labelColor: ColorSpec | null;
   yAxisLabels: string[] | null;
+  yAxisUnit: string | null;
   yAxisPosition: YAxisPosition | null;
   yAxisLabelColor: ColorSpec | null;
   nameFont: FontModel | null;
@@ -388,6 +389,7 @@ export declare function makeAreaChart(opts: {
   labels?: string[] | null;
   labelColor?: ColorSpec | null;
   yAxisLabels?: string[] | null;
+  yAxisUnit?: string | null;
   yAxisPosition?: YAxisPosition | null;
   yAxisLabelColor?: ColorSpec | null;
   nameFont?: FontModel | null;
@@ -610,3 +612,22 @@ export declare function swapGaugePercentChart(opts?: MonitoringChartBaseOpts): R
 export declare function swapGaugeSizeChart(opts?: MonitoringChartBaseOpts): RadialGaugeDTO;
 export declare function swapAreaPercentChart(opts?: MonitoringChartBaseOpts & { maxPoints?: number }): AreaChartDTO;
 export declare function swapAreaSizeChart(opts?: MonitoringChartBaseOpts & { maxPoints?: number }): AreaChartDTO;
+
+// Network charts
+export declare function networkRxAreaChart(opts?: MonitoringChartBaseOpts & { maxPoints?: number }): AreaChartDTO | KPIMetricDTO;
+export declare function networkTxAreaChart(opts?: MonitoringChartBaseOpts & { maxPoints?: number }): AreaChartDTO | KPIMetricDTO;
+
+// Disk I/O charts
+export declare function diskIOStackedChart(opts?: MonitoringChartBaseOpts & { maxPoints?: number }): StackedBarChartDTO | KPIMetricDTO;
+export declare function diskIOAreaChart(opts?: MonitoringChartBaseOpts & { maxPoints?: number }): AreaChartDTO;
+
+// Heap charts
+export declare function heapKPIChart(opts?: MonitoringChartBaseOpts & { maxPoints?: number }): KPIMetricDTO;
+export declare function heapAreaChart(opts?: MonitoringChartBaseOpts & { maxPoints?: number }): AreaChartDTO;
+
+// Load average charts
+export declare function loadAverageBarChart(opts?: MonitoringChartBaseOpts): BarChartDTO | KPIMetricDTO;
+export declare function loadAverageGaugeChart(opts?: MonitoringChartBaseOpts): RadialGaugeLargeDTO | KPIMetricDTO;
+
+// CPU charts
+export declare function cpuTimeSeriesChart(opts?: MonitoringChartBaseOpts & { maxPoints?: number }): AreaChartDTO;

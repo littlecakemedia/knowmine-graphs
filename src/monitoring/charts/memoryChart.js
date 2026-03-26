@@ -240,6 +240,7 @@ export function ramAreaSizeChart({
     lineColor: { type: 'Fill', primaryColor: '#00BFFF' },
     areaColor: fadeToTransparent('#00BFFF'),
     yAxisLabels: makeYAxisLabels(0, maxValue, 3),
+    yAxisUnit: unit,
     yAxisPosition: 'LEFT',
     yAxisLabelColor: fill.dimWhite,
     yMin: 0,

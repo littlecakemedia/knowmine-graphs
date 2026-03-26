@@ -224,6 +224,7 @@ Ideal for trends over time with emphasis on the area under the curve.
 | `labels` | `string[]\|null` | | `null` | X-axis labels centered on each data point |
 | `labelColor` | `ColorSpec\|null` | | `null` | Label color |
 | `yAxisLabels` | `string[]\|null` | | `null` | Y-axis labels from bottom to top. Used only with `LEFT`/`RIGHT`/`BOTH` + `yMin`/`yMax` |
+| `yAxisUnit` | `string\|null` | | `null` | Unit suffix appended to every Y-axis label (e.g. `'0 KB/s'`, `'512 KB/s'`). `null` = no unit |
 | `yAxisPosition` | `string\|null` | | `null` | Where to render Y-axis labels. See `yAxisPosition` values table above |
 | `yAxisLabelColor` | `ColorSpec\|null` | | `null` | Y-axis label color |
 | `yMin` | `number\|null` | | `null` | Scale minimum. Enables fixed scale when set together with `yMax` |
@@ -962,12 +963,12 @@ diskIOAreaChart({
 
 ---
 
-#### `networkRxChart(opts?)` *(Linux only)*
+#### `networkRxAreaChart(opts?)` *(Linux only)*
 
-Area chart of inbound (received) network bandwidth in KB/s over time.
+Area chart of inbound (received) network bandwidth in KB/s over time. The Y-axis shows a `KB/s` unit suffix on the topmost label.
 
 ```js
-networkRxChart({
+networkRxAreaChart({
   name: 'Network RX',   // string — default: 'Network RX'
   maxPoints: 60,        // number — default: 60
   refreshInterval,      // number — default: 10
@@ -976,12 +977,12 @@ networkRxChart({
 })
 ```
 
-#### `networkTxChart(opts?)` *(Linux only)*
+#### `networkTxAreaChart(opts?)` *(Linux only)*
 
-Area chart of outbound (transmitted) network bandwidth in KB/s over time.
+Area chart of outbound (transmitted) network bandwidth in KB/s over time. The Y-axis shows a `KB/s` unit suffix on the topmost label.
 
 ```js
-networkTxChart({
+networkTxAreaChart({
   name: 'Network TX',   // string — default: 'Network TX'
   maxPoints: 60,        // number — default: 60
   refreshInterval,      // number — default: 10
