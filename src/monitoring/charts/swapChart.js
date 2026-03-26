@@ -1,6 +1,7 @@
 /**
  * Ready-to-use swap usage charts.
- * Exports swapKPIChart(), swapGaugePercentChart(), swapGaugeSizeChart(), swapAreaChart() — all scoped to swap.
+ * Exports swapKPIChart(), swapGaugePercentChart(), swapGaugeSizeChart(),
+ * swapAreaPercentChart(), swapAreaSizeChart() — all scoped to swap.
  * All charts return a 'N/A' / zero placeholder on non-Linux platforms or when no swap is configured.
  */
 
@@ -198,7 +199,7 @@ export function swapGaugeSizeChart({
  * @param {string} [opts.backgroundType='ROUND_RECT']
  * @returns {object} AreaChart DTO
  */
-export function swapAreaChart({
+export function swapAreaPercentChart({
   name = 'Swap Usage',
   maxPoints = 60,
   refreshInterval = 10,
@@ -219,6 +220,80 @@ export function swapAreaChart({
     yAxisLabels: makeYAxisLabels(0, 100, 3),
     yAxisPosition: 'LEFT',
     yAxisLabelColor: fill.dimWhite,
+    backgroundColor,
+    backgroundType,
+    refreshInterval,
+  });
+}
+
+/**
+ * Returns a time-series AreaChart of swap usage as an absolute value (MB or GB) over time.
+ * The unit is chosen automatically based on total swap:
+ *   - totalMB < 1024  →  integer MB  (e.g. 512 MB)
+ *   - totalMB ≥ 1024  →  1-decimal GB (e.g. 1.4 GB)
+ * Y-axis is scaled from 0 to total swap in the chosen unit.
+ * Returns a flat zero chart when swap is unavailable (non-Linux or no swap configured).
+ * @param {object} [opts]
+ * @param {string} [opts.name='Swap Size']
+ * @param {number} [opts.maxPoints=60]
+ * @param {number} [opts.refreshInterval=10]
+ * @param {object} [opts.backgroundColor]
+ * @param {string} [opts.backgroundType='ROUND_RECT']
+ * @returns {object} AreaChart DTO
+ */
+export function swapAreaSizeChart({
+  name = 'Swap Size',
+  maxPoints = 60,
+  refreshInterval = 10,
+  backgroundColor = { type: 'Fill', primaryColor: '#1A1A2E' },
+  backgroundType = 'ROUND_RECT',
+} = {}) {
+  const entries = store.last('swap', maxPoints);
+  const latestSnap = entries[entries.length - 1]?.value;
+  const available = latestSnap?.available ?? false;
+
+  if (!available) {
+    return makeAreaChart({
+      name,
+      values: [0, 0],
+      lineColor: { type: 'Fill', primaryColor: '#FF8C00' },
+      areaColor: fadeToTransparent('#FF8C00'),
+      yAxisLabels: makeYAxisLabels(0, 1, 3),
+      yAxisPosition: 'LEFT',
+      yAxisLabelColor: fill.dimWhite,
+      yMin: 0,
+      yMax: 1,
+      backgroundColor,
+      backgroundType,
+      refreshInterval,
+    });
+  }
+
+  const totalBytes = latestSnap.totalBytes ?? 0;
+  const totalMB = totalBytes / 1024 / 1024;
+  const useGB = totalMB >= 1024;
+
+  const toUnit = (bytes) => {
+    const mb = bytes / 1024 / 1024;
+    return useGB ? parseFloat((mb / 1024).toFixed(1)) : Math.round(mb);
+  };
+
+  const maxValue = useGB ? parseFloat((totalMB / 1024).toFixed(1)) : Math.round(totalMB);
+
+  const values = entries.length
+    ? entries.map(e => toUnit(e.value?.usedBytes ?? 0))
+    : [0, 0];
+
+  return makeAreaChart({
+    name,
+    values,
+    lineColor: { type: 'Fill', primaryColor: '#FFB347' },
+    areaColor: fadeToTransparent('#FFB347'),
+    yAxisLabels: makeYAxisLabels(0, maxValue, 3),
+    yAxisPosition: 'LEFT',
+    yAxisLabelColor: fill.dimWhite,
+    yMin: 0,
+    yMax: maxValue || 1,
     backgroundColor,
     backgroundType,
     refreshInterval,

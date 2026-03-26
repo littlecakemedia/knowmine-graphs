@@ -27,7 +27,7 @@ export { cpuTimeSeriesChart } from './charts/cpuChart.js';
 export { ramGaugePercentChart, ramGaugeSizeChart, ramKPIChart, ramAreaPercentChart, ramAreaSizeChart } from './charts/memoryChart.js';
 
 // Charts — Swap
-export { swapKPIChart, swapGaugePercentChart, swapGaugeSizeChart, swapAreaChart } from './charts/swapChart.js';
+export { swapKPIChart, swapGaugePercentChart, swapGaugeSizeChart, swapAreaPercentChart, swapAreaSizeChart } from './charts/swapChart.js';
 
 // Charts — Heap
 export { heapKPIChart, heapAreaChart } from './charts/heapChart.js';

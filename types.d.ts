@@ -608,4 +608,5 @@ export declare function ramKPIChart(opts?: MonitoringChartBaseOpts & { maxPoints
 export declare function swapKPIChart(opts?: MonitoringChartBaseOpts & { maxPoints?: number }): KPIMetricDTO;
 export declare function swapGaugePercentChart(opts?: MonitoringChartBaseOpts): RadialGaugeDTO;
 export declare function swapGaugeSizeChart(opts?: MonitoringChartBaseOpts): RadialGaugeDTO;
-export declare function swapAreaChart(opts?: MonitoringChartBaseOpts & { maxPoints?: number }): AreaChartDTO;
+export declare function swapAreaPercentChart(opts?: MonitoringChartBaseOpts & { maxPoints?: number }): AreaChartDTO;
+export declare function swapAreaSizeChart(opts?: MonitoringChartBaseOpts & { maxPoints?: number }): AreaChartDTO;

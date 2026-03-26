@@ -6,6 +6,30 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## [2.2.0] — 2026-03-26
+
+### Breaking Changes
+
+- **`ramAreaChart` → `ramAreaPercentChart`** — renamed to align with the `*Percent` / `*Size` suffix convention used by the gauge variants. Any consumer importing `ramAreaChart` must update to `ramAreaPercentChart`.
+- **`swapAreaChart` → `swapAreaPercentChart`** — same rename rationale. Any consumer importing `swapAreaChart` must update to `swapAreaPercentChart`.
+
+### Added
+
+- **`ramAreaSizeChart()`** — time-series AreaChart of RAM usage as an absolute value (MB or GB). Unit is auto-selected based on total RAM (`MB` if < 1024 MB, `GB` with 1 decimal otherwise). Y-axis is fixed from 0 to total RAM in the chosen unit.
+- **`swapAreaSizeChart()`** — time-series AreaChart of swap usage as an absolute value (MB or GB). Same unit logic as `ramAreaSizeChart`. Returns a flat zero placeholder on non-Linux platforms or when no swap is configured.
+
+### Migration
+
+```js
+// Before
+import { ramAreaChart, swapAreaChart } from 'knowmine-graphs/monitoring';
+
+// After
+import { ramAreaPercentChart, swapAreaPercentChart } from 'knowmine-graphs/monitoring';
+```
+
+---
+
 ## [2.1.0] — 2026-03-25
 
 ### Changed

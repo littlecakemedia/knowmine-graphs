@@ -680,7 +680,8 @@ Every function accepts an optional configuration object — all parameters are o
 | `swapKPIChart` | `KPIMetric` | `swap` | Linux |
 | `swapGaugePercentChart` | `RadialGauge` | `swap` | Linux |
 | `swapGaugeSizeChart` | `RadialGauge` | `swap` | Linux |
-| `swapAreaChart` | `AreaChart` | `swap` | Linux |
+| `swapAreaPercentChart` | `AreaChart` | `swap` | Linux |
+| `swapAreaSizeChart` | `AreaChart` | `swap` | Linux |
 | `heapKPIChart` | `KPIMetric` | `memory` | All |
 | `heapAreaChart` | `AreaChart` | `memory` | All |
 | `diskIOStackedChart` | `StackedBarChart` | `diskIO` | Linux |
@@ -861,14 +862,35 @@ swapGaugeSizeChart({
 })
 ```
 
-#### `swapAreaChart(opts?)` *(Linux only)*
+#### `swapAreaPercentChart(opts?)` *(Linux only)*
 
-Area chart of swap usage percentage over time.
+Area chart of swap usage **percentage** over time.
+Y-axis is fixed at **0–100 %** with labels on the left.
 Returns a flat zero chart on non-Linux platforms or when no swap is configured.
 
 ```js
-swapAreaChart({
+swapAreaPercentChart({
   name: 'Swap Usage',   // string — default: 'Swap Usage'
+  maxPoints: 60,        // number — default: 60
+  refreshInterval,      // number — default: 10
+  backgroundColor,      // ColorSpec
+  backgroundType,       // string — default: 'ROUND_RECT'
+})
+```
+
+#### `swapAreaSizeChart(opts?)` *(Linux only)*
+
+Area chart of swap usage as an **absolute value** (MB or GB) over time.
+The unit is chosen automatically based on total swap:
+- `MB` (integer) when total swap < 1024 MB
+- `GB` (1 decimal, e.g. `1.4 GB`) when total swap ≥ 1 GB
+
+Y-axis is fixed from **0 to total swap** in the chosen unit with labels on the left.
+Returns a flat zero chart on non-Linux platforms or when no swap is configured.
+
+```js
+swapAreaSizeChart({
+  name: 'Swap Size',    // string — default: 'Swap Size'
   maxPoints: 60,        // number — default: 60
   refreshInterval,      // number — default: 10
   backgroundColor,      // ColorSpec
