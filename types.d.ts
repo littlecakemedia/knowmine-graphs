@@ -600,7 +600,8 @@ interface MonitoringChartBaseOpts {
 // RAM charts
 export declare function ramGaugePercentChart(opts?: MonitoringChartBaseOpts): RadialGaugeDTO;
 export declare function ramGaugeSizeChart(opts?: MonitoringChartBaseOpts): RadialGaugeDTO;
-export declare function ramAreaChart(opts?: MonitoringChartBaseOpts & { maxPoints?: number }): AreaChartDTO;
+export declare function ramAreaPercentChart(opts?: MonitoringChartBaseOpts & { maxPoints?: number }): AreaChartDTO;
+export declare function ramAreaSizeChart(opts?: MonitoringChartBaseOpts & { maxPoints?: number }): AreaChartDTO;
 export declare function ramKPIChart(opts?: MonitoringChartBaseOpts & { maxPoints?: number }): KPIMetricDTO;
 
 // Swap charts

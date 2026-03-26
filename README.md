@@ -674,7 +674,8 @@ Every function accepts an optional configuration object — all parameters are o
 | `cpuTimeSeriesChart` | `TimeSeriesLineChart` | `cpu` | All |
 | `ramGaugePercentChart` | `RadialGauge` | `memory` | All |
 | `ramGaugeSizeChart` | `RadialGauge` | `memory` | All |
-| `ramAreaChart` | `AreaChart` | `memory` | All |
+| `ramAreaPercentChart` | `AreaChart` | `memory` | All |
+| `ramAreaSizeChart` | `AreaChart` | `memory` | All |
 | `ramKPIChart` | `KPIMetric` | `memory` | All |
 | `swapKPIChart` | `KPIMetric` | `swap` | Linux |
 | `swapGaugePercentChart` | `RadialGauge` | `swap` | Linux |
@@ -757,13 +758,33 @@ ramGaugeSizeChart({
 })
 ```
 
-#### `ramAreaChart(opts?)`
+#### `ramAreaPercentChart(opts?)`
 
-Area chart of system RAM usage percentage over time.
+Area chart of system RAM usage **percentage** over time.
+Y-axis is fixed at **0–100 %** with labels on the left.
 
 ```js
-ramAreaChart({
+ramAreaPercentChart({
   name: 'RAM Usage',    // string — default: 'RAM Usage'
+  maxPoints: 60,        // number — default: 60
+  refreshInterval,      // number — default: 10
+  backgroundColor,      // ColorSpec
+  backgroundType,       // string — default: 'ROUND_RECT'
+})
+```
+
+#### `ramAreaSizeChart(opts?)`
+
+Area chart of system RAM usage as an **absolute value** (MB or GB) over time.
+The unit is chosen automatically based on total RAM:
+- `MB` (integer) when total RAM < 1024 MB
+- `GB` (1 decimal, e.g. `1.4 GB`) when total RAM ≥ 1 GB
+
+Y-axis is fixed from **0 to total RAM** in the chosen unit with labels on the left.
+
+```js
+ramAreaSizeChart({
+  name: 'RAM Size',     // string — default: 'RAM Size'
   maxPoints: 60,        // number — default: 60
   refreshInterval,      // number — default: 10
   backgroundColor,      // ColorSpec

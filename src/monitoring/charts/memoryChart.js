@@ -1,6 +1,7 @@
 /**
  * Ready-to-use system RAM usage charts.
- * Exports ramGaugeChart(), ramKPIChart(), ramAreaChart() — all scoped to RAM/memory.
+ * Exports ramGaugePercentChart(), ramGaugeSizeChart(), ramKPIChart(),
+ * ramAreaPercentChart(), ramAreaSizeChart() — all scoped to RAM/memory.
  */
 
 import { store } from '../store/memoryStore.js';
@@ -167,7 +168,7 @@ export function ramKPIChart({
  * @param {string} [opts.backgroundType='ROUND_RECT']
  * @returns {object} AreaChart DTO
  */
-export function ramAreaChart({
+export function ramAreaPercentChart({
   name = 'RAM Usage',
   maxPoints = 60,
   refreshInterval = 10,
@@ -187,6 +188,62 @@ export function ramAreaChart({
     yAxisLabels: makeYAxisLabels(0, 100, 3),
     yAxisPosition: 'LEFT',
     yAxisLabelColor: fill.dimWhite,
+    backgroundColor,
+    backgroundType,
+    refreshInterval,
+  });
+}
+
+/**
+ * Returns a time-series AreaChart of RAM usage as an absolute value (MB or GB) over time.
+ * The unit is chosen automatically based on total RAM:
+ *   - totalMB < 1024  →  integer MB  (e.g. 512 MB)
+ *   - totalMB ≥ 1024  →  1-decimal GB (e.g. 1.4 GB)
+ * Y-axis is scaled from 0 to totalRAM in the chosen unit.
+ * @param {object} [opts]
+ * @param {string} [opts.name='RAM Size']
+ * @param {number} [opts.maxPoints=60]
+ * @param {number} [opts.refreshInterval=10]
+ * @param {object} [opts.backgroundColor]
+ * @param {string} [opts.backgroundType='ROUND_RECT']
+ * @returns {object} AreaChart DTO
+ */
+export function ramAreaSizeChart({
+  name = 'RAM Size',
+  maxPoints = 60,
+  refreshInterval = 10,
+  backgroundColor = { type: 'Fill', primaryColor: '#1A1A2E' },
+  backgroundType = 'ROUND_RECT',
+} = {}) {
+  const entries = store.last('memory', maxPoints);
+
+  const latestSnap = entries[entries.length - 1]?.value;
+  const totalBytes = latestSnap?.totalBytes ?? 0;
+  const totalMB = totalBytes / 1024 / 1024;
+  const useGB = totalMB >= 1024;
+
+  const toUnit = (bytes) => {
+    const mb = bytes / 1024 / 1024;
+    return useGB ? parseFloat((mb / 1024).toFixed(1)) : Math.round(mb);
+  };
+
+  const maxValue = useGB ? parseFloat((totalMB / 1024).toFixed(1)) : Math.round(totalMB);
+  const unit = useGB ? 'GB' : 'MB';
+
+  const values = entries.length
+    ? entries.map(e => toUnit(e.value?.usedBytes ?? 0))
+    : [0, 0];
+
+  return makeAreaChart({
+    name,
+    values,
+    lineColor: { type: 'Fill', primaryColor: '#00BFFF' },
+    areaColor: fadeToTransparent('#00BFFF'),
+    yAxisLabels: makeYAxisLabels(0, maxValue, 3),
+    yAxisPosition: 'LEFT',
+    yAxisLabelColor: fill.dimWhite,
+    yMin: 0,
+    yMax: maxValue || 1,
     backgroundColor,
     backgroundType,
     refreshInterval,

@@ -24,7 +24,7 @@ export { store } from './store/memoryStore.js';
 export { cpuTimeSeriesChart } from './charts/cpuChart.js';
 
 // Charts — RAM
-export { ramGaugePercentChart, ramGaugeSizeChart, ramAreaChart, ramKPIChart } from './charts/memoryChart.js';
+export { ramGaugePercentChart, ramGaugeSizeChart, ramKPIChart, ramAreaPercentChart, ramAreaSizeChart } from './charts/memoryChart.js';
 
 // Charts — Swap
 export { swapKPIChart, swapGaugePercentChart, swapGaugeSizeChart, swapAreaChart } from './charts/swapChart.js';
