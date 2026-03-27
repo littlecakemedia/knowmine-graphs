@@ -19,6 +19,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 - **`swapAreaSizeChart()`** — time-series AreaChart of swap usage as an absolute value (MB or GB). Same unit logic as `ramAreaSizeChart`. Returns a flat zero placeholder on non-Linux platforms or when no swap is configured.
 - **`yAxisUnit` field on `makeAreaChart`** — optional `string | null` parameter (default `null`). When set, the unit string is appended to the topmost Y-axis label (e.g. `"1024 KB/s"`) so consumers know the unit without embedding it in every label. iOS uses this field to widen the Y-axis label area dynamically.
 - **`yAxisUnit` field on `makeBarChart`** — optional `string | null` parameter (default `null`). Same behaviour as `makeAreaChart`: the unit suffix is appended to every Y-axis label and iOS widens the Y-axis column from 28pt to 44pt when the field is set.
+- **`yAxisUnit` field on `makeStackedBarChart`** — optional `string | null` parameter (default `null`). Same behaviour as `makeAreaChart` and `makeBarChart`: the unit suffix is appended to every Y-axis label and iOS widens the Y-axis column from 28pt to 44pt when the field is set.
 
 ### Changed
 
@@ -27,6 +28,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 - **Monitoring charts now populate `yAxisUnit`** — charts with absolute (non-percentage) scales pass the appropriate unit to `makeAreaChart`:
   - `networkRxAreaChart` / `networkTxAreaChart` → `'KB/s'`
   - `diskIOAreaChart` → `'MB/s'`
+  - `diskIOStackedChart` → `'MB/s'`
   - `ramAreaSizeChart` → `'MB'` or `'GB'` (matches the auto-selected unit)
   - `swapAreaSizeChart` → `'MB'` or `'GB'` (matches the auto-selected unit)
   - `heapAreaChart` → `'MB'`

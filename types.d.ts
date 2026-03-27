@@ -205,6 +205,7 @@ export interface StackedBarChartPayload {
   labels: string[] | null;
   labelColor: ColorSpec | null;
   yAxisLabels: string[] | null;
+  yAxisUnit: string | null;
   yAxisPosition: YAxisPosition | null;
   yAxisLabelColor: ColorSpec | null;
   nameFont: FontModel | null;
@@ -443,6 +444,7 @@ export declare function makeStackedBarChart(opts: {
   labels?: string[] | null;
   labelColor?: ColorSpec | null;
   yAxisLabels?: string[] | null;
+  yAxisUnit?: string | null;
   yAxisPosition?: YAxisPosition | null;
   yAxisLabelColor?: ColorSpec | null;
   nameFont?: FontModel | null;

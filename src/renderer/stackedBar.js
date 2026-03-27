@@ -21,6 +21,7 @@ import { validateSeriesLengths, validateColorSpec } from '../helpers/validate.js
  * @param {string[]|null} [opts.labels]
  * @param {import('../../types.d.ts').ColorSpec|null} [opts.labelColor]
  * @param {string[]|null} [opts.yAxisLabels] - Used only with LEFT/RIGHT/BOTH. Ignored in AUTO mode.
+ * @param {string|null} [opts.yAxisUnit] - Unit suffix appended to every Y-axis label (e.g. 'MB/s'). null = no unit.
  * @param {'NONE'|'AUTO'|'LEFT'|'RIGHT'|'BOTH'|null} [opts.yAxisPosition]
  *   - absent/"NONE": no labels, auto-scale
  *   - "AUTO": auto-scale, labels auto-generated from actual range (yAxisLabels ignored)
@@ -48,6 +49,7 @@ export function makeStackedBarChart({
   labels = null,
   labelColor = null,
   yAxisLabels = null,
+  yAxisUnit = null,
   yAxisPosition = null,
   yAxisLabelColor = null,
   yMin = null,
@@ -72,6 +74,7 @@ export function makeStackedBarChart({
     labels,
     labelColor,
     yAxisLabels,
+    yAxisUnit,
     yAxisPosition,
     yAxisLabelColor,
     yMin,

@@ -335,6 +335,7 @@ Corner radius is applied only to the top and bottom of the composed bar.
 | `labels` | `string[]\|null` | | `null` | Text labels centered below each bar |
 | `labelColor` | `ColorSpec\|null` | | `null` | Label color |
 | `yAxisLabels` | `string[]\|null` | | `null` | Y-axis labels from bottom to top. Used only with `LEFT`/`RIGHT`/`BOTH` + `yMin`/`yMax` |
+| `yAxisUnit` | `string\|null` | | `null` | Unit suffix appended to every Y-axis label (e.g. `'MB/s'`). iOS widens the Y-axis column from 28pt to 44pt when set |
 | `yAxisPosition` | `string\|null` | | `null` | Where to render Y-axis labels. See `yAxisPosition` values table above |
 | `yAxisLabelColor` | `ColorSpec\|null` | | `null` | Y-axis label color |
 | `yMin` | `number\|null` | | `null` | Scale minimum. Enables fixed scale when set together with `yMax` |

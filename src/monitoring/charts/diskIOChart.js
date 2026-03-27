@@ -57,6 +57,7 @@ export function diskIOStackedChart({
       makeSeries(writes, gradient.sunset),
     ],
     yAxisLabels: makeYAxisLabels(0, max, 3, 1),
+    yAxisUnit: 'MB/s',
     yAxisPosition: 'LEFT',
     yAxisLabelColor: fill.dimWhite,
     backgroundColor,
