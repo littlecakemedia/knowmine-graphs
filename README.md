@@ -664,6 +664,63 @@ const { stop } = startMonitoring({
 stop();
 ```
 
+### Configuring the History Window
+
+The amount of history available to your charts depends on two independent parameters:
+
+- **`intervalMs`** — how often a sample is collected (milliseconds)
+- **`bufferSize`** — how many samples are retained per metric (ring buffer, oldest dropped first)
+
+The maximum history stored in memory is:
+
+```
+history = bufferSize × intervalMs
+```
+
+| `intervalMs` | `bufferSize` | History stored |
+|---|---|---|
+| 5 000 (5s) | 360 | 30 minutes |
+| 5 000 (5s) | 720 | 1 hour |
+| 10 000 (10s) | 360 | 1 hour |
+| 10 000 (10s) | 720 | 2 hours |
+| 30 000 (30s) | 120 | 1 hour |
+
+```js
+// 1 hour of history, sampled every 5 seconds
+startMonitoring({ intervalMs: 5000, bufferSize: 720 });
+```
+
+#### How much history is sent to the app
+
+Storing history and *exposing* it are separate concerns. Each chart function has a `maxPoints` parameter that controls how many samples are included in the DTO returned to the client:
+
+```js
+// Server stores up to 720 samples (1 hour)
+startMonitoring({ intervalMs: 5000, bufferSize: 720 });
+
+// Route exposes only the last 60 samples (~5 min) by default
+cpuTimeSeriesChart()                    // → 60 values in the DTO
+cpuTimeSeriesChart({ maxPoints: 180 })  // → 180 values (~15 min)
+cpuTimeSeriesChart({ maxPoints: 720 })  // → up to 720 values (~1 hour)
+```
+
+A common pattern is to make `maxPoints` configurable via query string, so the client can request the window it needs without server restarts:
+
+```js
+app.get('/widgets/cpu', (req, res) => {
+  const maxPoints = req.query.maxPoints ? parseInt(req.query.maxPoints, 10) : undefined;
+  res.json(cpuTimeSeriesChart({ maxPoints }));
+});
+
+// /widgets/cpu              → default 60 samples (~5 min)
+// /widgets/cpu?maxPoints=180 → 180 samples (~15 min)
+// /widgets/cpu?maxPoints=360 → 360 samples (~30 min)
+```
+
+> **Label format**: `makeTimeAxisLabels` (used internally by all time-series chart functions) auto-selects the label format based on the actual time range in the DTO: `HH:MM:SS` when the range is ≤ 5 minutes, `HH:MM` when it is longer. No configuration needed.
+
+---
+
 ### Available Collectors
 
 | Key | Description | Platform |
