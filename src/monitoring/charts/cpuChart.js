@@ -47,6 +47,8 @@ export function cpuTimeSeriesChart({
     yAxisLabelColor: fill.dimWhite,
     yMin: auto ? null : 0,
     yMax: auto ? null : 100,
+    // CPU values are percentages: yAxisUnit '%' adds explicit context to each Y label (e.g. "50 %")
+    yAxisUnit: '%',
     backgroundColor,
     backgroundType,
     refreshInterval,

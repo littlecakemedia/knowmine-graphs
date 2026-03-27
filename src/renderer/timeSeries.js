@@ -43,6 +43,7 @@ import { gradient, fadeToTransparent, fill } from '../helpers/colors.js';
  * @param {string|null} [opts.borderColor]
  * @param {string|null} [opts.shadowColor]
  * @param {number} [opts.refreshInterval=30]
+ * @param {string|null} [opts.yAxisUnit] - Unit label appended to each Y-axis label (e.g. '%', 'MB/s'). Default: null.
  * @returns {import('../../types.d.ts').TimeSeriesLineChartDTO}
  */
 export function makeTimeSeriesLineChart({
@@ -74,6 +75,7 @@ export function makeTimeSeriesLineChart({
   borderColor = null,
   shadowColor = null,
   refreshInterval = 30,
+  yAxisUnit = null,
 } = {}) {
   validateValues(values, 'values', 2);
   validateColorSpec(lineColor, 'lineColor');
@@ -102,6 +104,7 @@ export function makeTimeSeriesLineChart({
     yMax,
     nameFont,
     namePosition,
+    yAxisUnit,
   };
 
   return buildEnvelope({ name, type: 'TimeSeriesLineChart', payload, refreshInterval, backgroundColor, backgroundType, borderColor, shadowColor });

@@ -287,6 +287,7 @@ Suited for real-time or historical data with a technical dashboard aesthetic.
 | `yAxisLabelColor` | `ColorSpec\|null` | | `null` | Y-axis label color |
 | `yMin` | `number\|null` | | `null` | Scale minimum. Enables fixed scale when set together with `yMax` |
 | `yMax` | `number\|null` | | `null` | Scale maximum. Enables fixed scale when set together with `yMin` |
+| `yAxisUnit` | `string\|null` | | `null` | Unit suffix appended to each Y-axis label (e.g. `'%'`, `'MB/s'`). iOS widens the Y-axis column from 28pt to 44pt when set |
 | `nameFont` | `FontModel\|null` | | `null` | Widget title font and color |
 | `namePosition` | `string` | | `'TOP'` | Widget title position |
 

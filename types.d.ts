@@ -177,6 +177,7 @@ export interface TimeSeriesLineChartPayload {
   yAxisLabels: string[] | null;
   yAxisPosition: YAxisPosition | null;
   yAxisLabelColor: ColorSpec | null;
+  yAxisUnit: string | null;
   nameFont: FontModel | null;
   namePosition: NamePosition;
 }
@@ -424,6 +425,7 @@ export declare function makeTimeSeriesLineChart(opts: {
   yAxisLabels?: string[] | null;
   yAxisPosition?: YAxisPosition | null;
   yAxisLabelColor?: ColorSpec | null;
+  yAxisUnit?: string | null;
   nameFont?: FontModel | null;
   namePosition?: NamePosition;
   backgroundColor?: ColorSpec | null;

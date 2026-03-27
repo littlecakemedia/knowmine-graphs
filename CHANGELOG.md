@@ -20,6 +20,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 - **`yAxisUnit` field on `makeAreaChart`** — optional `string | null` parameter (default `null`). When set, the unit string is appended to the topmost Y-axis label (e.g. `"1024 KB/s"`) so consumers know the unit without embedding it in every label. iOS uses this field to widen the Y-axis label area dynamically.
 - **`yAxisUnit` field on `makeBarChart`** — optional `string | null` parameter (default `null`). Same behaviour as `makeAreaChart`: the unit suffix is appended to every Y-axis label and iOS widens the Y-axis column from 28pt to 44pt when the field is set.
 - **`yAxisUnit` field on `makeStackedBarChart`** — optional `string | null` parameter (default `null`). Same behaviour as `makeAreaChart` and `makeBarChart`: the unit suffix is appended to every Y-axis label and iOS widens the Y-axis column from 28pt to 44pt when the field is set.
+- **`yAxisUnit` field on `makeTimeSeriesLineChart`** — optional `string | null` parameter (default `null`). Same behaviour as `makeBarChart` and `makeStackedBarChart`: the unit suffix is appended to every Y-axis label and iOS widens the Y-axis column from 28pt to 44pt when the field is set.
 
 ### Changed
 
@@ -32,7 +33,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
   - `ramAreaSizeChart` → `'MB'` or `'GB'` (matches the auto-selected unit)
   - `swapAreaSizeChart` → `'MB'` or `'GB'` (matches the auto-selected unit)
   - `heapAreaChart` → `'MB'`
-  - Percentage charts (`ramAreaPercentChart`, `swapAreaPercentChart`, `cpuTimeSeriesChart`) leave `yAxisUnit: null`.
+  - `cpuTimeSeriesChart` → `'%'` (percentage scale, explicit unit adds context to "0 %", "50 %", "100 %" labels)
+  - Percentage charts `ramAreaPercentChart` and `swapAreaPercentChart` leave `yAxisUnit: null`.
 
 ### Migration
 
