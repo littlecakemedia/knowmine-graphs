@@ -10,6 +10,7 @@ import { makeKPIMetric } from '../../renderer/kpiMetric.js';
 import { makeAreaChart } from '../../renderer/areaChart.js';
 import { gradient, fill, fadeToTransparent } from '../../helpers/colors.js';
 import { makeYAxisLabels, formatBytes } from '../../helpers/normalize.js';
+import { makeTimeAxisLabels } from '../helpers/timeLabels.js';
 
 /**
  * Returns a RadialGauge DTO showing current RAM usage as a percentage (0–100).
@@ -185,9 +186,11 @@ export function ramAreaPercentChart({
     values,
     lineColor: { type: 'Fill', primaryColor: '#00FFCC' },
     areaColor: fadeToTransparent('#00FFCC'),
+    showGrid: true,
     yAxisLabels: makeYAxisLabels(0, 100, 3),
     yAxisPosition: 'LEFT',
     yAxisLabelColor: fill.dimWhite,
+    xAxisLabels: makeTimeAxisLabels(entries, 4),
     backgroundColor,
     backgroundType,
     refreshInterval,
@@ -239,12 +242,14 @@ export function ramAreaSizeChart({
     values,
     lineColor: { type: 'Fill', primaryColor: '#00BFFF' },
     areaColor: fadeToTransparent('#00BFFF'),
+    showGrid: true,
     yAxisLabels: makeYAxisLabels(0, maxValue, 3),
     yAxisUnit: unit,
     yAxisPosition: 'LEFT',
     yAxisLabelColor: fill.dimWhite,
     yMin: 0,
     yMax: maxValue || 1,
+    xAxisLabels: makeTimeAxisLabels(entries, 4),
     backgroundColor,
     backgroundType,
     refreshInterval,

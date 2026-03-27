@@ -47,6 +47,9 @@ export { eventLoopTimeSeriesChart, eventLoopGaugeChart } from './charts/eventLoo
 // Charts — GC
 export { gcPauseBarChart, gcKPIChart, gcFrequencyAreaChart } from './charts/gcChart.js';
 
+// Helpers
+export { makeTimeAxisLabels } from './helpers/timeLabels.js';
+
 // Collectors (for custom integrations)
 export { collectCpu } from './collectors/cpu.js';
 export { collectMemory } from './collectors/memory.js';

@@ -7,6 +7,7 @@ import { store } from '../store/memoryStore.js';
 import { makeTimeSeriesLineChart } from '../../renderer/timeSeries.js';
 import { gradient, fill, fadeToTransparent } from '../../helpers/colors.js';
 import { makeYAxisLabels } from '../../helpers/normalize.js';
+import { makeTimeAxisLabels } from '../helpers/timeLabels.js';
 
 /**
  * @param {object} [opts]
@@ -49,6 +50,7 @@ export function cpuTimeSeriesChart({
     yMax: auto ? null : 100,
     // CPU values are percentages: yAxisUnit '%' adds explicit context to each Y label (e.g. "50 %")
     yAxisUnit: '%',
+    xAxisLabels: makeTimeAxisLabels(entries, 4),
     backgroundColor,
     backgroundType,
     refreshInterval,

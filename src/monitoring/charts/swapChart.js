@@ -11,6 +11,7 @@ import { makeRadialGauge } from '../../renderer/radialGauge.js';
 import { makeAreaChart } from '../../renderer/areaChart.js';
 import { gradient, fill, fadeToTransparent } from '../../helpers/colors.js';
 import { makeYAxisLabels } from '../../helpers/normalize.js';
+import { makeTimeAxisLabels } from '../helpers/timeLabels.js';
 
 /**
  * Returns a KPIMetric DTO showing current swap used in MB with a sparkline.
@@ -217,9 +218,11 @@ export function swapAreaPercentChart({
     values,
     lineColor: { type: 'Fill', primaryColor: '#FF8C00' },
     areaColor: fadeToTransparent('#FF8C00'),
+    showGrid: true,
     yAxisLabels: makeYAxisLabels(0, 100, 3),
     yAxisPosition: 'LEFT',
     yAxisLabelColor: fill.dimWhite,
+    xAxisLabels: makeTimeAxisLabels(entries, 4),
     backgroundColor,
     backgroundType,
     refreshInterval,
@@ -258,6 +261,7 @@ export function swapAreaSizeChart({
       values: [0, 0],
       lineColor: { type: 'Fill', primaryColor: '#FF8C00' },
       areaColor: fadeToTransparent('#FF8C00'),
+      showGrid: true,
       yAxisLabels: makeYAxisLabels(0, 1, 3),
       yAxisPosition: 'LEFT',
       yAxisLabelColor: fill.dimWhite,
@@ -290,12 +294,14 @@ export function swapAreaSizeChart({
     values,
     lineColor: { type: 'Fill', primaryColor: '#FFB347' },
     areaColor: fadeToTransparent('#FFB347'),
+    showGrid: true,
     yAxisLabels: makeYAxisLabels(0, maxValue, 3),
     yAxisUnit: unit,
     yAxisPosition: 'LEFT',
     yAxisLabelColor: fill.dimWhite,
     yMin: 0,
     yMax: maxValue || 1,
+    xAxisLabels: makeTimeAxisLabels(entries, 4),
     backgroundColor,
     backgroundType,
     refreshInterval,

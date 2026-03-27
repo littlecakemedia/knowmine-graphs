@@ -9,6 +9,7 @@ import { makeKPIMetric } from '../../renderer/kpiMetric.js';
 import { makeAreaChart } from '../../renderer/areaChart.js';
 import { gradient, fill, fadeToTransparent } from '../../helpers/colors.js';
 import { makeYAxisLabels, formatBytes } from '../../helpers/normalize.js';
+import { makeTimeAxisLabels } from '../helpers/timeLabels.js';
 
 /**
  * Returns a KPIMetric DTO for current heap used vs heap total.
@@ -87,10 +88,12 @@ export function heapAreaChart({
     values,
     lineColor: { type: 'Fill', primaryColor: '#CC66FF' },
     areaColor: fadeToTransparent('#CC66FF'),
+    showGrid: true,
     yAxisLabels: makeYAxisLabels(0, max, 3, 0),
     yAxisUnit: 'MB',
     yAxisPosition: 'LEFT',
     yAxisLabelColor: fill.dimWhite,
+    xAxisLabels: makeTimeAxisLabels(entries, 4),
     backgroundColor,
     backgroundType,
     refreshInterval,

@@ -220,10 +220,16 @@ Ideal for trends over time with emphasis on the area under the curve.
 | `lineWidth` | `number` | | `2.5` | Line thickness in points |
 | `smoothingEnabled` | `boolean` | | `true` | Smooth Catmull-Rom curve vs. straight polyline |
 | `showGlow` | `boolean` | | `false` | Glow effect on the line |
+| `showGrid` | `boolean` | | `false` | Renders the background grid |
+| `gridRows` | `number` | | `4` | Number of horizontal grid lines |
+| `gridColumns` | `number` | | `6` | Number of vertical grid lines |
+| `gridColor` | `ColorSpec\|null` | | `Fill #FFFFFF26` | Grid line color. Used only when `showGrid` is true |
 | `horizontalPadding` | `number` | | `12` | Horizontal inner padding of the canvas |
 | `verticalPadding` | `number` | | `10` | Vertical inner padding of the canvas |
-| `labels` | `string[]\|null` | | `null` | X-axis labels centered on each data point |
+| `labels` | `string[]\|null` | | `null` | X-axis labels centered on each data point (1:1 with data points). Ignored if `xAxisLabels` is present |
 | `labelColor` | `ColorSpec\|null` | | `null` | Label color |
+| `xAxisLabels` | `string[]\|null` | | `null` | N labels distributed geometrically across the canvas width. **Priority over `labels`**: if both are present, only `xAxisLabels` is rendered |
+| `xAxisLabelColor` | `ColorSpec\|null` | | `null` | Color for `xAxisLabels`. Falls back to `labelColor` if null |
 | `yAxisLabels` | `string[]\|null` | | `null` | Y-axis labels from bottom to top. Used only with `LEFT`/`RIGHT`/`BOTH` + `yMin`/`yMax` |
 | `yAxisUnit` | `string\|null` | | `null` | Unit suffix appended to every Y-axis label (e.g. `'0 KB/s'`, `'512 KB/s'`). `null` = no unit |
 | `yAxisPosition` | `string\|null` | | `null` | Where to render Y-axis labels. See `yAxisPosition` values table above |
@@ -232,6 +238,8 @@ Ideal for trends over time with emphasis on the area under the curve.
 | `yMax` | `number\|null` | | `null` | Scale maximum. Enables fixed scale when set together with `yMin` |
 | `nameFont` | `FontModel\|null` | | `null` | Widget title font and color |
 | `namePosition` | `string` | | `'TOP'` | Widget title position |
+
+> **Priority rule**: `xAxisLabels` (geometric) has priority over `labels` (1:1). If both are present, only `xAxisLabels` is rendered. The grid is independent: it can coexist with or without any X-axis labels.
 
 ```js
 import { makeAreaChart, solidColor, fadeToTransparent, fill, makeYAxisLabels } from 'knowmine-graphs';
@@ -280,8 +288,10 @@ Suited for real-time or historical data with a technical dashboard aesthetic.
 | `gridColumns` | `number` | | `6` | Number of vertical grid lines |
 | `horizontalPadding` | `number` | | `12` | Horizontal inner padding of the canvas |
 | `verticalPadding` | `number` | | `10` | Vertical inner padding of the canvas |
-| `labels` | `string[]\|null` | | `null` | X-axis labels centered on each data point |
+| `labels` | `string[]\|null` | | `null` | X-axis labels centered on each data point (1:1 with data points). Ignored if `xAxisLabels` is present |
 | `labelColor` | `ColorSpec\|null` | | `null` | Label color |
+| `xAxisLabels` | `string[]\|null` | | `null` | N labels distributed geometrically across the canvas width. **Priority over `labels`**: if both are present, only `xAxisLabels` is rendered |
+| `xAxisLabelColor` | `ColorSpec\|null` | | `null` | Color for `xAxisLabels`. Falls back to `labelColor` if null |
 | `yAxisLabels` | `string[]\|null` | | `null` | Y-axis labels from bottom to top. Used only with `LEFT`/`RIGHT`/`BOTH` + `yMin`/`yMax` |
 | `yAxisPosition` | `string\|null` | | `null` | Where to render Y-axis labels. See `yAxisPosition` values table above |
 | `yAxisLabelColor` | `ColorSpec\|null` | | `null` | Y-axis label color |
@@ -290,6 +300,8 @@ Suited for real-time or historical data with a technical dashboard aesthetic.
 | `yAxisUnit` | `string\|null` | | `null` | Unit suffix appended to each Y-axis label (e.g. `'%'`, `'MB/s'`). iOS widens the Y-axis column from 28pt to 44pt when set |
 | `nameFont` | `FontModel\|null` | | `null` | Widget title font and color |
 | `namePosition` | `string` | | `'TOP'` | Widget title position |
+
+> **Priority rule**: `xAxisLabels` (geometric) has priority over `labels` (1:1). If both are present, only `xAxisLabels` is rendered.
 
 ```js
 import { makeTimeSeriesLineChart, gradient, fadeToTransparent, fill, makeYAxisLabels } from 'knowmine-graphs';
@@ -993,6 +1005,43 @@ networkTxAreaChart({
   backgroundType,       // string — default: 'ROUND_RECT'
 })
 ```
+
+---
+
+#### `makeTimeAxisLabels(entries, count?)` — helper
+
+Generates N time labels evenly distributed across the time range of an entries array (from the monitoring store). Useful for passing to `xAxisLabels` in any time-series chart.
+
+The label format is chosen **automatically** based on the time range covered by the entries:
+
+| Range | Format | Example |
+|-------|--------|---------|
+| ≤ 5 minutes | `HH:MM:SS` | `"18:40:00"`, `"18:41:40"`, `"18:43:20"`, `"18:45:00"` |
+| > 5 minutes | `HH:MM` | `"18:35"`, `"18:45"`, `"18:55"`, `"19:05"` |
+
+With short ranges (≤ 5 min) the step between labels is typically 1–2 minutes: `HH:MM` would produce visually uneven gaps due to second-level truncation. `HH:MM:SS` eliminates this artifact and shows truly equidistant labels.
+With longer ranges (> 5 min) the step is ≥ 2 minutes and `HH:MM` is sufficient and cleaner.
+
+```js
+import { makeTimeAxisLabels, store } from 'knowmine-graphs/monitoring';
+
+// 60 samples at 5s interval → ~5 min range → HH:MM:SS
+const entries60 = store.last('cpu', 60);
+makeTimeAxisLabels(entries60, 4);
+// → ["18:40:00", "18:41:40", "18:43:20", "18:45:00"]
+
+// 180 samples at 5s interval → ~15 min range → HH:MM
+const entries180 = store.last('cpu', 180);
+makeTimeAxisLabels(entries180, 4);
+// → ["18:30", "18:35", "18:40", "18:45"]
+```
+
+| Parameter | Type | Default | Notes |
+|-----------|------|---------|-------|
+| `entries` | `Array<{ timestamp: number }>` | — | Entries from the store (must have `.timestamp` in Unix ms) |
+| `count` | `number` | `4` | Number of labels to generate |
+
+Returns `[]` if `entries.length < 2`.
 
 ---
 

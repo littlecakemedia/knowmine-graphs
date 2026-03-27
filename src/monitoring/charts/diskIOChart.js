@@ -10,6 +10,7 @@ import { makeAreaChart } from '../../renderer/areaChart.js';
 import { makeKPIMetric } from '../../renderer/kpiMetric.js';
 import { gradient, fill, fadeToTransparent } from '../../helpers/colors.js';
 import { makeYAxisLabels } from '../../helpers/normalize.js';
+import { makeTimeAxisLabels } from '../helpers/timeLabels.js';
 
 function toMB(bytes) {
   return parseFloat((bytes / 1024 / 1024).toFixed(2));
@@ -95,10 +96,12 @@ export function diskIOAreaChart({
     values,
     lineColor: { type: 'Fill', primaryColor: '#FFD700' },
     areaColor: fadeToTransparent('#FFD700'),
+    showGrid: true,
     yAxisLabels: makeYAxisLabels(0, max, 3, 1),
     yAxisUnit: 'MB/s',
     yAxisPosition: 'LEFT',
     yAxisLabelColor: fill.dimWhite,
+    xAxisLabels: makeTimeAxisLabels(entries, 4),
     backgroundColor,
     backgroundType,
     refreshInterval,

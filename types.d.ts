@@ -137,10 +137,17 @@ export interface AreaChartPayload {
   lineWidth: number;
   smoothingEnabled: boolean;
   showGlow: boolean;
+  showGrid: boolean;
+  gridRows: number;
+  gridColumns: number;
+  gridColor: ColorSpec | null;
   horizontalPadding: number;
   verticalPadding: number;
   labels: string[] | null;
   labelColor: ColorSpec | null;
+  /** N labels distributed geometrically across canvas width. Priority over `labels`. */
+  xAxisLabels: string[] | null;
+  xAxisLabelColor: ColorSpec | null;
   yAxisLabels: string[] | null;
   yAxisUnit: string | null;
   yAxisPosition: YAxisPosition | null;
@@ -174,6 +181,9 @@ export interface TimeSeriesLineChartPayload {
   verticalPadding: number;
   labels: string[] | null;
   labelColor: ColorSpec | null;
+  /** N labels distributed geometrically across canvas width. Priority over `labels`. */
+  xAxisLabels: string[] | null;
+  xAxisLabelColor: ColorSpec | null;
   yAxisLabels: string[] | null;
   yAxisPosition: YAxisPosition | null;
   yAxisLabelColor: ColorSpec | null;
@@ -388,10 +398,16 @@ export declare function makeAreaChart(opts: {
   lineWidth?: number;
   smoothingEnabled?: boolean;
   showGlow?: boolean;
+  showGrid?: boolean;
+  gridRows?: number;
+  gridColumns?: number;
+  gridColor?: ColorSpec | null;
   horizontalPadding?: number;
   verticalPadding?: number;
   labels?: string[] | null;
   labelColor?: ColorSpec | null;
+  xAxisLabels?: string[] | null;
+  xAxisLabelColor?: ColorSpec | null;
   yAxisLabels?: string[] | null;
   yAxisUnit?: string | null;
   yAxisPosition?: YAxisPosition | null;
@@ -422,6 +438,8 @@ export declare function makeTimeSeriesLineChart(opts: {
   verticalPadding?: number;
   labels?: string[] | null;
   labelColor?: ColorSpec | null;
+  xAxisLabels?: string[] | null;
+  xAxisLabelColor?: ColorSpec | null;
   yAxisLabels?: string[] | null;
   yAxisPosition?: YAxisPosition | null;
   yAxisLabelColor?: ColorSpec | null;
@@ -565,6 +583,8 @@ export declare function clamp(value: number, min: number, max: number): number;
 export declare function round(value: number, decimals?: number): number;
 export declare function formatBytes(bytes: number, decimals?: number): string;
 export declare function toPercent(value: number, total: number, decimals?: number): number;
+
+export declare function makeTimeAxisLabels(entries: Array<{ timestamp: number }>, count?: number): string[];
 
 export declare function enableValidation(): void;
 export declare function disableValidation(): void;

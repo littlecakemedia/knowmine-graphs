@@ -15,6 +15,19 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ### Added
 
+- **Grid support on `makeAreaChart`** — added `showGrid` (default: `false`), `gridRows` (default: `4`), `gridColumns` (default: `6`), `gridColor` (default: `#FFFFFF26`) parameters. Identical behaviour to the grid already present in `makeTimeSeriesLineChart`.
+- **`xAxisLabels` / `xAxisLabelColor` on `makeAreaChart` and `makeTimeSeriesLineChart`** — N labels distributed geometrically across the canvas width, independent of data points. Designed for time-series use cases with many samples (e.g. 60+), where anchoring one label per point would be unreadable.
+- **Priority rule**: `xAxisLabels` has priority over `labels`. When both are present, `labels` is silently ignored and only `xAxisLabels` is rendered. `labels` remains in the payload for backwards compatibility.
+- **`makeTimeAxisLabels(entries, count?)` helper** — generates N time labels equidistributed across the time range of a monitoring store entries array. Format is auto-selected: `"HH:MM:SS"` when the covered range is ≤ 5 minutes (avoids truncation artifacts on short windows), `"HH:MM"` otherwise. Available at `'knowmine-graphs/monitoring'`.
+- **Monitoring charts now include X-axis time labels** — all time-series and area chart monitoring functions now pass `xAxisLabels: makeTimeAxisLabels(entries, 4)`:
+  - `cpuTimeSeriesChart` (TimeSeriesLineChart)
+  - `ramAreaPercentChart`, `ramAreaSizeChart` (AreaChart)
+  - `swapAreaPercentChart`, `swapAreaSizeChart` (AreaChart)
+  - `networkRxAreaChart`, `networkTxAreaChart` (AreaChart)
+  - `diskIOAreaChart` (AreaChart)
+  - `heapAreaChart` (AreaChart)
+- **Monitoring AreaChart now use `showGrid: true`** — all of the above AreaChart monitoring functions now enable the grid for visual consistency with `cpuTimeSeriesChart`.
+
 - **`ramAreaSizeChart()`** — time-series AreaChart of RAM usage as an absolute value (MB or GB). Unit is auto-selected based on total RAM (`MB` if < 1024 MB, `GB` with 1 decimal otherwise). Y-axis is fixed from 0 to total RAM in the chosen unit.
 - **`swapAreaSizeChart()`** — time-series AreaChart of swap usage as an absolute value (MB or GB). Same unit logic as `ramAreaSizeChart`. Returns a flat zero placeholder on non-Linux platforms or when no swap is configured.
 - **`yAxisUnit` field on `makeAreaChart`** — optional `string | null` parameter (default `null`). When set, the unit string is appended to the topmost Y-axis label (e.g. `"1024 KB/s"`) so consumers know the unit without embedding it in every label. iOS uses this field to widen the Y-axis label area dynamically.

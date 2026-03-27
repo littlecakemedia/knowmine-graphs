@@ -28,6 +28,8 @@ import { gradient, fadeToTransparent, fill } from '../helpers/colors.js';
  * @param {number} [opts.verticalPadding=10]
  * @param {string[]|null} [opts.labels]
  * @param {import('../../types.d.ts').ColorSpec|null} [opts.labelColor]
+ * @param {string[]|null} [opts.xAxisLabels] - N labels distributed geometrically across the canvas width (priority over labels)
+ * @param {import('../../types.d.ts').ColorSpec|null} [opts.xAxisLabelColor]
  * @param {string[]|null} [opts.yAxisLabels] - Used only with LEFT/RIGHT/BOTH. Ignored in AUTO mode.
  * @param {'NONE'|'AUTO'|'LEFT'|'RIGHT'|'BOTH'|null} [opts.yAxisPosition]
  *   - absent/"NONE": no labels, auto-scale
@@ -63,6 +65,8 @@ export function makeTimeSeriesLineChart({
   verticalPadding = 10,
   labels = null,
   labelColor = null,
+  xAxisLabels = null,
+  xAxisLabelColor = null,
   yAxisLabels = null,
   yAxisPosition = null,
   yAxisLabelColor = null,
@@ -97,6 +101,8 @@ export function makeTimeSeriesLineChart({
     verticalPadding,
     labels,
     labelColor,
+    xAxisLabels,
+    xAxisLabelColor,
     yAxisLabels,
     yAxisPosition,
     yAxisLabelColor,

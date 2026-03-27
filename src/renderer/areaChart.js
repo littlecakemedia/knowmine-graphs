@@ -24,6 +24,12 @@ import { gradient, fadeToTransparent, fill } from '../helpers/colors.js';
  * @param {number} [opts.verticalPadding=10]
  * @param {string[]|null} [opts.labels]
  * @param {import('../../types.d.ts').ColorSpec|null} [opts.labelColor]
+ * @param {boolean} [opts.showGrid=false]
+ * @param {number} [opts.gridRows=4]
+ * @param {number} [opts.gridColumns=6]
+ * @param {import('../../types.d.ts').ColorSpec|null} [opts.gridColor]
+ * @param {string[]|null} [opts.xAxisLabels] - N labels distributed geometrically across the canvas width (priority over labels)
+ * @param {import('../../types.d.ts').ColorSpec|null} [opts.xAxisLabelColor]
  * @param {string[]|null} [opts.yAxisLabels] - Used only with LEFT/RIGHT/BOTH. Ignored in AUTO mode.
  * @param {string|null} [opts.yAxisUnit] - Unit suffix appended to every Y-axis label (e.g. 'KB/s', 'MB', '%'). null = no unit.
  * @param {'NONE'|'AUTO'|'LEFT'|'RIGHT'|'BOTH'|null} [opts.yAxisPosition]
@@ -52,10 +58,16 @@ export function makeAreaChart({
   lineWidth = 2.5,
   smoothingEnabled = true,
   showGlow = false,
+  showGrid = false,
+  gridRows = 4,
+  gridColumns = 6,
+  gridColor = { type: 'Fill', primaryColor: '#FFFFFF26' },
   horizontalPadding = 12,
   verticalPadding = 10,
   labels = null,
   labelColor = null,
+  xAxisLabels = null,
+  xAxisLabelColor = null,
   yAxisLabels = null,
   yAxisUnit = null,
   yAxisPosition = null,
@@ -83,10 +95,16 @@ export function makeAreaChart({
     lineWidth,
     smoothingEnabled,
     showGlow,
+    showGrid,
+    gridRows,
+    gridColumns,
+    gridColor,
     horizontalPadding,
     verticalPadding,
     labels,
     labelColor,
+    xAxisLabels,
+    xAxisLabelColor,
     yAxisLabels,
     yAxisUnit,
     yAxisPosition,
