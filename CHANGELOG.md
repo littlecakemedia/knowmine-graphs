@@ -8,6 +8,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [Unreleased]
 
+## [3.0.0] — 2026-03-28
+
 ### Breaking Changes
 
 - **`ramAreaChart` → `ramAreaPercentChart`** — renamed to align with the `*Percent` / `*Size` suffix convention used by the gauge variants. Any consumer importing `ramAreaChart` must update to `ramAreaPercentChart`.
