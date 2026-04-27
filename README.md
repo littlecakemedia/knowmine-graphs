@@ -78,8 +78,8 @@ All widget DTOs share these top-level fields. Pass them alongside the chart-spec
 | `name` | `string\|null` | `null` | Display name shown in the dashboard (user-overridable in-app) |
 | `version` | `string` | `'1.0'` | DTO format version — reserved for future compatibility |
 | `refreshInterval` | `number` | `30` | Auto-refresh interval in seconds. Min: 5, Max: 60 |
-| `backgroundColor` | `ColorSpec\|null` | `null` | Background color of the widget container |
-| `backgroundType` | `string` | `'NONE'` | Background shape. See valid values below |
+| `backgroundColor` | `ColorSpec\|null` | `Gradient #3D4248 → #2E3138` | Background color of the widget container |
+| `backgroundType` | `string` | `'ROUND_RECT'` | Background shape. See valid values below |
 | `borderColor` | `string\|null` | `null` | Hex string or page palette key |
 | `shadowColor` | `string\|null` | `null` | Hex string or page palette key |
 
@@ -786,7 +786,7 @@ cpuTimeSeriesChart({
   maxPoints: 60,        // number — samples to display (default: 60)
   lineColor,            // ColorSpec — default: gradient.blue
   areaColor,            // ColorSpec — default: fadeToTransparent('#00FFFF')
-  backgroundColor,      // ColorSpec — default: Fill #1A1A2E
+  backgroundColor,      // ColorSpec — default: Gradient #3D4248 → #2E3138
   backgroundType,       // string — default: 'ROUND_RECT'
   refreshInterval,      // number — default: 10
   auto: false,          // boolean — default: false
@@ -808,7 +808,7 @@ Color thresholds: green < 60 %, orange < 85 %, red ≤ 100 %.
 ramGaugePercentChart({
   name: 'RAM',          // string — default: 'RAM'
   refreshInterval,      // number — default: 10
-  backgroundColor,      // ColorSpec — default: Fill #1A1A2E
+  backgroundColor,      // ColorSpec — default: Gradient #3D4248 → #2E3138
   backgroundType,       // string — default: 'ROUND_RECT'
 })
 ```
@@ -827,7 +827,7 @@ Label is always `'RAM'`.
 ramGaugeSizeChart({
   name: 'RAM',          // string — default: 'RAM'
   refreshInterval,      // number — default: 10
-  backgroundColor,      // ColorSpec — default: Fill #1A1A2E
+  backgroundColor,      // ColorSpec — default: Gradient #3D4248 → #2E3138
   backgroundType,       // string — default: 'ROUND_RECT'
 })
 ```

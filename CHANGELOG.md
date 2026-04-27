@@ -8,6 +8,14 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [Unreleased]
 
+## [3.0.1] — 2026-04-27
+
+### Changed
+
+- **Default `backgroundColor`** — all renderers and monitoring charts now default to `{ type: 'Gradient', primaryColor: '#3D4248', secondaryColor: '#2E3138' }` (app palette gradient) instead of `null`.
+- **Default `backgroundType`** — all renderers and monitoring charts now default to `'ROUND_RECT'` instead of `'NONE'`.
+- Added `APP_DEFAULT_BACKGROUND` and `APP_DEFAULT_BACKGROUND_TYPE` constants to the `colors` helper — importable for custom integrations that want to match the library default.
+
 ## [3.0.0] — 2026-03-28
 
 ### Breaking Changes

@@ -1,7 +1,7 @@
 import { test, describe } from 'node:test';
 import { strict as assert } from 'node:assert';
 import { makeBarChart } from '../../src/renderer/barChart.js';
-import { gradient } from '../../src/helpers/colors.js';
+import { gradient, APP_DEFAULT_BACKGROUND, APP_DEFAULT_BACKGROUND_TYPE } from '../../src/helpers/colors.js';
 
 describe('makeBarChart', () => {
   test('produces correct type and payload', () => {
@@ -26,7 +26,8 @@ describe('makeBarChart', () => {
     assert.equal(dto.version, '1.0');
     assert.equal(dto.refreshInterval, 30);
     assert.equal(dto.name, null);
-    assert.equal(dto.backgroundType, 'NONE');
+    assert.equal(dto.backgroundType, APP_DEFAULT_BACKGROUND_TYPE);
+    assert.deepEqual(dto.backgroundColor, APP_DEFAULT_BACKGROUND);
   });
 
   test('sets name when provided', () => {

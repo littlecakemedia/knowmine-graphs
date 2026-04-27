@@ -7,7 +7,7 @@
 
 import { buildEnvelope } from './_envelope.js';
 import { validateGaugeRange, validateColorSpec } from '../helpers/validate.js';
-import { gradient, fill } from '../helpers/colors.js';
+import { gradient, fill, APP_DEFAULT_BACKGROUND, APP_DEFAULT_BACKGROUND_TYPE } from '../helpers/colors.js';
 
 /**
  * @param {object} opts
@@ -55,8 +55,8 @@ export function makeRadialGauge({
   unit = null,
   nameFont = null,
   namePosition = 'TOP',
-  backgroundColor = null,
-  backgroundType = 'NONE',
+  backgroundColor = APP_DEFAULT_BACKGROUND,
+  backgroundType = APP_DEFAULT_BACKGROUND_TYPE,
   borderColor = null,
   shadowColor = null,
   refreshInterval = 30,

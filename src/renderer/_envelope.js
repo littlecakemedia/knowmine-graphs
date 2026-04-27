@@ -1,3 +1,5 @@
+import { APP_DEFAULT_BACKGROUND, APP_DEFAULT_BACKGROUND_TYPE } from '../helpers/colors.js';
+
 /**
  * Builds the standard KnowMine widget response envelope.
  * All renderer functions use this internally.
@@ -9,8 +11,8 @@ export function buildEnvelope({
   version = '1.0',
   payload,
   refreshInterval = 30,
-  backgroundColor = null,
-  backgroundType = 'NONE',
+  backgroundColor = APP_DEFAULT_BACKGROUND,
+  backgroundType = APP_DEFAULT_BACKGROUND_TYPE,
   borderColor = null,
   shadowColor = null,
 }) {

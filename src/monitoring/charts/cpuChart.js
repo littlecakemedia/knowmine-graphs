@@ -5,7 +5,7 @@
 
 import { store } from '../store/memoryStore.js';
 import { makeTimeSeriesLineChart } from '../../renderer/timeSeries.js';
-import { gradient, fill, fadeToTransparent } from '../../helpers/colors.js';
+import { gradient, fill, fadeToTransparent, APP_DEFAULT_BACKGROUND, APP_DEFAULT_BACKGROUND_TYPE } from '../../helpers/colors.js';
 import { makeYAxisLabels } from '../../helpers/normalize.js';
 import { makeTimeAxisLabels } from '../helpers/timeLabels.js';
 
@@ -28,8 +28,8 @@ export function cpuTimeSeriesChart({
   maxPoints = 60,
   lineColor = gradient.blue,
   areaColor = fadeToTransparent('#00FFFF'),
-  backgroundColor = { type: 'Fill', primaryColor: '#1A1A2E' },
-  backgroundType = 'ROUND_RECT',
+  backgroundColor = APP_DEFAULT_BACKGROUND,
+  backgroundType = APP_DEFAULT_BACKGROUND_TYPE,
   refreshInterval = 10,
   auto = false,
 } = {}) {

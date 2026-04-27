@@ -8,7 +8,7 @@ import { store } from '../store/memoryStore.js';
 import { makeStackedBarChart, makeSeries } from '../../renderer/stackedBar.js';
 import { makeAreaChart } from '../../renderer/areaChart.js';
 import { makeKPIMetric } from '../../renderer/kpiMetric.js';
-import { gradient, fill, fadeToTransparent } from '../../helpers/colors.js';
+import { gradient, fill, fadeToTransparent, APP_DEFAULT_BACKGROUND, APP_DEFAULT_BACKGROUND_TYPE } from '../../helpers/colors.js';
 import { makeYAxisLabels } from '../../helpers/normalize.js';
 import { makeTimeAxisLabels } from '../helpers/timeLabels.js';
 
@@ -30,8 +30,8 @@ export function diskIOStackedChart({
   name = 'Disk I/O',
   maxPoints = 30,
   refreshInterval = 10,
-  backgroundColor = { type: 'Fill', primaryColor: '#1A1A2E' },
-  backgroundType = 'ROUND_RECT',
+  backgroundColor = APP_DEFAULT_BACKGROUND,
+  backgroundType = APP_DEFAULT_BACKGROUND_TYPE,
 } = {}) {
   const entries = store.last('diskIO', maxPoints);
 
@@ -81,8 +81,8 @@ export function diskIOAreaChart({
   name = 'Disk Throughput',
   maxPoints = 60,
   refreshInterval = 10,
-  backgroundColor = { type: 'Fill', primaryColor: '#1A1A2E' },
-  backgroundType = 'ROUND_RECT',
+  backgroundColor = APP_DEFAULT_BACKGROUND,
+  backgroundType = APP_DEFAULT_BACKGROUND_TYPE,
 } = {}) {
   const entries = store.last('diskIO', maxPoints);
   const values = entries.length && entries[0]?.value?.supported !== false

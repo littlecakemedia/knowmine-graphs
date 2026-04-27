@@ -20,6 +20,6 @@ export { makeCircularProgress } from './renderer/circularProgress.js';
 export { makeKPIMetric } from './renderer/kpiMetric.js';
 
 // --- Helpers ---
-export { gradient, fill, palette, solidColor, gradientColor, fadeToTransparent } from './helpers/colors.js';
+export { gradient, fill, palette, solidColor, gradientColor, fadeToTransparent, APP_DEFAULT_BACKGROUND, APP_DEFAULT_BACKGROUND_TYPE } from './helpers/colors.js';
 export { normalizeRange, normalizeSum, makeYAxisLabels, clamp, round, formatBytes, toPercent } from './helpers/normalize.js';
 export { enableValidation, disableValidation, isValidationEnabled } from './helpers/validate.js';

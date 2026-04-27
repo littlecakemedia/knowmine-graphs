@@ -572,6 +572,8 @@ export declare function makeKPIMetric(opts: {
 export declare const gradient: Record<string, ColorSpec>;
 export declare const fill: Record<string, ColorSpec>;
 export declare const palette: Record<string, string>;
+export declare const APP_DEFAULT_BACKGROUND: ColorSpec;
+export declare const APP_DEFAULT_BACKGROUND_TYPE: BackgroundType;
 export declare function solidColor(hex: string): ColorSpec;
 export declare function gradientColor(from: string, to: string): ColorSpec;
 export declare function fadeToTransparent(color: string): ColorSpec;

@@ -8,7 +8,7 @@ import { store } from '../store/memoryStore.js';
 import { makeTimeSeriesLineChart } from '../../renderer/timeSeries.js';
 import { makeKPIMetric } from '../../renderer/kpiMetric.js';
 import { makeRadialGauge } from '../../renderer/radialGauge.js';
-import { gradient, fill, solidColor, fadeToTransparent } from '../../helpers/colors.js';
+import { gradient, fill, solidColor, fadeToTransparent, APP_DEFAULT_BACKGROUND, APP_DEFAULT_BACKGROUND_TYPE } from '../../helpers/colors.js';
 import { makeYAxisLabels } from '../../helpers/normalize.js';
 
 /**
@@ -30,8 +30,8 @@ export function eventLoopTimeSeriesChart({
   warnMs = 10,
   criticalMs = 50,
   refreshInterval = 10,
-  backgroundColor = { type: 'Fill', primaryColor: '#1A1A2E' },
-  backgroundType = 'ROUND_RECT',
+  backgroundColor = APP_DEFAULT_BACKGROUND,
+  backgroundType = APP_DEFAULT_BACKGROUND_TYPE,
 } = {}) {
   const entries = store.last('eventLoop', maxPoints);
   const values = entries.length
@@ -70,8 +70,8 @@ export function eventLoopGaugeChart({
   name = 'Loop Lag',
   maxMs = 100,
   refreshInterval = 10,
-  backgroundColor = { type: 'Fill', primaryColor: '#1A1A2E' },
-  backgroundType = 'ROUND_RECT',
+  backgroundColor = APP_DEFAULT_BACKGROUND,
+  backgroundType = APP_DEFAULT_BACKGROUND_TYPE,
 } = {}) {
   const entries = store.last('eventLoop', 1);
   const lag = entries[0]?.value?.meanMs ?? 0;

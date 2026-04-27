@@ -8,6 +8,7 @@
 
 import { buildEnvelope } from './_envelope.js';
 import { validateSeriesLengths, validateColorSpec } from '../helpers/validate.js';
+import { APP_DEFAULT_BACKGROUND, APP_DEFAULT_BACKGROUND_TYPE } from '../helpers/colors.js';
 
 /**
  * @param {object} opts
@@ -56,8 +57,8 @@ export function makeStackedBarChart({
   yMax = null,
   nameFont = null,
   namePosition = 'TOP',
-  backgroundColor = null,
-  backgroundType = 'NONE',
+  backgroundColor = APP_DEFAULT_BACKGROUND,
+  backgroundType = APP_DEFAULT_BACKGROUND_TYPE,
   borderColor = null,
   shadowColor = null,
   refreshInterval = 30,

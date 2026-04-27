@@ -8,7 +8,7 @@ import { store } from '../store/memoryStore.js';
 import { makeBarChart } from '../../renderer/barChart.js';
 import { makeKPIMetric } from '../../renderer/kpiMetric.js';
 import { makeRadialGaugeLarge } from '../../renderer/radialGaugeLarge.js';
-import { gradient, fill, solidColor, fadeToTransparent } from '../../helpers/colors.js';
+import { gradient, fill, solidColor, fadeToTransparent, APP_DEFAULT_BACKGROUND, APP_DEFAULT_BACKGROUND_TYPE } from '../../helpers/colors.js';
 import os from 'os';
 
 const cpuCount = os.cpus().length;
@@ -26,8 +26,8 @@ const cpuCount = os.cpus().length;
 export function loadAverageBarChart({
   name = 'Load Average',
   refreshInterval = 30,
-  backgroundColor = { type: 'Fill', primaryColor: '#1A1A2E' },
-  backgroundType = 'ROUND_RECT',
+  backgroundColor = APP_DEFAULT_BACKGROUND,
+  backgroundType = APP_DEFAULT_BACKGROUND_TYPE,
 } = {}) {
   const entries = store.last('loadAverage', 1);
   const snap = entries[0]?.value;
@@ -73,8 +73,8 @@ export function loadAverageBarChart({
 export function loadAverageGaugeChart({
   name = 'System Load',
   refreshInterval = 30,
-  backgroundColor = { type: 'Fill', primaryColor: '#1A1A2E' },
-  backgroundType = 'ROUND_RECT',
+  backgroundColor = APP_DEFAULT_BACKGROUND,
+  backgroundType = APP_DEFAULT_BACKGROUND_TYPE,
 } = {}) {
   const entries = store.last('loadAverage', 1);
   const snap = entries[0]?.value;

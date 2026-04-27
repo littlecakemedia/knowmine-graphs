@@ -8,7 +8,7 @@ import { store } from '../store/memoryStore.js';
 import { makeAreaChart } from '../../renderer/areaChart.js';
 import { makeBarChart } from '../../renderer/barChart.js';
 import { makeKPIMetric } from '../../renderer/kpiMetric.js';
-import { gradient, fill, fadeToTransparent, solidColor } from '../../helpers/colors.js';
+import { gradient, fill, fadeToTransparent, solidColor, APP_DEFAULT_BACKGROUND, APP_DEFAULT_BACKGROUND_TYPE } from '../../helpers/colors.js';
 import { makeYAxisLabels } from '../../helpers/normalize.js';
 import { makeTimeAxisLabels } from '../helpers/timeLabels.js';
 
@@ -30,8 +30,8 @@ export function networkRxAreaChart({
   name = 'Network RX',
   maxPoints = 60,
   refreshInterval = 10,
-  backgroundColor = { type: 'Fill', primaryColor: '#1A1A2E' },
-  backgroundType = 'ROUND_RECT',
+  backgroundColor = APP_DEFAULT_BACKGROUND,
+  backgroundType = APP_DEFAULT_BACKGROUND_TYPE,
 } = {}) {
   const entries = store.last('network', maxPoints);
 
@@ -73,8 +73,8 @@ export function networkTxAreaChart({
   name = 'Network TX',
   maxPoints = 60,
   refreshInterval = 10,
-  backgroundColor = { type: 'Fill', primaryColor: '#1A1A2E' },
-  backgroundType = 'ROUND_RECT',
+  backgroundColor = APP_DEFAULT_BACKGROUND,
+  backgroundType = APP_DEFAULT_BACKGROUND_TYPE,
 } = {}) {
   const entries = store.last('network', maxPoints);
 

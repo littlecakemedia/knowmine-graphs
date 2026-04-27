@@ -4,6 +4,13 @@
  */
 
 /**
+ * Default widget background — gradient using the app's primary and secondary palette colors.
+ * Applied automatically when no backgroundColor is specified.
+ */
+export const APP_DEFAULT_BACKGROUND = { type: 'Gradient', primaryColor: '#3D4248', secondaryColor: '#2E3138' };
+export const APP_DEFAULT_BACKGROUND_TYPE = 'ROUND_RECT';
+
+/**
  * Predefined gradient ColorSpec objects.
  * Use these as values for barColor, lineColor, ringColor, etc.
  */

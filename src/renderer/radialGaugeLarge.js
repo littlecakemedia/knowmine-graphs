@@ -7,6 +7,7 @@
  */
 
 import { buildEnvelope } from './_envelope.js';
+import { APP_DEFAULT_BACKGROUND, APP_DEFAULT_BACKGROUND_TYPE } from '../helpers/colors.js';
 
 /**
  * @param {object} opts
@@ -30,8 +31,8 @@ export function makeRadialGaugeLarge({
   gauge3 = null,
   nameFont = null,
   namePosition = 'TOP',
-  backgroundColor = null,
-  backgroundType = 'NONE',
+  backgroundColor = APP_DEFAULT_BACKGROUND,
+  backgroundType = APP_DEFAULT_BACKGROUND_TYPE,
   borderColor = null,
   shadowColor = null,
   refreshInterval = 30,

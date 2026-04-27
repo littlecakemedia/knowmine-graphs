@@ -9,7 +9,7 @@ import { store } from '../store/memoryStore.js';
 import { makeKPIMetric } from '../../renderer/kpiMetric.js';
 import { makeRadialGauge } from '../../renderer/radialGauge.js';
 import { makeAreaChart } from '../../renderer/areaChart.js';
-import { gradient, fill, fadeToTransparent } from '../../helpers/colors.js';
+import { gradient, fill, fadeToTransparent, APP_DEFAULT_BACKGROUND, APP_DEFAULT_BACKGROUND_TYPE } from '../../helpers/colors.js';
 import { makeYAxisLabels } from '../../helpers/normalize.js';
 import { makeTimeAxisLabels } from '../helpers/timeLabels.js';
 
@@ -27,8 +27,8 @@ export function swapKPIChart({
   name = 'Swap Used',
   maxPoints = 30,
   refreshInterval = 10,
-  backgroundColor = { type: 'Fill', primaryColor: '#1A1A2E' },
-  backgroundType = 'ROUND_RECT',
+  backgroundColor = APP_DEFAULT_BACKGROUND,
+  backgroundType = APP_DEFAULT_BACKGROUND_TYPE,
 } = {}) {
   const entries = store.last('swap', maxPoints);
   const current = entries[entries.length - 1]?.value;
@@ -91,8 +91,8 @@ export function swapKPIChart({
 export function swapGaugePercentChart({
   name = 'Swap',
   refreshInterval = 10,
-  backgroundColor = { type: 'Fill', primaryColor: '#1A1A2E' },
-  backgroundType = 'ROUND_RECT',
+  backgroundColor = APP_DEFAULT_BACKGROUND,
+  backgroundType = APP_DEFAULT_BACKGROUND_TYPE,
 } = {}) {
   const entries = store.last('swap', 1);
   const snap    = entries[0]?.value;
@@ -138,8 +138,8 @@ export function swapGaugePercentChart({
 export function swapGaugeSizeChart({
   name = 'Swap',
   refreshInterval = 10,
-  backgroundColor = { type: 'Fill', primaryColor: '#1A1A2E' },
-  backgroundType = 'ROUND_RECT',
+  backgroundColor = APP_DEFAULT_BACKGROUND,
+  backgroundType = APP_DEFAULT_BACKGROUND_TYPE,
 } = {}) {
   const entries = store.last('swap', 1);
   const snap    = entries[0]?.value;
@@ -204,8 +204,8 @@ export function swapAreaPercentChart({
   name = 'Swap Usage',
   maxPoints = 60,
   refreshInterval = 10,
-  backgroundColor = { type: 'Fill', primaryColor: '#1A1A2E' },
-  backgroundType = 'ROUND_RECT',
+  backgroundColor = APP_DEFAULT_BACKGROUND,
+  backgroundType = APP_DEFAULT_BACKGROUND_TYPE,
 } = {}) {
   const entries = store.last('swap', maxPoints);
   const available = entries[entries.length - 1]?.value?.available ?? false;
@@ -248,8 +248,8 @@ export function swapAreaSizeChart({
   name = 'Swap Size',
   maxPoints = 60,
   refreshInterval = 10,
-  backgroundColor = { type: 'Fill', primaryColor: '#1A1A2E' },
-  backgroundType = 'ROUND_RECT',
+  backgroundColor = APP_DEFAULT_BACKGROUND,
+  backgroundType = APP_DEFAULT_BACKGROUND_TYPE,
 } = {}) {
   const entries = store.last('swap', maxPoints);
   const latestSnap = entries[entries.length - 1]?.value;

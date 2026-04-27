@@ -8,7 +8,7 @@ import { store } from '../store/memoryStore.js';
 import { makeRadialGauge } from '../../renderer/radialGauge.js';
 import { makeKPIMetric } from '../../renderer/kpiMetric.js';
 import { makeAreaChart } from '../../renderer/areaChart.js';
-import { gradient, fill, fadeToTransparent } from '../../helpers/colors.js';
+import { gradient, fill, fadeToTransparent, APP_DEFAULT_BACKGROUND, APP_DEFAULT_BACKGROUND_TYPE } from '../../helpers/colors.js';
 import { makeYAxisLabels, formatBytes } from '../../helpers/normalize.js';
 import { makeTimeAxisLabels } from '../helpers/timeLabels.js';
 
@@ -25,8 +25,8 @@ import { makeTimeAxisLabels } from '../helpers/timeLabels.js';
 export function ramGaugePercentChart({
   name = 'RAM',
   refreshInterval = 10,
-  backgroundColor = { type: 'Fill', primaryColor: '#1A1A2E' },
-  backgroundType = 'ROUND_RECT',
+  backgroundColor = APP_DEFAULT_BACKGROUND,
+  backgroundType = APP_DEFAULT_BACKGROUND_TYPE,
 } = {}) {
   const entries = store.last('memory', 1);
   const snap = entries[0]?.value ?? { usedPercent: 0 };
@@ -70,8 +70,8 @@ export function ramGaugePercentChart({
 export function ramGaugeSizeChart({
   name = 'RAM',
   refreshInterval = 10,
-  backgroundColor = { type: 'Fill', primaryColor: '#1A1A2E' },
-  backgroundType = 'ROUND_RECT',
+  backgroundColor = APP_DEFAULT_BACKGROUND,
+  backgroundType = APP_DEFAULT_BACKGROUND_TYPE,
 } = {}) {
   const entries = store.last('memory', 1);
   const snap = entries[0]?.value ?? { usedBytes: 0, totalBytes: 1 };
@@ -123,8 +123,8 @@ export function ramKPIChart({
   name = 'RAM Used',
   maxPoints = 30,
   refreshInterval = 10,
-  backgroundColor = { type: 'Fill', primaryColor: '#1A1A2E' },
-  backgroundType = 'ROUND_RECT',
+  backgroundColor = APP_DEFAULT_BACKGROUND,
+  backgroundType = APP_DEFAULT_BACKGROUND_TYPE,
 } = {}) {
   const entries  = store.last('memory', maxPoints);
   const current  = entries[entries.length - 1]?.value;
@@ -173,8 +173,8 @@ export function ramAreaPercentChart({
   name = 'RAM Usage',
   maxPoints = 60,
   refreshInterval = 10,
-  backgroundColor = { type: 'Fill', primaryColor: '#1A1A2E' },
-  backgroundType = 'ROUND_RECT',
+  backgroundColor = APP_DEFAULT_BACKGROUND,
+  backgroundType = APP_DEFAULT_BACKGROUND_TYPE,
 } = {}) {
   const entries = store.last('memory', maxPoints);
   const values = entries.length
@@ -215,8 +215,8 @@ export function ramAreaSizeChart({
   name = 'RAM Size',
   maxPoints = 60,
   refreshInterval = 10,
-  backgroundColor = { type: 'Fill', primaryColor: '#1A1A2E' },
-  backgroundType = 'ROUND_RECT',
+  backgroundColor = APP_DEFAULT_BACKGROUND,
+  backgroundType = APP_DEFAULT_BACKGROUND_TYPE,
 } = {}) {
   const entries = store.last('memory', maxPoints);
 

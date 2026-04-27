@@ -7,7 +7,7 @@
 
 import { buildEnvelope } from './_envelope.js';
 import { validateValues, validateColorSpec } from '../helpers/validate.js';
-import { gradient } from '../helpers/colors.js';
+import { gradient, APP_DEFAULT_BACKGROUND, APP_DEFAULT_BACKGROUND_TYPE } from '../helpers/colors.js';
 
 /**
  * Generates a BarChart DTO compatible with the KnowMine widget.
@@ -63,8 +63,8 @@ export function makeBarChart({
   verticalPadding = 10,
   nameFont = null,
   namePosition = 'TOP',
-  backgroundColor = null,
-  backgroundType = 'NONE',
+  backgroundColor = APP_DEFAULT_BACKGROUND,
+  backgroundType = APP_DEFAULT_BACKGROUND_TYPE,
   borderColor = null,
   shadowColor = null,
   refreshInterval = 30,
